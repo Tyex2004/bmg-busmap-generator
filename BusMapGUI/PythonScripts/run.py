@@ -1,5 +1,5 @@
-import sys
 import os
+import sys
 from pathlib import Path
 from src.loader import load_nodes, load_roads, load_stations, load_routes, load_mtr_stations
 from src.generator import (generate_road_previewer, get_papersize, shift_nodes_coord,

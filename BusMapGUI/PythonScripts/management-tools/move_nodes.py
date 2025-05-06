@@ -4,9 +4,10 @@ import json
 import shutil
 from datetime import datetime
 
-BASE_DIR = os.path.dirname(os.path.dirname(__file__))
-DATA_DIR = os.path.join(BASE_DIR, 'data')
-BACKUP_DIR = os.path.join(BASE_DIR, 'backup')
+
+map_name = sys.argv[1]
+DATA_DIR = os.path.join('data', map_name)
+BACKUP_DIR = os.path.join('data', 'backup', map_name)
 
 
 def backup_data(tool_name='move_nodes'):
@@ -59,7 +60,7 @@ if __name__ == '__main__':
         sys.exit(1)
 
     try:
-        x1, y1, x2, y2, dx, dy = map(float, sys.argv[1:])
+        x1, y1, x2, y2, dx, dy = map(float, sys.argv[2:])
     except ValueError:
         print("[ERROR] 所有六个参数都必须是数值！")
         sys.exit(1)
