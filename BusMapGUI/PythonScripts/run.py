@@ -19,7 +19,7 @@ print(f"共加载节点 {len(nodes)} 个，道路 {len(roads)} 条，站点 {len
 路线 {len(routes)} 条，地铁站 {len(mtr_stations)} 个。")
 
 # 画布与基本参数
-road_previewer = generate_road_previewer(nodes)         # 道路预览画布
+road_previewer = generate_road_previewer(nodes, map_name)         # 道路预览画布
 paper_size = get_papersize(nodes)                       # 纸张尺寸
 prior_center = get_origin_center_coord(nodes)           # 节点原几何中心
 
@@ -30,4 +30,4 @@ draw_preview_stations(road_previewer, roads, stations)  # 绘制站点
 
 # 保存结果
 road_previewer.save()
-print("----------\n保存内容在 output 文件夹中。")
+print(f"----------\n保存内容在 output/{map_name} 文件夹中。")

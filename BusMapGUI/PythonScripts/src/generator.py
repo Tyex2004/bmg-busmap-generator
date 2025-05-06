@@ -6,9 +6,11 @@ from src.utils import coord_shifter
 
 
 # 生成道路预览画布
-def generate_road_previewer(node_dict: dict[int, Node]):
+def generate_road_previewer(node_dict: dict[int, Node], map_name: str):
+    if not os.path.exists(os.path.join("..", "output", map_name)):
+        os.makedirs(os.path.join("..", "output", map_name))
     paper_size = get_papersize(node_dict)
-    return svgwrite.Drawing(filename=os.path.join("..", "output", "道路预览.svg"), size=paper_size)
+    return svgwrite.Drawing(filename=os.path.join("..", "output", map_name, "道路预览.svg"), size=paper_size)
 
 
 # 生成线路图画布
