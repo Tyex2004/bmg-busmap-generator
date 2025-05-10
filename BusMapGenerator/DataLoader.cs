@@ -10,9 +10,9 @@ namespace BusMapGenerator
 {
     internal class DataLoader  // 输入 <地图名称> ，输出 <数据字典>
     {
-        public static Dictionary<int, Node> LoadNodes(string mapName)
+        public static Dictionary<int, Node> LoadNodes()
         {
-            string json = File.ReadAllText(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "data", mapName, "nodes.json"));
+            string json = File.ReadAllText(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "data", Program.CurrentMap, "nodes.json"));
             List<Node> nodesList = JsonConvert.DeserializeObject<List<Node>>(json) ?? [];
             Dictionary<int, Node> nodesDict = nodesList.ToDictionary(node => node.Id, node => node);
             return nodesDict;

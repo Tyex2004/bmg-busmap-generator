@@ -26,6 +26,18 @@
     <None Update="data\demo-fongtsuen\nodes.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Update="data\demo-fongtsuen\paper_size_x.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\demo-fongtsuen\paper_size_y.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\demo-fongtsuen\prior_center_x.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\demo-fongtsuen\prior_center_y.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="data\demo-fongtsuen\roads.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

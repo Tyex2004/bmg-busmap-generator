@@ -5,33 +5,54 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Linq;
 using System.Net.Security;
+using OpenTK.Graphics.OpenGL;
 
 namespace BusMapGenerator
 {
     internal class ManagementTools
     {
-        // 道路节点移动工具
-        public static void MoveNodes(string mapName, decimal x1, decimal y1, decimal x2, decimal y2, decimal dx, decimal dy)
+        // 选择工具
+        public static void SelectNodes()
+        {
+            decimal[] startPoint = Program.JSONStartPoint;
+            decimal[] endPoint = Program.JSONEndPoint;
+            decimal x1 = startPoint[0];
+            decimal y1 = startPoint[1];
+            decimal x2 = endPoint[0];
+            decimal y2 = endPoint[1];
+            decimal xMin = Math.Min(x1, x2);
+            decimal xMax = Math.Max(x1, x2);
+            decimal yMin = Math.Min(y1, y2);
+            decimal yMax = Math.Max(y1, y2);
+            List<int> selectedNodes = [];
+            foreach (Node node in Program.Nodes.Values)
+            {
+                decimal x = node.Coord[0];
+                decimal y = node.Coord[1];
+                if (xMin <= x && x <= xMax && yMin <= y && y <= yMax)
+                {
+                    selectedNodes.Add(node.Id);
+                }
+            }
+            Program.SelectedNodesIds = selectedNodes;
+        }
+
+        // 道路节点移动工具：输入移动的 x 值和移动的 y值
+        public static void MoveNodes(decimal dx, decimal dy)
         {
             // 备份
-            Utils.BackupData(mapName, "MoveNodes");
-            // 加载
-            Dictionary<int, Node> nodes = DataLoader.LoadNodes(mapName);
-            if (nodes == null) return;
+            Utils.BackupData("MoveNodes");
             // 移动
-            int movedCount = 0;
-            foreach (Node node in nodes.Values)
+            foreach (KeyValuePair<int, Node> node in Program.Nodes)
             {
-                if (Utils.IsNodeInBox(node, x1, y1, x2, y2))
+                if (Program.SelectedNodesIds.Contains(node.Key))
                 {
-                    node.Coord[0] += dx;
-                    node.Coord[1] += dy;
-                    movedCount++;
+                    node.Value.Coord[0] += dx;
+                    node.Value.Coord[1] += dy;
                 }
             }
             // 保存
-            DataSaver.SaveNodes(nodes, mapName);
-            Console.WriteLine($"[INFO] 移动了 {movedCount} 个道路节点，偏移量 ({dx}, {dy}) ");
+            DataSaver.SaveNodes();
         }
 
         // 撤销工具：把 mapDir 的数据移动到 undonePath，把 backupPath 的数据移动到 mapDir

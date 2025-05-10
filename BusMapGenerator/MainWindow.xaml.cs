@@ -14,6 +14,7 @@ using SkiaSharp;
 using SkiaSharp.Views.Desktop;
 using SkiaSharp.Views.WPF;
 using Svg.Skia;
+using System.Diagnostics;
 
 namespace BusMapGenerator
 {
@@ -39,6 +40,7 @@ namespace BusMapGenerator
             // 如果选了地图执行下列，从而打开了地图
             if (result == true && !string.IsNullOrEmpty(selectWindow.SelectedMap))
             {
+                ResetZoom();
                 Program.CurrentMap = selectWindow.SelectedMap;            // 赋值：当前地图名称
                 Program.CurrentSkiaSVG = null;                            // 清空当前 SkiaSVG
                 SkiaCanvas.InvalidateVisual();                            // 刷新重绘：对 SVG 主要进行“加载”和“绘制”两步
@@ -56,7 +58,7 @@ namespace BusMapGenerator
             // 条件控制：当前地图为 null 时跳出执行
             if (string.IsNullOrEmpty(Program.CurrentMap))
             {
-                return; // 如果没有地图路径，则不在画布上加载 SVG
+                return;
             }
 
             // 条件控制：当 SVG 未加载时，加载 SVG ，并记录其边界
@@ -71,7 +73,11 @@ namespace BusMapGenerator
                 }
             }
 
-            // 2. 绘制 SVG
+            // 2. 应用缩放和平移
+            canvas.Translate(Program.ZoomCenter.X, Program.ZoomCenter.Y);
+            canvas.Scale(Program.Zoom);
+
+            // 3. 绘制 SVG
             canvas.DrawPicture(Program.CurrentSkiaSVG.Picture);
 
             // 条件控制：如果正在框选，画矩形
@@ -79,9 +85,10 @@ namespace BusMapGenerator
             {
                 using var paint = new SKPaint
                 {
-                    Color = new SKColor(200, 0, 255),
+                    Color = new SKColor(20, 20, 255),
                     Style = SKPaintStyle.Stroke,
-                    StrokeWidth = 2
+                    StrokeWidth = 1,
+                    PathEffect = SKPathEffect.CreateDash([9, 5], 0)
                 };
 
                 var rect = SKRect.Create(
@@ -96,44 +103,151 @@ namespace BusMapGenerator
 
         private void SkiaCanvas_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            Program.WPFStartPoint = e.GetPosition(SkiaCanvas);
-            Program.SkiaStartPoint = CoordWPFToSkia(Program.WPFStartPoint, SkiaCanvas);
-            Program.IsDragging = true;
+            if (string.IsNullOrEmpty(Program.CurrentMap))
+            {
+                return;
+            }
+            if (e.ChangedButton == MouseButton.Left)
+            {
+                Program.WPFStartPoint = e.GetPosition(SkiaCanvas);
+                Program.SkiaStartPoint = Utils.CoordWPFToSkia(Program.WPFStartPoint, SkiaCanvas);
+                Program.SVGStartPoint = Utils.CoordSkiaToSVG(Program.SkiaStartPoint);
+                Program.JSONStartPoint = Utils.CoordSVGToJSON(Program.SVGStartPoint);
+                Program.IsDragging = true;
+            }
+            if (e.ChangedButton == MouseButton.Middle)
+            {
+                Program.IsPanning = true;
+                Program.LastMousePosition = e.GetPosition(SkiaCanvas);
+                SkiaCanvas.CaptureMouse();
+            }
         }
 
         private void SkiaCanvas_MouseMove(object sender, MouseEventArgs e)
         {
+            if (string.IsNullOrEmpty(Program.CurrentMap))
+            {
+                return;
+            }
             if (Program.IsDragging)
             {
                 Program.WPFEndPoint = e.GetPosition(SkiaCanvas);
-                Program.SkiaEndPoint = CoordWPFToSkia(Program.WPFEndPoint, SkiaCanvas);
+                Program.SkiaEndPoint = Utils.CoordWPFToSkia(Program.WPFEndPoint, SkiaCanvas);
+                Program.SVGEndPoint = Utils.CoordSkiaToSVG(Program.SkiaEndPoint);
+                Program.JSONEndPoint = Utils.CoordSVGToJSON(Program.SVGEndPoint);
                 SkiaCanvas.InvalidateVisual();
+            }
+            if (Program.IsPanning)
+            {
+                Point currentPosition = e.GetPosition(SkiaCanvas);
+                Vector delta = currentPosition - Program.LastMousePosition;
+                Program.LastMousePosition = currentPosition;
+
+                // 获取当前鼠标点对应的 Skia 坐标
+                var mouseBefore = Utils.CoordWPFToSkia(currentPosition - delta, SkiaCanvas);
+                var mouseAfter = Utils.CoordWPFToSkia(currentPosition, SkiaCanvas);
+
+                // 平移等价于让画布内容在 Skia 空间“跟着鼠标差异移动”
+                var deltaSkia = mouseAfter - mouseBefore;
+
+                deltaSkia.X *= Program.Zoom;
+                deltaSkia.Y *= Program.Zoom;
+
+                Program.ZoomCenter += deltaSkia;
+
+                SkiaCanvas.InvalidateVisual();
+                return;
             }
         }
 
         private void SkiaCanvas_MouseUp(object sender, MouseButtonEventArgs e)
         {
-            if (!Program.IsDragging) return;
+            if (string.IsNullOrEmpty(Program.CurrentMap))
+            {
+                return;
+            }
+            if (e.ChangedButton == MouseButton.Left)
+            {
+                if (!Program.IsDragging) return;
+                Program.IsDragging = false;
+                Program.WPFEndPoint = e.GetPosition(SkiaCanvas);
+                Program.SkiaEndPoint = Utils.CoordWPFToSkia(Program.WPFEndPoint, SkiaCanvas);
+                Program.SVGEndPoint = Utils.CoordSkiaToSVG(Program.SkiaEndPoint);
+                Program.JSONEndPoint = Utils.CoordSVGToJSON(Program.SVGEndPoint);
+                ManagementTools.SelectNodes();
+                textBox3.Text = string.Join("\n", Program.SelectedNodesIds);
+                SkiaCanvas.InvalidateVisual();
+            }
+            if (e.ChangedButton == MouseButton.Middle)
+            {
+                Program.IsPanning = false;
+                SkiaCanvas.ReleaseMouseCapture();
+                return; // 避免继续走框选逻辑
+            }
+        }
 
-            Program.IsDragging = false;
-            Program.WPFEndPoint = e.GetPosition(SkiaCanvas);
-            Program.SkiaEndPoint = CoordWPFToSkia(Program.WPFEndPoint, SkiaCanvas);
+        private void SkiaCanvas_MouseWheel(object sender, MouseWheelEventArgs e)
+        {
+            if (string.IsNullOrEmpty(Program.CurrentMap))
+            {
+                return;
+            }
+            // 获取鼠标在 WPF 控件中的位置
+            var wpfMousePos = e.GetPosition(SkiaCanvas);
+            var skiaMousePos = Utils.CoordWPFToSkia(wpfMousePos, SkiaCanvas);
+
+            // 将当前鼠标位置从 Skia 坐标转换为变换前的世界坐标
+            var logicalMousePos = new SKPoint(
+                (skiaMousePos.X - Program.ZoomCenter.X) / Program.Zoom,
+                (skiaMousePos.Y - Program.ZoomCenter.Y) / Program.Zoom
+            );
+
+            // 更新缩放比例
+            const float zoomFactor = 1.1f;
+            if (e.Delta > 0)
+                Program.Zoom *= zoomFactor;
+            else
+                Program.Zoom /= zoomFactor;
+
+            // 根据鼠标位置重新设置 ZoomCenter
+            Program.ZoomCenter = new SKPoint(
+                skiaMousePos.X - logicalMousePos.X * Program.Zoom,
+                skiaMousePos.Y - logicalMousePos.Y * Program.Zoom
+            );
+
             SkiaCanvas.InvalidateVisual();
         }
 
-        // WPF 坐标转 Skia 坐标
-        public static SKPoint CoordWPFToSkia(Point wpfPoint, SKElement skElement)
+
+        private static void RunPython()
         {
-            // 获取 WPF 控件的 DPI 缩放系数
-            var matrix = PresentationSource.FromVisual(skElement)?.CompositionTarget?.TransformToDevice ?? Matrix.Identity;
-            double dpiX = matrix.M11;
-            double dpiY = matrix.M22;
+            try
+            {
+                var startInfo = new ProcessStartInfo
+                {
+                    FileName = "cmd.exe",
+                    Arguments = "/C run.exe demo-fongtsuen",
+                    WorkingDirectory = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "PythonScripts"),
+                    UseShellExecute = false,
+                    CreateNoWindow = true
+                };
 
-            // 将 WPF 坐标（单位 DIP）转换为物理像素坐标（用于 Skia）
-            float skiaX = (float)(wpfPoint.X * dpiX);
-            float skiaY = (float)(wpfPoint.Y * dpiY);
+                Process.Start(startInfo);
 
-            return new SKPoint(skiaX, skiaY);
+                Console.WriteLine("Python 脚本启动成功");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"执行渲染失败，报错内容: {ex.Message}");
+            }
         }
+
+        private void ResetZoom()
+        {
+            Program.Zoom = 1f;
+            Program.ZoomCenter = new SKPoint(0, 0);
+            SkiaCanvas.InvalidateVisual();
+        }
+
     }
 }

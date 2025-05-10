@@ -23,6 +23,12 @@ road_previewer = generate_road_previewer(nodes, map_name)         # 道路预览
 paper_size = get_papersize(nodes)                       # 纸张尺寸
 prior_center = get_origin_center_coord(nodes)           # 节点原几何中心
 
+# 基本参数导出 txt
+for var in ["paper_size", "prior_center"]:
+    for key, value in {1: "x", 2: "y"}.items():
+        with open(data_dir / f"{var}_{value}.txt", "w") as f:
+            f.write(str(eval(var)[key - 1]))
+
 # 绘制预览道路
 shift_nodes_coord(nodes, paper_size, prior_center)      # 移动道路节点坐标
 draw_preview_roads(road_previewer, roads, nodes)        # 绘制道路

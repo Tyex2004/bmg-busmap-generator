@@ -107,6 +107,7 @@
                                     PaintSurface="OnPaintSurface"
                                     MouseDown="SkiaCanvas_MouseDown"
                                     MouseMove="SkiaCanvas_MouseMove"
+                                    MouseWheel="SkiaCanvas_MouseWheel"
                                     MouseUp="SkiaCanvas_MouseUp" />
                             </AvalonDock:LayoutDocument>
                             <AvalonDock:LayoutDocument Title="文档 1" ContentId="document1">
@@ -135,7 +136,7 @@
                                         <RowDefinition Height="*" />
                                         <RowDefinition Height="*" />
                                     </Grid.RowDefinitions>
-                                    <TextBox Text="右侧窗格内容3" Grid.Row="0"/>
+                                    <TextBox x:Name="textBox3" Text="右侧窗格内容3" Grid.Row="0"/>
                                     <TextBox Text="右侧窗格内容2" Grid.Row="1"/>
                                 </Grid>
                             </AvalonDock:LayoutAnchorable>

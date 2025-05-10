@@ -210,3 +210,7 @@ C:\Users\TaamY\source\repos\BusMapGenerator\BusMapGenerator\bin\Debug\net8.0-win
 C:\Users\TaamY\source\repos\BusMapGenerator\BusMapGenerator\bin\Debug\net8.0-windows\uz-Latn-UZ\ModernWpf.resources.dll
 C:\Users\TaamY\source\repos\BusMapGenerator\BusMapGenerator\bin\Debug\net8.0-windows\vi-VN\ModernWpf.Controls.resources.dll
 C:\Users\TaamY\source\repos\BusMapGenerator\BusMapGenerator\bin\Debug\net8.0-windows\vi-VN\ModernWpf.resources.dll
+C:\Users\TaamY\source\repos\BusMapGenerator\BusMapGenerator\bin\Debug\net8.0-windows\data\demo-fongtsuen\paper_size_x.txt
+C:\Users\TaamY\source\repos\BusMapGenerator\BusMapGenerator\bin\Debug\net8.0-windows\data\demo-fongtsuen\paper_size_y.txt
+C:\Users\TaamY\source\repos\BusMapGenerator\BusMapGenerator\bin\Debug\net8.0-windows\data\demo-fongtsuen\prior_center_x.txt
+C:\Users\TaamY\source\repos\BusMapGenerator\BusMapGenerator\bin\Debug\net8.0-windows\data\demo-fongtsuen\prior_center_y.txt

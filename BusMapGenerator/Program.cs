@@ -11,26 +11,47 @@ using SkiaSharp.Views.WPF;
 
 namespace BusMapGenerator
 {
-    internal class Program
+    internal class Program  // 全局变量列表
     {
-        public static string? CurrentMap { get; set; } = null;  // 当前地图
+        // 关于地图信息
+        public static string? CurrentMap { get; set; } = null;      // 当前地图
+        public static SKSvg? CurrentSkiaSVG { get; set; } = null;   // 当前的 SkiaSVG
 
-        public static SKSvg? CurrentSkiaSVG { get; set; } = null;  // 当前的 SkiaSVG
+        // 关于操作信息
+        public static bool IsPanning = false;                       // 是否正在中键平移
+        public static bool IsDragging { get; set; } = false;        // 是否在画布按住拖拽
+        public static Point LastMousePosition;                      // 上一次鼠标位置（WPF坐标）
 
+        // 关于画布信息
+        public static float Zoom = 1f;                              // 当前缩放比例
+        public static SKPoint CanvasOffset = new(0, 0);             // 当前画布偏移
+        public static SKPoint ZoomCenter = new(0, 0);               // 缩放中心
         public static SKRect SkiaSvgBounds { get; set; } = new SKRect();  // SkiaSVG 画布边界，有 Width 和 Height 属性
 
-        public static Point WPFStartPoint { get; set; } = new Point();  // Skia 起点坐标
+        // 关于坐标信息
+        public static Point WPFStartPoint { get; set; } = new Point();          // WPF 起点坐标
+        public static Point WPFEndPoint { get; set; } = new Point();            // WPF 终点坐标
+        public static SKPoint SkiaStartPoint { get; set; } = new SKPoint();     // Skia 起点坐标
+        public static SKPoint SkiaEndPoint { get; set; } = new SKPoint();       // Skia 终点坐标
+        public static decimal[]? SVGStartPoint { get; set; } = null;            // SVG 起点坐标
+        public static decimal[]? SVGEndPoint { get; set; } = null;              // SVG 终点坐标
+        public static decimal[]? JSONStartPoint { get; set; } = null;           // JSON 起点坐标
+        public static decimal[]? JSONEndPoint { get; set; } = null;             // JSON 终点坐标
 
-        public static Point WPFEndPoint { get; set; } = new Point();  // Skia 终点坐标
+        // 关于工具调用信息
+        public static List<int> SelectedNodesIds { get; set; } = [];            // 选中的道路节点编号列表
 
-        public static SKPoint SkiaStartPoint { get; set; } = new SKPoint();  // Skia 起点坐标
-
-        public static SKPoint SkiaEndPoint { get; set; } = new SKPoint();  // Skia 终点坐标
-
-        public static Point? SVGStartPoint { get; set; } = null;  // SVG 起点坐标
-
-        public static Point? SVGEndPoint { get; set; } = null;  // SVG 终点坐标
-
-        public static bool IsDragging { get; set; } = false;
+        // 关于数据信息
+        public static Dictionary<int, Node> Nodes  // 道路节点字典
+        {
+            get
+            {
+                if (CurrentMap != null)
+                {
+                    return DataLoader.LoadNodes();
+                }
+                return [];
+            }
+        }
     }
 }

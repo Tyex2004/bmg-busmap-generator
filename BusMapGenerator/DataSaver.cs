@@ -9,13 +9,13 @@ using Newtonsoft.Json;
 
 namespace BusMapGenerator
 {
-    class DataSaver  // 输入 ( <数据字典> , <地图名称> ) ，保存数据到文件
+    class DataSaver  // 保存数据到文件
     {
-        public static void SaveNodes(Dictionary<int, Node> nodesDict, string mapName)
+        public static void SaveNodes()
         {
-            var nodesList = nodesDict.Values.ToList();
+            var nodesList = Program.Nodes.Values.ToList();
             string json = JsonConvert.SerializeObject(nodesList, Formatting.Indented);
-            File.WriteAllText(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "data", mapName, "nodes.json"), json);
+            File.WriteAllText(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "data", Program.CurrentMap, "nodes.json"), json);
         }
     }
 }
