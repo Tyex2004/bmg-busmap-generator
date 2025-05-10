@@ -123,5 +123,13 @@ namespace BusMapGenerator
             return decimalArray;
         }
 
+        // WPF 坐标 → JSON 坐标
+        public static decimal[] CoordWPFToJSON(Point wpfPoint, SKElement skElement)
+        {
+            SKPoint skiaPoint = CoordWPFToSkia(wpfPoint, skElement);
+            decimal[] decimalArray = CoordSkiaToSVG(skiaPoint);
+            decimal[] jsonPoint = CoordSVGToJSON(decimalArray);
+            return jsonPoint;
+        }
     }
 }

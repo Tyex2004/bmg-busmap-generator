@@ -15,6 +15,7 @@ using SkiaSharp.Views.Desktop;
 using SkiaSharp.Views.WPF;
 using Svg.Skia;
 using System.Diagnostics;
+using AvalonDock.Layout;
 
 namespace BusMapGenerator
 {
@@ -26,6 +27,8 @@ namespace BusMapGenerator
         public MainWindow()
         {
             InitializeComponent();
+            LayoutDocumentPane.Children.Remove(RoadPreviewer);
+            LayoutDocumentPane.Children.Remove(Mapper);
         }
 
         // 点击“打开”时执行
@@ -40,6 +43,15 @@ namespace BusMapGenerator
             // 如果选了地图执行下列，从而打开了地图
             if (result == true && !string.IsNullOrEmpty(selectWindow.SelectedMap))
             {
+                LayoutDocumentPane.Children.Remove(Opener);
+                if (!LayoutDocumentPane.Children.Contains(RoadPreviewer))
+                { 
+                    LayoutDocumentPane.Children.Add(RoadPreviewer);
+                }
+                if (!LayoutDocumentPane.Children.Contains(Mapper))
+                {
+                    LayoutDocumentPane.Children.Add(Mapper);
+                }
                 ResetZoom();
                 Program.CurrentMap = selectWindow.SelectedMap;            // 赋值：当前地图名称
                 Program.CurrentSkiaSVG = null;                            // 清空当前 SkiaSVG
@@ -85,10 +97,10 @@ namespace BusMapGenerator
             {
                 using var paint = new SKPaint
                 {
-                    Color = new SKColor(20, 20, 255),
+                    Color = new SKColor(0, 0, 220),
                     Style = SKPaintStyle.Stroke,
-                    StrokeWidth = 1,
-                    PathEffect = SKPathEffect.CreateDash([9, 5], 0)
+                    StrokeWidth = 1.2f / Program.Zoom,
+                    PathEffect = SKPathEffect.CreateDash([9 / Program.Zoom, 5 / Program.Zoom], 0)
                 };
 
                 var rect = SKRect.Create(

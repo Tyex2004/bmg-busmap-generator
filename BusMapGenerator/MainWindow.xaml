@@ -11,7 +11,9 @@
                      Width="800" 
                      Height="600"
                      xmlns:ui="http://schemas.modernwpf.com/2019"
-                     ui:WindowHelper.UseModernWindowStyle="False">
+                     ui:WindowHelper.UseModernWindowStyle="False"
+                     WindowState="Maximized"
+                     WindowStartupLocation="CenterScreen">
 
     <!--创建网格-->
     <Grid>
@@ -67,7 +69,7 @@
             <!-- 文档页签模板，显示图标和标题 -->
             <AvalonDock:DockingManager.DocumentHeaderTemplate>
                 <DataTemplate>
-                    <StackPanel Orientation="Horizontal">
+                    <StackPanel Orientation="Horizontal" Width="60">
                         <Image Margin="0,0,4,0" Source="{Binding IconSource}" />
                         <TextBlock Text="{Binding Title}" TextTrimming="CharacterEllipsis" />
                     </StackPanel>
@@ -79,7 +81,7 @@
                 <!--布局面板类-->
                 <AvalonDock:LayoutPanel Orientation="Horizontal">
                     <!--左侧可停靠窗格组-->
-                    <AvalonDock:LayoutAnchorablePaneGroup DockWidth="200">
+                    <AvalonDock:LayoutAnchorablePaneGroup DockWidth="260">
                         <AvalonDock:LayoutAnchorablePane>
                             <AvalonDock:LayoutAnchorable x:Name="WPFWindow1"
                                   Title="一个左侧窗格"
@@ -101,7 +103,20 @@
                     <!--文档窗格组-->
                     <AvalonDock:LayoutDocumentPaneGroup>
                         <AvalonDock:LayoutDocumentPane x:Name="LayoutDocumentPane">
-                            <AvalonDock:LayoutDocument Title="控制区" ContentId="controllor">
+                            <AvalonDock:LayoutDocument x:Name="Opener" Title="欢迎" ContentId="Opener" CanClose="False">
+                                <!--加载欢迎界面-->
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="3*" />
+                                        <RowDefinition Height="*" />
+                                        <RowDefinition Height="*" />
+                                        <RowDefinition Height="4*" />
+                                    </Grid.RowDefinitions>
+                                    <Label Grid.Row="1" Content="欢迎使用 BMG - 公共汽车线路图生成器！" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="20"  />
+                                    <Button Grid.Row="2" Content="打开地图" Click="OpenMap" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="26" />
+                                </Grid>
+                            </AvalonDock:LayoutDocument>
+                            <AvalonDock:LayoutDocument x:Name="RoadPreviewer" Title="道路预览" ContentId="RoadPreviewer" CanClose="False">
                                 <!--加载画布-->
                                 <skia:SKElement x:Name="SkiaCanvas"
                                     PaintSurface="OnPaintSurface"
@@ -110,7 +125,7 @@
                                     MouseWheel="SkiaCanvas_MouseWheel"
                                     MouseUp="SkiaCanvas_MouseUp" />
                             </AvalonDock:LayoutDocument>
-                            <AvalonDock:LayoutDocument Title="文档 1" ContentId="document1">
+                            <AvalonDock:LayoutDocument x:Name="Mapper" Title="线路图" ContentId="Mapper" CanClose="False">
                                 <Grid>
                                     <Grid.RowDefinitions>
                                         <RowDefinition />
@@ -123,7 +138,7 @@
                         </AvalonDock:LayoutDocumentPane>
                     </AvalonDock:LayoutDocumentPaneGroup>
                     <!--右侧可停靠窗格组-->
-                    <AvalonDock:LayoutAnchorablePaneGroup DockWidth="200">
+                    <AvalonDock:LayoutAnchorablePaneGroup DockWidth="260">
                         <AvalonDock:LayoutAnchorablePane>
                             <AvalonDock:LayoutAnchorable x:Name="WPFWindow4"
                           Title="右侧窗格"
