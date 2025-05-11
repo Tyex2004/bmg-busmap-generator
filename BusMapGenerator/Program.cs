@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -28,15 +29,26 @@ namespace BusMapGenerator
         public static SKPoint ZoomCenter = new(0, 0);               // 缩放中心
         public static SKRect SkiaSvgBounds { get; set; } = new SKRect();  // SkiaSVG 画布边界，有 Width 和 Height 属性
 
+        // 关于坐标系变换参数信息
+        public static string PaperSizeXString => CurrentMap != null ? File.ReadAllText(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "data", CurrentMap, "paper_size_x.txt")) : "";
+        public static string PaperSizeYString => CurrentMap != null ? File.ReadAllText(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "data", CurrentMap, "paper_size_y.txt")) : "";
+        public static string PriorCenterXString => CurrentMap != null ? File.ReadAllText(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "data", CurrentMap, "prior_center_x.txt")) : "";
+        public static string PriorCenterYString => CurrentMap != null ? File.ReadAllText(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "data", CurrentMap, "prior_center_y.txt")) : "";
+        public static decimal PaperSizeX => decimal.Parse(PaperSizeXString);
+        public static decimal PaperSizeY => decimal.Parse(PaperSizeYString);
+        public static decimal PriorCenterX => decimal.Parse(PriorCenterXString);
+        public static decimal PriorCenterY => decimal.Parse(PriorCenterYString);
+
+
         // 关于坐标信息
         public static Point WPFStartPoint { get; set; } = new Point();          // WPF 起点坐标
         public static Point WPFEndPoint { get; set; } = new Point();            // WPF 终点坐标
         public static SKPoint SkiaStartPoint { get; set; } = new SKPoint();     // Skia 起点坐标
         public static SKPoint SkiaEndPoint { get; set; } = new SKPoint();       // Skia 终点坐标
-        public static decimal[]? SVGStartPoint { get; set; } = null;            // SVG 起点坐标
-        public static decimal[]? SVGEndPoint { get; set; } = null;              // SVG 终点坐标
-        public static decimal[]? JSONStartPoint { get; set; } = null;           // JSON 起点坐标
-        public static decimal[]? JSONEndPoint { get; set; } = null;             // JSON 终点坐标
+        public static decimal[] SVGStartPoint { get; set; } = [];            // SVG 起点坐标
+        public static decimal[] SVGEndPoint { get; set; } = [];              // SVG 终点坐标
+        public static decimal[] JSONStartPoint { get; set; } = [];           // JSON 起点坐标
+        public static decimal[] JSONEndPoint { get; set; } = [];             // JSON 终点坐标
 
         // 关于工具调用信息
         public static List<int> SelectedNodesIds { get; set; } = [];            // 选中的道路节点编号列表

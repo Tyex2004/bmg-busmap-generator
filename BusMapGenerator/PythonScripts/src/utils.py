@@ -1,4 +1,4 @@
-from src.model import Node, Road, Station, Route
+from src.model import Node
 
 
 # 判断道路节点是否存在
@@ -54,13 +54,3 @@ def get_origin_center_coord(node_dict: dict[int, Node]) -> tuple[float, float]:
     origin_max_y = get_nodes_max_y(node_dict)
     return origin_min_x + (origin_max_x - origin_min_x) / 2, origin_min_y + (origin_max_y - origin_min_y) / 2
 
-
-# 坐标转化器
-def coord_shifter(
-    input_coord: tuple[float, float],
-    paper_size: tuple[float, float],
-    prior_center: tuple[float, float],
-) -> tuple[float, float]:
-    shifted_x = input_coord[0] - prior_center[0] + paper_size[0] / 2
-    shifted_y = prior_center[1] - input_coord[1] + paper_size[1] / 2
-    return shifted_x, shifted_y

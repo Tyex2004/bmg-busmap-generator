@@ -4,6 +4,7 @@ using System.IO;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Linq;
+using System.Windows;
 using System.Net.Security;
 using OpenTK.Graphics.OpenGL;
 
@@ -11,15 +12,13 @@ namespace BusMapGenerator
 {
     internal class ManagementTools
     {
-        // 选择工具
+        // 选择工具：拖拽松手后，获取 JSON 选择框执行
         public static void SelectNodes()
         {
-            decimal[] startPoint = Program.JSONStartPoint;
-            decimal[] endPoint = Program.JSONEndPoint;
-            decimal x1 = startPoint[0];
-            decimal y1 = startPoint[1];
-            decimal x2 = endPoint[0];
-            decimal y2 = endPoint[1];
+            decimal x1 = Program.JSONStartPoint[0];
+            decimal y1 = Program.JSONStartPoint[1];
+            decimal x2 = Program.JSONEndPoint[0];
+            decimal y2 = Program.JSONEndPoint[1];
             decimal xMin = Math.Min(x1, x2);
             decimal xMax = Math.Max(x1, x2);
             decimal yMin = Math.Min(y1, y2);

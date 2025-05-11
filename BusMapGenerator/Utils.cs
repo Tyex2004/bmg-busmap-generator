@@ -89,47 +89,30 @@ namespace BusMapGenerator
             float rawX = (float)(wpfPoint.X * dpiX);
             float rawY = (float)(wpfPoint.Y * dpiY);
 
-            // 先去掉 CanvasOffset，再除以 Zoom
             float skiaX = (rawX - Program.CanvasOffset.X - Program.ZoomCenter.X) / Program.Zoom;
             float skiaY = (rawY - Program.CanvasOffset.Y - Program.ZoomCenter.Y) / Program.Zoom;
 
             return new SKPoint(skiaX, skiaY);
         }
 
-
-        // Skia 坐标 → SVG 坐标
-        public static decimal[] CoordSkiaToSVG(SKPoint skiaPoint)
+        // Skia 坐标 → JSON 坐标
+        public static decimal[] CoordSkiaToJSON(SKPoint skiaPoint)
         {
             decimal[] decimalArray = [0, 0];
             decimalArray[0] = (decimal)skiaPoint.X;
             decimalArray[1] = (decimal)skiaPoint.Y;
+            decimalArray[0] = decimalArray[0] + Program.PriorCenterX - (Program.PaperSizeX / 2);
+            decimalArray[1] = Program.PriorCenterY + (Program.PaperSizeY / 2) - decimalArray[1];
             return decimalArray;
         }
 
-        // SVG 坐标 → JSON 坐标
-        public static decimal[] CoordSVGToJSON(decimal[] svgPoint)
+        // JSON 坐标 → Skia 坐标
+        public static SKPoint CoordJSONToSkia(decimal[] jsonPoint)
         {
-            string paper_size_x_string = File.ReadAllText(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "data", Program.CurrentMap, "paper_size_x.txt"));
-            string paper_size_y_string = File.ReadAllText(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "data", Program.CurrentMap, "paper_size_y.txt"));
-            string prior_center_x_string = File.ReadAllText(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "data", Program.CurrentMap, "prior_center_x.txt"));
-            string prior_center_y_string = File.ReadAllText(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "data", Program.CurrentMap, "prior_center_y.txt"));
-            decimal paper_size_x = decimal.Parse(paper_size_x_string);
-            decimal paper_size_y = decimal.Parse(paper_size_y_string);
-            decimal prior_center_x = decimal.Parse(prior_center_x_string);
-            decimal prior_center_y = decimal.Parse(prior_center_y_string);
-            decimal[] decimalArray = [svgPoint[0], svgPoint[1]];
-            decimalArray[0] = decimalArray[0] + prior_center_x - (paper_size_x / 2);
-            decimalArray[1] = prior_center_y + (paper_size_y / 2) - decimalArray[1];
-            return decimalArray;
-        }
-
-        // WPF 坐标 → JSON 坐标
-        public static decimal[] CoordWPFToJSON(Point wpfPoint, SKElement skElement)
-        {
-            SKPoint skiaPoint = CoordWPFToSkia(wpfPoint, skElement);
-            decimal[] decimalArray = CoordSkiaToSVG(skiaPoint);
-            decimal[] jsonPoint = CoordSVGToJSON(decimalArray);
-            return jsonPoint;
+            SKPoint skiaPoint = new SKPoint();
+            skiaPoint.X = (float)(jsonPoint[0] - Program.PriorCenterX + (Program.PaperSizeX / 2));
+            skiaPoint.Y = (float)(Program.PriorCenterY - jsonPoint[1] + (Program.PaperSizeY / 2));
+            return skiaPoint;
         }
     }
 }

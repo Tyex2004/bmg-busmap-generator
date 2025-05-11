@@ -44,7 +44,7 @@
                                                 Large,Large,Large,
                                                 Other,Other,Other" Fluent:KeyTip.Keys="P">
                 <Fluent:RibbonGroupBox Header="Group">
-                    <Fluent:Button Name="button1" Header="按钮1" Icon="https://s2.loli.net/2024/08/13/YTpbrEMkNcSWmH2.png" LargeIcon="https://s2.loli.net/2024/08/13/YTpbrEMkNcSWmH2.png" Fluent:KeyTip.Keys="T" VerticalAlignment="Top"  Margin="3, 3, 3, 1"/>
+                    <Fluent:Button Name="button1" Header="生成" Icon="https://s2.loli.net/2024/08/13/YTpbrEMkNcSWmH2.png" LargeIcon="https://s2.loli.net/2024/08/13/YTpbrEMkNcSWmH2.png" Fluent:KeyTip.Keys="T" VerticalAlignment="Top"  Margin="3, 3, 3, 1" Click="RunPython"/>
                     <Fluent:Button Name="button2" Header="按钮2" Icon="https://s2.loli.net/2024/08/13/YTpbrEMkNcSWmH2.png" LargeIcon="https://s2.loli.net/2024/08/13/YTpbrEMkNcSWmH2.png" SizeDefinition="Middle" Fluent:KeyTip.Keys="H"  Margin="3, 3, 3, 1"/>
                     <Fluent:Button Name="button3" Header="按钮3" Icon="https://s2.loli.net/2024/08/13/YTpbrEMkNcSWmH2.png" LargeIcon="https://s2.loli.net/2024/08/13/YTpbrEMkNcSWmH2.png" SizeDefinition="Middle" Margin="3, 1, 3, 1"/>
                     <Fluent:Button Name="button4" Header="按钮4" Icon="https://s2.loli.net/2024/08/13/YTpbrEMkNcSWmH2.png" LargeIcon="https://s2.loli.net/2024/08/13/YTpbrEMkNcSWmH2.png" SizeDefinition="Middle"  Margin="3, 1, 3, 1"/>
