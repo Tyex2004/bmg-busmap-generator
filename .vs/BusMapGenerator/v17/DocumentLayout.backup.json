@@ -7,24 +7,28 @@
       "RelativeMoniker": "D:0:0:{F095BE04-DB45-458E-8A76-7B0B4523AEB9}|BusMapGenerator\\BusMapGenerator.csproj|solutionrelative:busmapgenerator\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{F095BE04-DB45-458E-8A76-7B0B4523AEB9}|BusMapGenerator\\BusMapGenerator.csproj|c:\\users\\taamy\\source\\repos\\busmapgenerator\\busmapgenerator\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{F095BE04-DB45-458E-8A76-7B0B4523AEB9}|BusMapGenerator\\BusMapGenerator.csproj|solutionrelative:busmapgenerator\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+      "AbsoluteMoniker": "D:0:0:{F095BE04-DB45-458E-8A76-7B0B4523AEB9}|BusMapGenerator\\BusMapGenerator.csproj|c:\\users\\taamy\\source\\repos\\busmapgenerator\\busmapgenerator\\busmapgenerator.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{F095BE04-DB45-458E-8A76-7B0B4523AEB9}|BusMapGenerator\\BusMapGenerator.csproj|solutionrelative:busmapgenerator\\busmapgenerator.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
     },
     {
       "AbsoluteMoniker": "D:0:0:{F095BE04-DB45-458E-8A76-7B0B4523AEB9}|BusMapGenerator\\BusMapGenerator.csproj|c:\\users\\taamy\\source\\repos\\busmapgenerator\\busmapgenerator\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{F095BE04-DB45-458E-8A76-7B0B4523AEB9}|BusMapGenerator\\BusMapGenerator.csproj|solutionrelative:busmapgenerator\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{F095BE04-DB45-458E-8A76-7B0B4523AEB9}|BusMapGenerator\\BusMapGenerator.csproj|c:\\users\\taamy\\source\\repos\\busmapgenerator\\busmapgenerator\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{F095BE04-DB45-458E-8A76-7B0B4523AEB9}|BusMapGenerator\\BusMapGenerator.csproj|solutionrelative:busmapgenerator\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{F095BE04-DB45-458E-8A76-7B0B4523AEB9}|BusMapGenerator\\BusMapGenerator.csproj|c:\\users\\taamy\\source\\repos\\busmapgenerator\\busmapgenerator\\managementtools.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{F095BE04-DB45-458E-8A76-7B0B4523AEB9}|BusMapGenerator\\BusMapGenerator.csproj|solutionrelative:busmapgenerator\\managementtools.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{F095BE04-DB45-458E-8A76-7B0B4523AEB9}|BusMapGenerator\\BusMapGenerator.csproj|c:\\users\\taamy\\source\\repos\\busmapgenerator\\busmapgenerator\\selectmapwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{F095BE04-DB45-458E-8A76-7B0B4523AEB9}|BusMapGenerator\\BusMapGenerator.csproj|solutionrelative:busmapgenerator\\selectmapwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{F095BE04-DB45-458E-8A76-7B0B4523AEB9}|BusMapGenerator\\BusMapGenerator.csproj|c:\\users\\taamy\\source\\repos\\busmapgenerator\\busmapgenerator\\utils.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{F095BE04-DB45-458E-8A76-7B0B4523AEB9}|BusMapGenerator\\BusMapGenerator.csproj|solutionrelative:busmapgenerator\\utils.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F095BE04-DB45-458E-8A76-7B0B4523AEB9}|BusMapGenerator\\BusMapGenerator.csproj|c:\\users\\taamy\\source\\repos\\busmapgenerator\\busmapgenerator\\selectmapwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{F095BE04-DB45-458E-8A76-7B0B4523AEB9}|BusMapGenerator\\BusMapGenerator.csproj|solutionrelative:busmapgenerator\\selectmapwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{F095BE04-DB45-458E-8A76-7B0B4523AEB9}|BusMapGenerator\\BusMapGenerator.csproj|c:\\users\\taamy\\source\\repos\\busmapgenerator\\busmapgenerator\\node.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -38,7 +42,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 6,
+          "SelectedChildIndex": 4,
           "Children": [
             {
               "$type": "Bookmark",
@@ -47,19 +51,6 @@
             {
               "$type": "Document",
               "DocumentIndex": 6,
-              "Title": "Node.cs",
-              "DocumentMoniker": "C:\\Users\\TaamY\\source\\repos\\BusMapGenerator\\BusMapGenerator\\Node.cs",
-              "RelativeDocumentMoniker": "BusMapGenerator\\Node.cs",
-              "ToolTip": "C:\\Users\\TaamY\\source\\repos\\BusMapGenerator\\BusMapGenerator\\Node.cs",
-              "RelativeToolTip": "BusMapGenerator\\Node.cs",
-              "ViewState": "AgIAAAYAAAAAAAAAAAAAABsAAAAUAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-10T17:28:19.234Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
               "Title": "SelectMapWindow.xaml",
               "DocumentMoniker": "C:\\Users\\TaamY\\source\\repos\\BusMapGenerator\\BusMapGenerator\\SelectMapWindow.xaml",
               "RelativeDocumentMoniker": "BusMapGenerator\\SelectMapWindow.xaml",
@@ -77,27 +68,66 @@
               "RelativeDocumentMoniker": "BusMapGenerator\\Utils.cs",
               "ToolTip": "C:\\Users\\TaamY\\source\\repos\\BusMapGenerator\\BusMapGenerator\\Utils.cs",
               "RelativeToolTip": "BusMapGenerator\\Utils.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAVAAAAAAAAAA==",
+              "ViewState": "AgIAAFIAAAAAAAAAAAAuwHMAAAAdAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-05-10T11:51:38.099Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 4,
               "Title": "ManagementTools.cs",
               "DocumentMoniker": "C:\\Users\\TaamY\\source\\repos\\BusMapGenerator\\BusMapGenerator\\ManagementTools.cs",
               "RelativeDocumentMoniker": "BusMapGenerator\\ManagementTools.cs",
               "ToolTip": "C:\\Users\\TaamY\\source\\repos\\BusMapGenerator\\BusMapGenerator\\ManagementTools.cs",
               "RelativeToolTip": "BusMapGenerator\\ManagementTools.cs",
-              "ViewState": "AgIAAAkAAAAAAAAAAAAAACMAAAAkAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACMAAAAkAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-05-10T11:50:50.736Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "MainWindow.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\TaamY\\source\\repos\\BusMapGenerator\\BusMapGenerator\\MainWindow.xaml.cs",
+              "RelativeDocumentMoniker": "BusMapGenerator\\MainWindow.xaml.cs",
+              "ToolTip": "C:\\Users\\TaamY\\source\\repos\\BusMapGenerator\\BusMapGenerator\\MainWindow.xaml.cs",
+              "RelativeToolTip": "BusMapGenerator\\MainWindow.xaml.cs",
+              "ViewState": "AgIAAHoAAAAAAAAAAADgv4YAAABoAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-08T09:24:18.966Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 1,
+              "Title": "BusMapGenerator",
+              "DocumentMoniker": "C:\\Users\\TaamY\\source\\repos\\BusMapGenerator\\BusMapGenerator\\BusMapGenerator.csproj",
+              "RelativeDocumentMoniker": "BusMapGenerator\\BusMapGenerator.csproj",
+              "ToolTip": "C:\\Users\\TaamY\\source\\repos\\BusMapGenerator\\BusMapGenerator\\BusMapGenerator.csproj",
+              "RelativeToolTip": "BusMapGenerator\\BusMapGenerator.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAA5AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2025-05-11T12:29:04.075Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "Node.cs",
+              "DocumentMoniker": "C:\\Users\\TaamY\\source\\repos\\BusMapGenerator\\BusMapGenerator\\Node.cs",
+              "RelativeDocumentMoniker": "BusMapGenerator\\Node.cs",
+              "ToolTip": "C:\\Users\\TaamY\\source\\repos\\BusMapGenerator\\BusMapGenerator\\Node.cs",
+              "RelativeToolTip": "BusMapGenerator\\Node.cs",
+              "ViewState": "AgIAAAwAAAAAAAAAAAAAACEAAAA4AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-10T17:28:19.234Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
               "Title": "MainWindow.xaml",
               "DocumentMoniker": "C:\\Users\\TaamY\\source\\repos\\BusMapGenerator\\BusMapGenerator\\MainWindow.xaml",
               "RelativeDocumentMoniker": "BusMapGenerator\\MainWindow.xaml",
@@ -109,26 +139,13 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "MainWindow.xaml.cs",
-              "DocumentMoniker": "C:\\Users\\TaamY\\source\\repos\\BusMapGenerator\\BusMapGenerator\\MainWindow.xaml.cs",
-              "RelativeDocumentMoniker": "BusMapGenerator\\MainWindow.xaml.cs",
-              "ToolTip": "C:\\Users\\TaamY\\source\\repos\\BusMapGenerator\\BusMapGenerator\\MainWindow.xaml.cs",
-              "RelativeToolTip": "BusMapGenerator\\MainWindow.xaml.cs",
-              "ViewState": "AgIAABQAAAAAAAAAAAAAADwAAAAJAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-08T09:24:18.966Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 2,
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\Users\\TaamY\\source\\repos\\BusMapGenerator\\BusMapGenerator\\Program.cs",
               "RelativeDocumentMoniker": "BusMapGenerator\\Program.cs",
               "ToolTip": "C:\\Users\\TaamY\\source\\repos\\BusMapGenerator\\BusMapGenerator\\Program.cs",
               "RelativeToolTip": "BusMapGenerator\\Program.cs",
-              "ViewState": "AgIAACUAAAAAAAAAAAAuwCwAAABbAAAAAAAAAA==",
+              "ViewState": "AgIAACAAAAAAAAAAAAAuwDUAAABeAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-05-09T09:07:48.783Z",
               "EditorCaption": ""

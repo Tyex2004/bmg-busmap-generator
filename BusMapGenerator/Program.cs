@@ -52,6 +52,10 @@ namespace BusMapGenerator
 
         // 关于工具调用信息
         public static List<int> SelectedNodesIds { get; set; } = [];            // 选中的道路节点编号列表
+        public static float SelectedMinX => SelectedNodesIds.Select(id => Nodes[id].GeoCoord.X).ToList().Min();
+        public static float SelectedMaxX => SelectedNodesIds.Select(id => Nodes[id].GeoCoord.X).ToList().Max();
+        public static float SelectedMinY => SelectedNodesIds.Select(id => Nodes[id].GeoCoord.Y).ToList().Min();
+        public static float SelectedMaxY => SelectedNodesIds.Select(id => Nodes[id].GeoCoord.Y).ToList().Max();
 
         // 关于数据信息
         public static Dictionary<int, Node> Nodes  // 道路节点字典

@@ -111,6 +111,40 @@ namespace BusMapGenerator
 
                 canvas.DrawRect(rect, paint);
             }
+
+            // 条件控制：如果选择出东西，画矩形
+            if (Program.SelectedNodesIds.Count > 0)
+            {
+
+                // 对选中的内容画选择框
+                using var paint1 = new SKPaint
+                {
+                    Color = new SKColor(0, 0, 240),
+                    Style = SKPaintStyle.Stroke,
+                    StrokeWidth = 1f / Program.Zoom,
+                };
+                var rect1 = SKRect.Create(
+                    Program.SelectedMinX - 2f, Program.SelectedMinY - 2f,
+                    Program.SelectedMaxX - Program.SelectedMinX + 4f, Program.SelectedMaxY - Program.SelectedMinY + 4f);
+                canvas.DrawRect(rect1, paint1);
+                using var paint2 = new SKPaint
+                {
+                    Color = new SKColor(200, 200, 230),
+                    Style = SKPaintStyle.Fill
+                };
+                var rect2 = SKRect.Create(Program.SelectedMinX - 2f - 4f / Program.Zoom, Program.SelectedMinY - 2f - 4f / Program.Zoom, 8f / Program.Zoom, 8f / Program.Zoom);
+                var rect3 = SKRect.Create(Program.SelectedMaxX + 2f - 4f / Program.Zoom, Program.SelectedMinY - 2f - 4f / Program.Zoom, 8f / Program.Zoom, 8f / Program.Zoom);
+                var rect4 = SKRect.Create(Program.SelectedMinX - 2f - 4f / Program.Zoom, Program.SelectedMaxY + 2f - 4f / Program.Zoom, 8f / Program.Zoom, 8f / Program.Zoom);
+                var rect5 = SKRect.Create(Program.SelectedMaxX + 2f - 4f / Program.Zoom, Program.SelectedMaxY + 2f - 4f / Program.Zoom, 8f / Program.Zoom, 8f / Program.Zoom);
+                canvas.DrawRect(rect2, paint2);
+                canvas.DrawRect(rect3, paint2);
+                canvas.DrawRect(rect4, paint2);
+                canvas.DrawRect(rect5, paint2);
+                canvas.DrawRect(rect2, paint1);
+                canvas.DrawRect(rect3, paint1);
+                canvas.DrawRect(rect4, paint1);
+                canvas.DrawRect(rect5, paint1);
+            }
         }
 
         // 按下鼠标时执行

@@ -4,6 +4,7 @@ using System.IO;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 using System.Windows.Navigation;
+using SkiaSharp;
 
 namespace BusMapGenerator
 {
@@ -29,5 +30,7 @@ namespace BusMapGenerator
                     _coord = value;
             }
         }
+
+        public SKPoint GeoCoord => Utils.CoordJSONToSkia(Coord);
     }
 }

@@ -10,6 +10,7 @@ using System.Windows.Media;
 using SkiaSharp.Views.WPF;
 using System.Windows;
 using SkiaSharp;
+using System.Runtime.Serialization;
 
 namespace BusMapGenerator
 {
@@ -113,6 +114,13 @@ namespace BusMapGenerator
             skiaPoint.X = (float)(jsonPoint[0] - Program.PriorCenterX + (Program.PaperSizeX / 2));
             skiaPoint.Y = (float)(Program.PriorCenterY - jsonPoint[1] + (Program.PaperSizeY / 2));
             return skiaPoint;
+        }
+
+        // 获取框选后最小的 x
+        public static decimal GetSelectedMinX()
+        {
+            List<decimal> xs = Program.SelectedNodesIds.Select(id => Program.Nodes[id].Coord[0]).ToList();
+            return xs.Min();
         }
     }
 }
