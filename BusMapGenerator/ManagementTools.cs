@@ -26,8 +26,8 @@ namespace BusMapGenerator
             List<int> selectedNodes = [];
             foreach (Node node in Program.Nodes.Values)
             {
-                decimal x = node.Coord[0];
-                decimal y = node.Coord[1];
+                decimal x = node.JSONCoord[0];
+                decimal y = node.JSONCoord[1];
                 if (xMin <= x && x <= xMax && yMin <= y && y <= yMax)
                 {
                     selectedNodes.Add(node.Id);
@@ -37,20 +37,11 @@ namespace BusMapGenerator
         }
 
         // 道路节点移动工具：输入移动的 x 值和移动的 y值
-        public static void MoveNodes(decimal dx, decimal dy)
+        public static void MoveNode(int nodeId)
         {
-            // 备份
-            Utils.BackupData("MoveNodes");
-            // 移动
-            foreach (KeyValuePair<int, Node> node in Program.Nodes)
-            {
-                if (Program.SelectedNodesIds.Contains(node.Key))
-                {
-                    node.Value.Coord[0] += dx;
-                    node.Value.Coord[1] += dy;
-                }
-            }
-            // 保存
+            Utils.BackupData("MoveNode");
+            decimal[] targetCoord = Utils.DecimalEndPointProject(Program.Nodes[nodeId].JSONCoord, Program.JSONEndPoint);
+            Program.Nodes[nodeId].JSONCoord = targetCoord;
             DataSaver.SaveNodes();
         }
 

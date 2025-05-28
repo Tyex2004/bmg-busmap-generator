@@ -81,7 +81,6 @@ C:\Users\TaamY\source\repos\BusMapGenerator\BusMapGenerator\bin\Debug\net8.0-win
 C:\Users\TaamY\source\repos\BusMapGenerator\BusMapGenerator\bin\Debug\net8.0-windows\GLWpfControl.dll
 C:\Users\TaamY\source\repos\BusMapGenerator\BusMapGenerator\bin\Debug\net8.0-windows\SkiaSharp.Views.Desktop.Common.dll
 C:\Users\TaamY\source\repos\BusMapGenerator\BusMapGenerator\bin\Debug\net8.0-windows\SkiaSharp.Views.WPF.dll
-C:\Users\TaamY\source\repos\BusMapGenerator\BusMapGenerator\bin\Debug\net8.0-windows\output\demo-fongtsuen\道路预览.svg
 C:\Users\TaamY\source\repos\BusMapGenerator\BusMapGenerator\bin\Debug\net8.0-windows\ModernWpf.Controls.dll
 C:\Users\TaamY\source\repos\BusMapGenerator\BusMapGenerator\bin\Debug\net8.0-windows\ModernWpf.dll
 C:\Users\TaamY\source\repos\BusMapGenerator\BusMapGenerator\bin\Debug\net8.0-windows\af-ZA\ModernWpf.Controls.resources.dll

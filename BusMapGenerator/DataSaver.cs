@@ -13,9 +13,12 @@ namespace BusMapGenerator
     {
         public static void SaveNodes()
         {
-            var nodesList = Program.Nodes.Values.ToList();
-            string json = JsonConvert.SerializeObject(nodesList, Formatting.Indented);
-            File.WriteAllText(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "data", Program.CurrentMap, "nodes.json"), json);
+            if (Program.CurrentMap != null)
+            {
+                var nodesList = Program.Nodes.Values.ToList();
+                string json = JsonConvert.SerializeObject(nodesList, Formatting.Indented);
+                File.WriteAllText(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "data", Program.CurrentMap, "nodes.json"), json);
+            }
         }
     }
 }

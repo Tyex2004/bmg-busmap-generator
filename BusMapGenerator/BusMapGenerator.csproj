@@ -48,7 +48,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="output\demo-fongtsuen\道路预览.svg">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Update="PythonScripts\run.exe">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

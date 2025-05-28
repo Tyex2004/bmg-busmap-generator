@@ -14,9 +14,44 @@ namespace BusMapGenerator
 {
     internal class Program  // 全局变量列表
     {
+        // 鼠标位置
+        public static Point MousePosition { get; set; } = new Point();
+
         // 关于地图信息
         public static string? CurrentMap { get; set; } = null;      // 当前地图
         public static SKSvg? CurrentSkiaSVG { get; set; } = null;   // 当前的 SkiaSVG
+        public static SKElement CurrentSkiaElement { get; set; } = new SKElement();  // 当前的 SkiaElement
+
+        // 关于模式信息
+        public static bool IsEditingRoads = true;                   // 是否正在编辑道路模式，可以使用工具：拉出道路、移动道路、插入道路节点、删除道路节点
+        public static bool IsEditingStations = false;               // 是否正在编辑站点模式，可以使用工具：设置站点、移动站点、删除站点
+
+        // 关于鼠标悬停信息
+        public static int MouseButtonNearNodeId
+        {
+            get
+            {
+                if (IsEditingRoads)
+                {
+                    foreach (KeyValuePair<int, Node> node in Nodes)
+                    {
+                        if (Utils.CalculatePointDistance(MousePosition, node.Value.WPFCoord) < 7)
+                        {
+                            return node.Key;
+                        }
+                    }
+                    return -1;
+                }
+                else
+                {
+                    return -1;
+                }
+            }
+        }
+
+        // 关于工具使用信息
+        public static int SelectedNodeId { get; set; } = -1;     // 选中的道路节点编号
+        public static bool IsMovingNode = false;                    // 是否正在使用移动节点工具
 
         // 关于操作信息
         public static bool IsPanning = false;                       // 是否正在中键平移
@@ -30,15 +65,10 @@ namespace BusMapGenerator
         public static SKRect SkiaSvgBounds { get; set; } = new SKRect();  // SkiaSVG 画布边界，有 Width 和 Height 属性
 
         // 关于坐标系变换参数信息
-        public static string PaperSizeXString => CurrentMap != null ? File.ReadAllText(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "data", CurrentMap, "paper_size_x.txt")) : "";
-        public static string PaperSizeYString => CurrentMap != null ? File.ReadAllText(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "data", CurrentMap, "paper_size_y.txt")) : "";
-        public static string PriorCenterXString => CurrentMap != null ? File.ReadAllText(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "data", CurrentMap, "prior_center_x.txt")) : "";
-        public static string PriorCenterYString => CurrentMap != null ? File.ReadAllText(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "data", CurrentMap, "prior_center_y.txt")) : "";
-        public static decimal PaperSizeX => decimal.Parse(PaperSizeXString);
-        public static decimal PaperSizeY => decimal.Parse(PaperSizeYString);
-        public static decimal PriorCenterX => decimal.Parse(PriorCenterXString);
-        public static decimal PriorCenterY => decimal.Parse(PriorCenterYString);
-
+        public static float PaperSizeX => (float)(Nodes.Values.Max(node => node.JSONCoord[0]) - Nodes.Values.Min(node => node.JSONCoord[0])) + 60;
+        public static float PaperSizeY => (float)(Nodes.Values.Max(node => node.JSONCoord[1]) - Nodes.Values.Min(node => node.JSONCoord[1])) + 60;
+        public static float PriorCenterX => (float)(Nodes.Values.Max(node => node.JSONCoord[0]) + Nodes.Values.Min(node => node.JSONCoord[0])) / 2;
+        public static float PriorCenterY => (float)(Nodes.Values.Max(node => node.JSONCoord[1]) + Nodes.Values.Min(node => node.JSONCoord[1])) / 2;
 
         // 关于坐标信息
         public static Point WPFStartPoint { get; set; } = new Point();          // WPF 起点坐标
@@ -52,22 +82,14 @@ namespace BusMapGenerator
 
         // 关于工具调用信息
         public static List<int> SelectedNodesIds { get; set; } = [];            // 选中的道路节点编号列表
-        public static float SelectedMinX => SelectedNodesIds.Select(id => Nodes[id].GeoCoord.X).ToList().Min();
-        public static float SelectedMaxX => SelectedNodesIds.Select(id => Nodes[id].GeoCoord.X).ToList().Max();
-        public static float SelectedMinY => SelectedNodesIds.Select(id => Nodes[id].GeoCoord.Y).ToList().Min();
-        public static float SelectedMaxY => SelectedNodesIds.Select(id => Nodes[id].GeoCoord.Y).ToList().Max();
+        public static float SelectedMinX => SelectedNodesIds.Select(id => Nodes[id].SkiaCoord.X).ToList().Min();
+        public static float SelectedMaxX => SelectedNodesIds.Select(id => Nodes[id].SkiaCoord.X).ToList().Max();
+        public static float SelectedMinY => SelectedNodesIds.Select(id => Nodes[id].SkiaCoord.Y).ToList().Min();
+        public static float SelectedMaxY => SelectedNodesIds.Select(id => Nodes[id].SkiaCoord.Y).ToList().Max();
 
         // 关于数据信息
-        public static Dictionary<int, Node> Nodes  // 道路节点字典
-        {
-            get
-            {
-                if (CurrentMap != null)
-                {
-                    return DataLoader.LoadNodes();
-                }
-                return [];
-            }
-        }
+        public static Dictionary<int, Node> Nodes = [];         // 道路节点字典
+        public static Dictionary<int, Road> Roads = [];         // 道路字典
+        public static Dictionary<int, Station> Stations = [];   // 站点字典
     }
 }

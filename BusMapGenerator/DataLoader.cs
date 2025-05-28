@@ -8,14 +8,49 @@ using Newtonsoft.Json;
 
 namespace BusMapGenerator
 {
-    internal class DataLoader  // 输入 <地图名称> ，输出 <数据字典>
+    internal class DataLoader
     {
         public static Dictionary<int, Node> LoadNodes()
         {
-            string json = File.ReadAllText(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "data", Program.CurrentMap, "nodes.json"));
-            List<Node> nodesList = JsonConvert.DeserializeObject<List<Node>>(json) ?? [];
-            Dictionary<int, Node> nodesDict = nodesList.ToDictionary(node => node.Id, node => node);
-            return nodesDict;
+            if (Program.CurrentMap != null)
+            {
+                string json = File.ReadAllText(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "data", Program.CurrentMap, "nodes.json"));
+                List<Node> nodesList = JsonConvert.DeserializeObject<List<Node>>(json) ?? [];
+                Dictionary<int, Node> nodesDict = nodesList.ToDictionary(node => node.Id, node => node);
+                return nodesDict;
+            }
+            else
+            {
+                return [];
+            }
+        }
+        public static Dictionary<int, Road> LoadRoads()
+        {
+            if (Program.CurrentMap != null)
+            {
+                string json = File.ReadAllText(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "data", Program.CurrentMap, "roads.json"));
+                List<Road> roadsList = JsonConvert.DeserializeObject<List<Road>>(json) ?? [];
+                Dictionary<int, Road> roadsDict = roadsList.ToDictionary(road => road.Id, road => road);
+                return roadsDict;
+            }
+            else
+            {
+                return [];
+            }
+        }
+        public static Dictionary<int, Station> LoadStations()
+        {
+            if (Program.CurrentMap != null)
+            {
+                string json = File.ReadAllText(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "data", Program.CurrentMap, "stations.json"));
+                List<Station> stationsList = JsonConvert.DeserializeObject<List<Station>>(json) ?? [];
+                Dictionary<int, Station> stationsDict = stationsList.ToDictionary(station => station.Id, station => station);
+                return stationsDict;
+            }
+            else
+            {
+                return [];
+            }
         }
     }
 }

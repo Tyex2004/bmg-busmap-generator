@@ -44,7 +44,7 @@
                                                 Large,Large,Large,
                                                 Other,Other,Other" Fluent:KeyTip.Keys="P">
                 <Fluent:RibbonGroupBox Header="Group">
-                    <Fluent:Button Name="button1" Header="生成" Icon="https://s2.loli.net/2024/08/13/YTpbrEMkNcSWmH2.png" LargeIcon="https://s2.loli.net/2024/08/13/YTpbrEMkNcSWmH2.png" Fluent:KeyTip.Keys="T" VerticalAlignment="Top"  Margin="3, 3, 3, 1" Click="RunPython"/>
+                    <Fluent:Button Name="button1" Header="生成" Icon="https://s2.loli.net/2024/08/13/YTpbrEMkNcSWmH2.png" LargeIcon="https://s2.loli.net/2024/08/13/YTpbrEMkNcSWmH2.png" Fluent:KeyTip.Keys="T" VerticalAlignment="Top"  Margin="3, 3, 3, 1"/>
                     <Fluent:Button Name="button2" Header="按钮2" Icon="https://s2.loli.net/2024/08/13/YTpbrEMkNcSWmH2.png" LargeIcon="https://s2.loli.net/2024/08/13/YTpbrEMkNcSWmH2.png" SizeDefinition="Middle" Fluent:KeyTip.Keys="H"  Margin="3, 3, 3, 1"/>
                     <Fluent:Button Name="button3" Header="按钮3" Icon="https://s2.loli.net/2024/08/13/YTpbrEMkNcSWmH2.png" LargeIcon="https://s2.loli.net/2024/08/13/YTpbrEMkNcSWmH2.png" SizeDefinition="Middle" Margin="3, 1, 3, 1"/>
                     <Fluent:Button Name="button4" Header="按钮4" Icon="https://s2.loli.net/2024/08/13/YTpbrEMkNcSWmH2.png" LargeIcon="https://s2.loli.net/2024/08/13/YTpbrEMkNcSWmH2.png" SizeDefinition="Middle"  Margin="3, 1, 3, 1"/>
@@ -141,18 +141,18 @@
                     <AvalonDock:LayoutAnchorablePaneGroup DockWidth="260">
                         <AvalonDock:LayoutAnchorablePane>
                             <AvalonDock:LayoutAnchorable x:Name="WPFWindow4"
-                          Title="右侧窗格"
-                          CanClose="True"
-                          CanHide="False"
-                          ContentId="WPFWindow4"
-                          ToolTip="WPF 组件">
+                                      Title="右侧窗格"
+                                      CanClose="True"
+                                      CanHide="False"
+                                      ContentId="WPFWindow4"
+                                      ToolTip="WPF 组件">
                                 <Grid>
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="*" />
                                         <RowDefinition Height="*" />
                                     </Grid.RowDefinitions>
                                     <TextBox x:Name="textBox3" Text="右侧窗格内容3" Grid.Row="0"/>
-                                    <TextBox Text="右侧窗格内容2" Grid.Row="1"/>
+                                    <TextBox x:Name="textBox2" Text="右侧窗格内容2" Grid.Row="1"/>
                                 </Grid>
                             </AvalonDock:LayoutAnchorable>
                         </AvalonDock:LayoutAnchorablePane>
