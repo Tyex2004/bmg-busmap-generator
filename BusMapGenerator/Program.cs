@@ -20,7 +20,7 @@ namespace BusMapGenerator
         // 关于地图信息
         public static string? CurrentMap { get; set; } = null;      // 当前地图
         public static SKSvg? CurrentSkiaSVG { get; set; } = null;   // 当前的 SkiaSVG
-        public static SKElement CurrentSkiaElement { get; set; } = new SKElement();  // 当前的 SkiaElement
+        public static SKElement RPSkiaElement { get; set; } = new();  // 当前的 SkiaElement
 
         // 关于模式信息
         public static bool IsEditingRoads = true;                   // 是否正在编辑道路模式，可以使用工具：拉出道路、移动道路、插入道路节点、删除道路节点
@@ -49,8 +49,8 @@ namespace BusMapGenerator
             }
         }
 
-        // 关于工具使用信息
-        public static int SelectedNodeId { get; set; } = -1;     // 选中的道路节点编号
+        // 关于数据管理工具使用信息
+        public static int SelectedNodeId { get; set; } = -1;        // 选中的道路节点编号
         public static bool IsMovingNode = false;                    // 是否正在使用移动节点工具
 
         // 关于操作信息
@@ -62,7 +62,6 @@ namespace BusMapGenerator
         public static float Zoom = 1f;                              // 当前缩放比例
         public static SKPoint CanvasOffset = new(0, 0);             // 当前画布偏移
         public static SKPoint ZoomCenter = new(0, 0);               // 缩放中心
-        public static SKRect SkiaSvgBounds { get; set; } = new SKRect();  // SkiaSVG 画布边界，有 Width 和 Height 属性
 
         // 关于坐标系变换参数信息
         public static float PaperSizeX => (float)(Nodes.Values.Max(node => node.JSONCoord[0]) - Nodes.Values.Min(node => node.JSONCoord[0])) + 60;
@@ -75,12 +74,11 @@ namespace BusMapGenerator
         public static Point WPFEndPoint { get; set; } = new Point();            // WPF 终点坐标
         public static SKPoint SkiaStartPoint { get; set; } = new SKPoint();     // Skia 起点坐标
         public static SKPoint SkiaEndPoint { get; set; } = new SKPoint();       // Skia 终点坐标
-        public static decimal[] SVGStartPoint { get; set; } = [];            // SVG 起点坐标
-        public static decimal[] SVGEndPoint { get; set; } = [];              // SVG 终点坐标
         public static decimal[] JSONStartPoint { get; set; } = [];           // JSON 起点坐标
         public static decimal[] JSONEndPoint { get; set; } = [];             // JSON 终点坐标
+        public static (int, decimal) JSONMove => Utils.GetDirectionAndDistance(JSONStartPoint, JSONEndPoint);  // JSON 移动方向和距离
 
-        // 关于工具调用信息
+        // 关于框选工具（暂时弃用）
         public static List<int> SelectedNodesIds { get; set; } = [];            // 选中的道路节点编号列表
         public static float SelectedMinX => SelectedNodesIds.Select(id => Nodes[id].SkiaCoord.X).ToList().Min();
         public static float SelectedMaxX => SelectedNodesIds.Select(id => Nodes[id].SkiaCoord.X).ToList().Max();
@@ -91,5 +89,7 @@ namespace BusMapGenerator
         public static Dictionary<int, Node> Nodes = [];         // 道路节点字典
         public static Dictionary<int, Road> Roads = [];         // 道路字典
         public static Dictionary<int, Station> Stations = [];   // 站点字典
+        public static Dictionary<int, Route> Routes = [];       // 线路字典
+        public static List<MtrStation> MtrStations = [];        // 地铁站列表
     }
 }

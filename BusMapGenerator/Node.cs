@@ -26,7 +26,7 @@ namespace BusMapGenerator
         public SKPoint SkiaCoord => Utils.CoordJSONToSkia(JSONCoord);
 
         [JsonIgnore]
-        public Point WPFCoord => Utils.CoordSkiaToWPF(SkiaCoord, Program.CurrentSkiaElement);
+        public Point WPFCoord => Utils.CoordSkiaToWPF(SkiaCoord, Program.RPSkiaElement);
 
         [JsonIgnore]
         public int[] RoadsId  // 从北侧开始顺时针
@@ -50,12 +50,67 @@ namespace BusMapGenerator
         }
 
         [JsonIgnore]
+        public bool IsRoadStartOrEnd => RoadsId.Count(x => x != -1) == 1;
+
+        [JsonIgnore]
+        public bool IsNotRoadEnterence
+        {
+            get
+            {
+                int[] indices = RoadsId
+                    .Select((value, index) => new { value, index })
+                    .Where(x => x.value!= -1)
+                    .Select(x => x.index)
+                    .ToArray();
+                if (indices.Length == 2) return Math.Abs(indices[1] - indices[0]) == 4;
+                return false;
+            }
+        }
+
+        [JsonIgnore]
+        public decimal[] CanMoveDistance
+        {
+            get
+            {
+                var returnArray = new decimal[8];
+                if (IsRoadStartOrEnd)
+                {
+                    int i = 0;
+                    foreach (var roadId in RoadsId)
+                    {
+                        if (roadId != -1)
+                        {
+                            Road road = Program.Roads[roadId];
+                            returnArray[i] = road.Length.Coefficient - 3;
+                            returnArray[Utils.SwapDirection(i)] = -1;  // 不限制移动长度
+                        }
+                        i++;
+                    }
+                }
+                else if (IsNotRoadEnterence)
+                {
+                    int i = 0;
+                    foreach (var roadId in RoadsId)
+                    {
+                        if (roadId != -1)
+                        {
+                            Road road = Program.Roads[roadId];
+                            returnArray[i] = road.Length.Coefficient - 3;
+                        }
+                        i++;
+                    }
+                }
+                return returnArray;
+            }
+        }
+
+        [JsonIgnore]
         public SvgCircle RPGraph => new()
         {
             CenterX = SvgCoord.X,
             CenterY = SvgCoord.Y,
             Radius = 1.5f,
-            Fill = new SvgColourServer(System.Drawing.Color.FromArgb(100, 246, 255)),
+            Fill = Utils.SetColor(100, 246, 255),
             Stroke = null
         };
     }

@@ -15,36 +15,19 @@ namespace BusMapGenerator
         [JsonProperty("name")]
         public string Name { get; set; } = "";
 
-        private int[] _color = new int[3];  // 默认初始化为 [0,0,0]
-
         [JsonProperty("color")]
-        public int[] Color
-        {
-            get => (int[])_color.Clone();  // 返回副本保护内部结构
-            set
-            {
-                if (value == null || value.Length != 3)
-                {
-                    _color = new int[3];
-                }
-                else
-                {
-                    _color[0] = Clamp(value[0]);
-                    _color[1] = Clamp(value[1]);
-                    _color[2] = Clamp(value[2]);
-                }
-            }
-        }
+        public int[] Color { get; set; } = new int[3];
 
         [JsonProperty("start")]
         public int Start { get; set; }
 
-        [JsonProperty("path")]
-        public List<(int, List<int>)> Path { get; set; } = new List<(int, List<int>)>();
+        [JsonProperty("via_nodes")]
+        public List<int> ViaNodes { get; set; } = [];
+
+        [JsonProperty("skip_stations")]
+        public List<List<int>> SkipStations { get; set; } = [];
 
         [JsonProperty("end")]
         public int End { get; set; }
-
-        private static int Clamp(int x) => Math.Max(0, Math.Min(255, x));
     }
 }

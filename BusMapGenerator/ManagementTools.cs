@@ -7,6 +7,7 @@ using System.Linq;
 using System.Windows;
 using System.Net.Security;
 using OpenTK.Graphics.OpenGL;
+using System.Diagnostics;
 
 namespace BusMapGenerator
 {
@@ -39,10 +40,18 @@ namespace BusMapGenerator
         // 道路节点移动工具：输入移动的 x 值和移动的 y值
         public static void MoveNode(int nodeId)
         {
-            Utils.BackupData("MoveNode");
-            decimal[] targetCoord = Utils.DecimalEndPointProject(Program.Nodes[nodeId].JSONCoord, Program.JSONEndPoint);
+            Node node = Program.Nodes[nodeId];
+            Debug.WriteLine($"CanMoveDistance: [{node.CanMoveDistance[0]}, {node.CanMoveDistance[1]}, {node.CanMoveDistance[2]}, {node.CanMoveDistance[3]}, {node.CanMoveDistance[4]}, {node.CanMoveDistance[5]}, {node.CanMoveDistance[6]}, {node.CanMoveDistance[7]}]");
+            int moveDirection = Program.JSONMove.Item1;
+            decimal moveDistance = Program.JSONMove.Item2;
+            if (node.CanMoveDistance[moveDirection] != -1)
+            {
+                moveDistance = Math.Min(Program.JSONMove.Item2, node.CanMoveDistance[moveDirection]);
+            }
+            decimal[] targetCoord = Utils.GetTargetCoord(node.JSONCoord, moveDirection, moveDistance);
             Program.Nodes[nodeId].JSONCoord = targetCoord;
-            DataSaver.SaveNodes();
+            Utils.BackupData("MoveNode");
+            DataSaver.Save();
         }
 
         // 撤销工具：把 mapDir 的数据移动到 undonePath，把 backupPath 的数据移动到 mapDir

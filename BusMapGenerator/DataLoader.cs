@@ -52,5 +52,32 @@ namespace BusMapGenerator
                 return [];
             }
         }
+        public static Dictionary<int, Route> LoadRoutes()
+        {
+            if (Program.CurrentMap != null)
+            {
+                string json = File.ReadAllText(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "data", Program.CurrentMap, "routes.json"));
+                List<Route> routesList = JsonConvert.DeserializeObject<List<Route>>(json) ?? [];
+                Dictionary<int, Route> routesDict = routesList.ToDictionary(route => route.Id, route => route);
+                return routesDict;
+            }
+            else
+            {
+                return [];
+            }
+        }
+        public static List<MtrStation> LoadMtrStations()
+        {
+            if (Program.CurrentMap != null)
+            {
+                string json = File.ReadAllText(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "data", Program.CurrentMap, "mtr_stations.json"));
+                List<MtrStation> mtrStationsList = JsonConvert.DeserializeObject<List<MtrStation>>(json) ?? [];
+                return mtrStationsList;
+            }
+            else
+            {
+                return [];
+            }
+        }
     }
 }

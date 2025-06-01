@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -30,13 +31,16 @@ namespace BusMapGenerator
         // 备份数据：输入 ( <工具名称> )，执行备份
         public static void BackupData(string toolName)
         {
-            string timestamp = DateTime.Now.ToString("yyMMddHHmmss");
-            string mapDir = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "data", Program.CurrentMap);
-            string backupDir = Path.Combine(mapDir, "backup");
-            string backupPath = Path.Combine(backupDir, $"data-{timestamp}-before-{toolName}");
+            if (!string.IsNullOrEmpty(Program.CurrentMap))
+            {
+                string timestamp = DateTime.Now.ToString("yyyyMMddHHmmss");
+                string mapDir = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "data", Program.CurrentMap);
+                string backupDir = Path.Combine(mapDir, "backup");
+                string backupPath = Path.Combine(backupDir, $"data-{timestamp}-before-{toolName}");
 
-            Directory.CreateDirectory(backupPath);
-            MoveData(mapDir, backupPath);
+                Directory.CreateDirectory(backupPath);
+                MoveData(mapDir, backupPath);
+            }
         }
 
         // 解析备份文件夹名中的 timestamp：输入 ( <文件夹名> )，输出 DateTime?
@@ -127,9 +131,11 @@ namespace BusMapGenerator
         // JSON 坐标 → Skia 坐标
         public static SKPoint CoordJSONToSkia(decimal[] jsonPoint)
         {
-            SKPoint skiaPoint = new SKPoint();
-            skiaPoint.X = (float)jsonPoint[0] - Program.PriorCenterX + (Program.PaperSizeX / 2);
-            skiaPoint.Y = Program.PriorCenterY - (float)jsonPoint[1] + (Program.PaperSizeY / 2);
+            SKPoint skiaPoint = new()
+            {
+                X = (float)jsonPoint[0] - Program.PriorCenterX + (Program.PaperSizeX / 2),
+                Y = Program.PriorCenterY - (float)jsonPoint[1] + (Program.PaperSizeY / 2)
+            };
             return skiaPoint;
         }
 
@@ -219,11 +225,155 @@ namespace BusMapGenerator
 
             return [x3, y3];
         }
+
+        // 刷新数据
         public static void DataRefresher()
         {
             Program.Nodes = DataLoader.LoadNodes();
             Program.Roads = DataLoader.LoadRoads();
             Program.Stations = DataLoader.LoadStations();
+            Program.Routes = DataLoader.LoadRoutes();
+            Program.MtrStations = DataLoader.LoadMtrStations();
+        }
+
+        // 设置颜色
+        public static SvgColourServer SetColor(int r, int g, int b)
+        {
+            return new(System.Drawing.Color.FromArgb(r, g, b));
+        }
+
+        // 转换方向
+        public static int SwapDirection(int dir)
+        {
+            if (dir >= 0 && dir <= 3)
+                return dir + 4;
+            else if (dir >= 4 && dir <= 7)
+                return dir - 4;
+            else
+                return -1; // 或抛出异常 throw new ArgumentOutOfRangeException()
+        }
+        // 求相对位移
+        public static (int direction, decimal distance) GetDirectionAndDistance(decimal[] a, decimal[] b)
+        {
+            if (a.Length != 2 || b.Length != 2)
+                throw new ArgumentException("坐标数组必须为长度为 2 的 decimal[2]");
+
+            decimal dx = b[0] - a[0]; // x轴，东为正
+            decimal dy = b[1] - a[1]; // y轴，北为正
+
+            // 若两点重合，方向设为北，距离为 0
+            if (dx == 0 && dy == 0)
+                return (0, 0);
+
+            // 计算角度（以“北”为 0°，顺时针为正方向）
+            double angle = Math.Atan2((double)dx, (double)dy); // 注意 dx 和 dy 的顺序是为了以“北”为0°
+            if (angle < 0)
+                angle += 2 * Math.PI;
+
+            // 映射到 8 个方向：每个方向占 π/4 = 45°
+            int direction = (int)Math.Floor((angle + Math.PI / 8) / (Math.PI / 4)) % 8;
+
+            // 计算距离
+            decimal absDx = Math.Abs(dx);
+            decimal absDy = Math.Abs(dy);
+            decimal distance = (direction % 2 == 1)  // 斜向（奇数）
+                ? Math.Min(absDx, absDy)
+                : (direction % 4 == 0 ? absDy : absDx); // 北南用 dy，东西用 dx
+
+            return (direction, distance);
+        }
+
+
+        // 求目标坐标
+        public static decimal[] GetTargetCoord(decimal[] origin, int direction, decimal distance)
+        {
+            if (origin.Length != 2)
+                throw new ArgumentException("起点坐标必须是长度为 2 的 decimal[2]");
+            if (direction < 0 || direction > 7)
+                throw new ArgumentOutOfRangeException(nameof(direction), "方向必须在 0 到 7 之间");
+
+            // 八个方向的单位向量（x, y）
+            var directionVectors = new (int dx, int dy)[]
+            {
+            (0, 1),   // 0 北
+            (1, 1),   // 1 东北
+            (1, 0),   // 2 东
+            (1, -1),  // 3 东南
+            (0, -1),  // 4 南
+            (-1, -1), // 5 西南
+            (-1, 0),  // 6 西
+            (-1, 1),  // 7 西北
+            };
+
+            var (dxUnit, dyUnit) = directionVectors[direction];
+
+            decimal dx, dy;
+
+            if (direction % 2 == 0)
+            {
+                // 正交方向（水平或垂直）
+                dx = distance * dxUnit;
+                dy = distance * dyUnit;
+            }
+            else
+            {
+                // 对角方向，按你的定义：斜向时距离仅代表 dx，dy 与 dx 相同
+                dx = distance * dxUnit;
+                dy = distance * dyUnit;
+            }
+
+            return
+            [
+            origin[0] + dx,
+            origin[1] + dy
+            ];
+        }
+    }
+    public readonly struct Distance
+    {
+        public decimal Coefficient { get; }
+        public int Radicand { get; } // 只能为 1 或 2
+
+        public Distance(decimal[] a, decimal[] b)
+        {
+            if (a.Length != 2 || b.Length != 2)
+                throw new ArgumentException("坐标数组必须为长度为 2 的 decimal[2]");
+
+            decimal dx = b[0] - a[0];
+            decimal dy = b[1] - a[1];
+
+            decimal absDx = Math.Abs(dx);
+            decimal absDy = Math.Abs(dy);
+
+            if (absDx != 0 && absDy == 0)
+            {
+                // 水平
+                Coefficient = absDx;
+                Radicand = 1;
+            }
+            else if (absDx == 0 && absDy != 0)
+            {
+                // 垂直
+                Coefficient = absDy;
+                Radicand = 1;
+            }
+            else if (absDx == absDy && absDx != 0)
+            {
+                // 对角
+                Coefficient = absDx;
+                Radicand = 2;
+            }
+            else
+            {
+                throw new InvalidOperationException("两点不在八方向（上、下、左、右、左上、右上、左下、右下）上，无法构造 Distance。");
+            }
+        }
+
+        public readonly double Value => (double)Coefficient * Math.Sqrt(Radicand);
+
+        public override readonly string ToString()
+        {
+            return $"{Coefficient}√{Radicand}";
         }
     }
 }

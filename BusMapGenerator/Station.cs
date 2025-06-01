@@ -63,7 +63,7 @@ namespace BusMapGenerator
         public SKPoint SkiaCoord => Utils.CoordJSONToSkia(JSONCoord);
 
         [JsonIgnore]
-        public Point WPFPoint => Utils.CoordSkiaToWPF(SkiaCoord, Program.CurrentSkiaElement);
+        public Point WPFPoint => Utils.CoordSkiaToWPF(SkiaCoord, Program.RPSkiaElement);
 
         [JsonIgnore]
         public int GeoSide => Side == "left" ? (Road.Direction + 6) % 8 : (Road.Direction + 2) % 8;

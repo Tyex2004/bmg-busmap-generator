@@ -2,10 +2,10 @@
 using Svg;
 using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace BusMapGenerator
 {
@@ -36,6 +36,12 @@ namespace BusMapGenerator
         public SvgPoint SvgCoordEnd => Nodes[1].SvgCoord;
 
         [JsonIgnore]
+        public Point WPFCoordStart => Nodes[0].WPFCoord;
+
+        [JsonIgnore]
+        public Point WPFCoordEnd => Nodes[1].WPFCoord;
+
+        [JsonIgnore]
         public int Direction  // 从零向北开始顺时针
         {
             get
@@ -59,13 +65,16 @@ namespace BusMapGenerator
         }
 
         [JsonIgnore]
+        public Distance Length => new(JSONCoordStart, JSONCoordEnd);
+
+        [JsonIgnore]
         public SvgLine RPGraph => new()
         {
             StartX = SvgCoordStart.X,
             StartY = SvgCoordStart.Y,
             EndX = SvgCoordEnd.X,
             EndY = SvgCoordEnd.Y,
-            Stroke = new SvgColourServer(Color.FromArgb(200, 0, 200)),
+            Stroke = Utils.SetColor(200, 0, 200),
             StrokeWidth = 3
         };
     }
