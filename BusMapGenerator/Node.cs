@@ -81,7 +81,7 @@ namespace BusMapGenerator
                         if (roadId != -1)
                         {
                             Road road = Program.Roads[roadId];
-                            returnArray[i] = road.Length.Coefficient - 3;
+                            returnArray[i] = Math.Max(0, road.Length.Coefficient - 3);
                             returnArray[Utils.SwapDirection(i)] = -1;  // 不限制移动长度
                         }
                         i++;
@@ -95,12 +95,27 @@ namespace BusMapGenerator
                         if (roadId != -1)
                         {
                             Road road = Program.Roads[roadId];
-                            returnArray[i] = road.Length.Coefficient - 3;
+                            returnArray[i] = Math.Max(0, road.Length.Coefficient - 3);
                         }
                         i++;
                     }
                 }
                 return returnArray;
+            }
+        }
+
+        [JsonIgnore]
+        public static int NextNewId
+        {
+            get
+            {
+                HashSet<int> existingIds = new(Program.Nodes.Keys);
+                int i = 1;
+                while (existingIds.Contains(i))
+                {
+                    i++;
+                }
+                return i;
             }
         }
 

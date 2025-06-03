@@ -12,9 +12,9 @@ namespace BusMapGenerator
     {
         public static Dictionary<int, Node> LoadNodes()
         {
-            if (Program.CurrentMap != null)
+            if (Program.Map != null)
             {
-                string json = File.ReadAllText(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "data", Program.CurrentMap, "nodes.json"));
+                string json = File.ReadAllText(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "data", Program.Map, "nodes.json"));
                 List<Node> nodesList = JsonConvert.DeserializeObject<List<Node>>(json) ?? [];
                 Dictionary<int, Node> nodesDict = nodesList.ToDictionary(node => node.Id, node => node);
                 return nodesDict;
@@ -26,9 +26,9 @@ namespace BusMapGenerator
         }
         public static Dictionary<int, Road> LoadRoads()
         {
-            if (Program.CurrentMap != null)
+            if (Program.Map != null)
             {
-                string json = File.ReadAllText(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "data", Program.CurrentMap, "roads.json"));
+                string json = File.ReadAllText(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "data", Program.Map, "roads.json"));
                 List<Road> roadsList = JsonConvert.DeserializeObject<List<Road>>(json) ?? [];
                 Dictionary<int, Road> roadsDict = roadsList.ToDictionary(road => road.Id, road => road);
                 return roadsDict;
@@ -40,9 +40,9 @@ namespace BusMapGenerator
         }
         public static Dictionary<int, Station> LoadStations()
         {
-            if (Program.CurrentMap != null)
+            if (Program.Map != null)
             {
-                string json = File.ReadAllText(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "data", Program.CurrentMap, "stations.json"));
+                string json = File.ReadAllText(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "data", Program.Map, "stations.json"));
                 List<Station> stationsList = JsonConvert.DeserializeObject<List<Station>>(json) ?? [];
                 Dictionary<int, Station> stationsDict = stationsList.ToDictionary(station => station.Id, station => station);
                 return stationsDict;
@@ -54,9 +54,9 @@ namespace BusMapGenerator
         }
         public static Dictionary<int, Route> LoadRoutes()
         {
-            if (Program.CurrentMap != null)
+            if (Program.Map != null)
             {
-                string json = File.ReadAllText(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "data", Program.CurrentMap, "routes.json"));
+                string json = File.ReadAllText(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "data", Program.Map, "routes.json"));
                 List<Route> routesList = JsonConvert.DeserializeObject<List<Route>>(json) ?? [];
                 Dictionary<int, Route> routesDict = routesList.ToDictionary(route => route.Id, route => route);
                 return routesDict;
@@ -68,9 +68,9 @@ namespace BusMapGenerator
         }
         public static List<MtrStation> LoadMtrStations()
         {
-            if (Program.CurrentMap != null)
+            if (Program.Map != null)
             {
-                string json = File.ReadAllText(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "data", Program.CurrentMap, "mtr_stations.json"));
+                string json = File.ReadAllText(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "data", Program.Map, "mtr_stations.json"));
                 List<MtrStation> mtrStationsList = JsonConvert.DeserializeObject<List<MtrStation>>(json) ?? [];
                 return mtrStationsList;
             }

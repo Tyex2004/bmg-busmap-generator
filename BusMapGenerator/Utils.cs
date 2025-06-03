@@ -31,10 +31,10 @@ namespace BusMapGenerator
         // 备份数据：输入 ( <工具名称> )，执行备份
         public static void BackupData(string toolName)
         {
-            if (!string.IsNullOrEmpty(Program.CurrentMap))
+            if (!string.IsNullOrEmpty(Program.Map))
             {
                 string timestamp = DateTime.Now.ToString("yyyyMMddHHmmss");
-                string mapDir = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "data", Program.CurrentMap);
+                string mapDir = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "data", Program.Map);
                 string backupDir = Path.Combine(mapDir, "backup");
                 string backupPath = Path.Combine(backupDir, $"data-{timestamp}-before-{toolName}");
 

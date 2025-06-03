@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Input;
 using Svg.Skia;
 using SkiaSharp;
 using SkiaSharp.Views.Desktop;
@@ -12,56 +13,73 @@ using SkiaSharp.Views.WPF;
 
 namespace BusMapGenerator
 {
-    internal class Program  // 全局变量列表
+    static internal class Program  // 全局变量列表
     {
-        // 鼠标位置
-        public static Point MousePosition { get; set; } = new Point();
-
         // 关于地图信息
-        public static string? CurrentMap { get; set; } = null;      // 当前地图
-        public static SKSvg? CurrentSkiaSVG { get; set; } = null;   // 当前的 SkiaSVG
-        public static SKElement RPSkiaElement { get; set; } = new();  // 当前的 SkiaElement
+        public static string? Map { get; set; } = null;                 // 当前地图
+        public static SKSvg? SkiaSVG { get; set; } = null;              // 当前的 SkiaSVG
+        public static SKElement RPSkiaElement { get; set; } = new();    // 当前的 SkiaElement
 
-        // 关于模式信息
-        public static bool IsEditingRoads = true;                   // 是否正在编辑道路模式，可以使用工具：拉出道路、移动道路、插入道路节点、删除道路节点
-        public static bool IsEditingStations = false;               // 是否正在编辑站点模式，可以使用工具：设置站点、移动站点、删除站点
-
-        // 关于鼠标悬停信息
-        public static int MouseButtonNearNodeId
+        // 关于鼠标信息
+        public static Point MousePosition { get; set; } = new Point();  // 当前鼠标位置
+        public static BMGElementId MouseButtonNearElement               // 当前鼠标靠近
         {
             get
             {
-                if (IsEditingRoads)
+                if (Mode == Mode.EditRoads)
                 {
                     foreach (KeyValuePair<int, Node> node in Nodes)
                     {
                         if (Utils.CalculatePointDistance(MousePosition, node.Value.WPFCoord) < 7)
                         {
-                            return node.Key;
+                            return new(BMGElementTypes.Node, node.Key);
                         }
                     }
-                    return -1;
                 }
-                else
+                return new();
+            }
+        }
+        public static bool IsDragging { get; set; } = false;            // 是否在画布按住拖拽
+
+        // 关于模式、数据管理工具使用信息
+        public static Mode Mode = Mode.EditRoads;                       // 当前模式
+        public static BMGElementId SelectedElement { get; set; }        // 选中的元素类型和编号
+        public static ManagementTool CurrentManagementTool              // 当前数据管理工具
+        {
+            get
+            {
+                // 编辑道路模式
+                if (Mode == Mode.EditRoads)
                 {
-                    return -1;
+                    // 选择了道路节点
+                    if (SelectedElement.Type == BMGElementTypes.Node)
+                    {
+                        if (KeyStatus == KeyStatus.None)
+                        {
+                            return ManagementTool.MoveNode;
+                        }
+                        else if (KeyStatus == KeyStatus.Shift)
+                        {
+                            return ManagementTool.PullRoad;
+                        }
+                        else if (KeyStatus == KeyStatus.Ctrl)
+                        {
+                            return ManagementTool.DeleteNode;
+                        }
+                        else return ManagementTool.None;
+                    }
+                    else return ManagementTool.None;
                 }
+                else return ManagementTool.None;
             }
         }
 
-        // 关于数据管理工具使用信息
-        public static int SelectedNodeId { get; set; } = -1;        // 选中的道路节点编号
-        public static bool IsMovingNode = false;                    // 是否正在使用移动节点工具
-
-        // 关于操作信息
-        public static bool IsPanning = false;                       // 是否正在中键平移
-        public static bool IsDragging { get; set; } = false;        // 是否在画布按住拖拽
-        public static Point LastMousePosition;                      // 上一次鼠标位置（WPF坐标）
-
-        // 关于画布信息
-        public static float Zoom = 1f;                              // 当前缩放比例
-        public static SKPoint CanvasOffset = new(0, 0);             // 当前画布偏移
-        public static SKPoint ZoomCenter = new(0, 0);               // 缩放中心
+        // 关于画布平移信息
+        public static bool IsPanning = false;                           // 是否正在中键平移
+        public static Point LastMousePosition;                          // 上一次鼠标位置（WPF坐标）
+        public static float Zoom = 1f;                                  // 当前缩放比例
+        public static SKPoint CanvasOffset = new(0, 0);                 // 当前画布偏移
+        public static SKPoint ZoomCenter = new(0, 0);                   // 缩放中心
 
         // 关于坐标系变换参数信息
         public static float PaperSizeX => (float)(Nodes.Values.Max(node => node.JSONCoord[0]) - Nodes.Values.Min(node => node.JSONCoord[0])) + 60;
@@ -74,9 +92,29 @@ namespace BusMapGenerator
         public static Point WPFEndPoint { get; set; } = new Point();            // WPF 终点坐标
         public static SKPoint SkiaStartPoint { get; set; } = new SKPoint();     // Skia 起点坐标
         public static SKPoint SkiaEndPoint { get; set; } = new SKPoint();       // Skia 终点坐标
-        public static decimal[] JSONStartPoint { get; set; } = [];           // JSON 起点坐标
-        public static decimal[] JSONEndPoint { get; set; } = [];             // JSON 终点坐标
+        public static decimal[] JSONStartPoint { get; set; } = new decimal[2];           // JSON 起点坐标
+        public static decimal[] JSONEndPoint { get; set; } = new decimal[2];             // JSON 终点坐标
         public static (int, decimal) JSONMove => Utils.GetDirectionAndDistance(JSONStartPoint, JSONEndPoint);  // JSON 移动方向和距离
+
+        // 关于键盘行为信息
+        public static KeyStatus KeyStatus
+        {
+            get
+            {
+                if (Keyboard.IsKeyDown(Key.LeftCtrl) || Keyboard.IsKeyDown(Key.RightCtrl))
+                {
+                    return KeyStatus.Ctrl;
+                }
+                else if (Keyboard.IsKeyDown(Key.LeftShift) || Keyboard.IsKeyDown(Key.RightShift))
+                {
+                    return KeyStatus.Shift;
+                }
+                else
+                {
+                    return KeyStatus.None;
+                }
+            }
+        }
 
         // 关于框选工具（暂时弃用）
         public static List<int> SelectedNodesIds { get; set; } = [];            // 选中的道路节点编号列表
@@ -92,4 +130,25 @@ namespace BusMapGenerator
         public static Dictionary<int, Route> Routes = [];       // 线路字典
         public static List<MtrStation> MtrStations = [];        // 地铁站列表
     }
+    enum KeyStatus
+    {
+        None,
+        Shift,
+        Ctrl
+    }
+    enum Mode
+    {
+        EditRoads,
+        EditStations,
+    }
+    enum BMGElementTypes
+    {
+        None,
+        Node,
+        Road,
+        Station,
+        Route,
+        MtrStation
+    }
+    record struct BMGElementId(BMGElementTypes Type = BMGElementTypes.None, int Id = -1);
 }

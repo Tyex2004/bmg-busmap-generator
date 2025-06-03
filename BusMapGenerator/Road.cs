@@ -68,6 +68,21 @@ namespace BusMapGenerator
         public Distance Length => new(JSONCoordStart, JSONCoordEnd);
 
         [JsonIgnore]
+        public static int NextNewId
+        {
+            get
+            {
+                HashSet<int> existingIds = new(Program.Roads.Keys);
+                int i = 1;
+                while (existingIds.Contains(i))
+                {
+                    i++;
+                }
+                return i;
+            }
+        }
+
+        [JsonIgnore]
         public SvgLine RPGraph => new()
         {
             StartX = SvgCoordStart.X,

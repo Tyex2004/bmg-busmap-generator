@@ -16,6 +16,8 @@ using Svg;
 using Svg.Skia;
 using System.Diagnostics;
 using AvalonDock.Layout;
+using System.Linq.Expressions;
+using static System.Formats.Asn1.AsnWriter;
 
 namespace BusMapGenerator
 {
@@ -30,6 +32,21 @@ namespace BusMapGenerator
             LayoutDocumentPane.Children.Remove(RoadPreviewer);
             LayoutDocumentPane.Children.Remove(Mapper);
             Program.RPSkiaElement = SkiaCanvas;
+            // 注册全局的 KeyDown 和 KeyUp 事件监听
+            InputManager.Current.PreNotifyInput += (sender, e) =>
+            {
+                if (e.StagingItem.Input is KeyEventArgs keyArgs)
+                {
+                    if (keyArgs.Key == Key.LeftShift || keyArgs.Key == Key.RightShift ||
+                        keyArgs.Key == Key.LeftCtrl || keyArgs.Key == Key.RightCtrl)
+                    {
+                        if (Program.Map != null && Program.SkiaSVG!= null)
+                        {
+                            SkiaCanvas.InvalidateVisual();
+                        }
+                    }
+                }
+            };
         }
 
         // 点击“打开”时执行
@@ -53,20 +70,20 @@ namespace BusMapGenerator
                 {
                     LayoutDocumentPane.Children.Add(Mapper);
                 }
-                Program.CurrentMap = selectWindow.SelectedMap;            // 赋值：当前地图名称
-                Program.CurrentSkiaSVG = null;                            // 清空当前 SkiaSVG
+                Program.Map = selectWindow.SelectedMap;            // 赋值：当前地图名称
+                Program.SkiaSVG = null;                            // 清空当前 SkiaSVG
                 Utils.DataRefresher();                                    // 刷新数据
                 Generate();                                               // 生成 SVG
                 ResetZoom();                                              // 重置缩放
                 SkiaCanvas.InvalidateVisual();                            // 刷新重绘：对 SVG 主要进行“加载”和“绘制”两步
-                MessageBox.Show($"你打开了地图：{Program.CurrentMap}");   // 弹出消息框
+                MessageBox.Show($"你打开了地图：{Program.Map}");   // 弹出消息框
             }
         }
 
         // 初次显示、刷新请求、内容变化、尺寸变化时执行
         private void OnPaintSurface(object sender, SKPaintSurfaceEventArgs e)  // e 包含了很多关于 SkiaSharp 绘图画布的属性
         {
-            if (!string.IsNullOrEmpty(Program.CurrentMap))
+            if (!string.IsNullOrEmpty(Program.Map))
             {
                 // 1. 获取 SkiaSharp 的绘图画布，清空 -> 背景设为白色 -> 加载 SVG
                 var canvas = e.Surface.Canvas;
@@ -78,9 +95,9 @@ namespace BusMapGenerator
                 canvas.Scale(Program.Zoom);
 
                 // 3. 绘制 SVG
-                if (Program.CurrentSkiaSVG != null)
+                if (Program.SkiaSVG != null)
                 { 
-                    canvas.DrawPicture(Program.CurrentSkiaSVG.Picture);
+                    canvas.DrawPicture(Program.SkiaSVG.Picture);
                 }
 
                 // 条件控制：如果正在框选，画矩形
@@ -104,9 +121,9 @@ namespace BusMapGenerator
                 }
 
                 // 条件控制：道路编辑模式下，鼠标靠近道路节点，道路节点有矩形框
-                if (Program.MouseButtonNearNodeId != -1)
+                if (Program.MouseButtonNearElement.Type == BMGElementTypes.Node)
                 {
-                    SKPoint rectCenter = Program.Nodes[Program.MouseButtonNearNodeId].SkiaCoord;
+                    SKPoint rectCenter = Program.Nodes[Program.MouseButtonNearElement.Id].SkiaCoord;
                     using var paint1 = new SKPaint
                     {
                         Color = new SKColor(0, 0, 240),
@@ -135,24 +152,58 @@ namespace BusMapGenerator
                 }
 
                 // 条件控制：使用道路节点移动工具时，在预计的目标位置画一个黄点
-                if (Program.IsMovingNode)
+                if (Program.CurrentManagementTool == ManagementTool.MoveNode)
                 {
-                    Node node = Program.Nodes[Program.SelectedNodeId];
-                    int moveDirection = Program.JSONMove.Item1;
-                    decimal moveDistance = Program.JSONMove.Item2;
-                    if (node.CanMoveDistance[moveDirection] != -1)
+                    if (Program.SelectedElement.Type == BMGElementTypes.Node)
                     {
-                        moveDistance = Math.Min(Program.JSONMove.Item2, node.CanMoveDistance[moveDirection]);
+                        Node node = Program.Nodes[Program.SelectedElement.Id];
+                        int moveDirection = Program.JSONMove.Item1;
+                        decimal moveDistance = Program.JSONMove.Item2;
+                        if (node.CanMoveDistance[moveDirection] != -1)
+                        {
+                            moveDistance = Math.Min(Program.JSONMove.Item2, node.CanMoveDistance[moveDirection]);
+                        }
+                        decimal[] jsonTargetCoord = Utils.GetTargetCoord(node.JSONCoord, moveDirection, moveDistance);
+                        SKPoint skiaTargetCoord = Utils.CoordJSONToSkia(jsonTargetCoord);
+                        using var paint = new SKPaint
+                        {
+                            Color = new SKColor(0, 255, 255),
+                            Style = SKPaintStyle.StrokeAndFill,
+                            StrokeWidth = 1f / Program.Zoom,
+                        };
+                        canvas.DrawCircle(skiaTargetCoord.X, skiaTargetCoord.Y, 6f / Program.Zoom, paint);
                     }
-                    decimal[] jsonTargetCoord = Utils.GetTargetCoord(node.JSONCoord, moveDirection, moveDistance);
-                    SKPoint skiaTargetCoord = Utils.CoordJSONToSkia(jsonTargetCoord);
-                    using var paint = new SKPaint
+                }
+
+                // 条件控制：使用道路拉出工具时，先画出拉出的线段，然后画出目标位置的节点
+                if (Program.CurrentManagementTool == ManagementTool.PullRoad)
+                {
+                    if (Program.SelectedElement.Type == BMGElementTypes.Node)
                     {
-                        Color = new SKColor(0, 255, 255),
-                        Style = SKPaintStyle.StrokeAndFill,
-                        StrokeWidth = 1f / Program.Zoom,
-                    };
-                    canvas.DrawCircle(skiaTargetCoord.X, skiaTargetCoord.Y, 6f / Program.Zoom, paint);
+                        Node node = Program.Nodes[Program.SelectedElement.Id];
+                        int moveDirection = Program.JSONMove.Item1;
+                        decimal moveDistance = Program.JSONMove.Item2;
+                        if (node.RoadsId[moveDirection] != -1) moveDistance = 0;
+                        if (moveDistance > 3)
+                        {
+                            decimal[] targetCoord = Utils.GetTargetCoord(node.JSONCoord, moveDirection, moveDistance);
+                            SKPoint skiaTargetCoord = Utils.CoordJSONToSkia(targetCoord);
+                            using var roadpaint = new SKPaint
+                            {
+                                Color = new SKColor(200, 0, 200, 130),
+                                Style = SKPaintStyle.Stroke,
+                                StrokeWidth = 12f / Program.Zoom,
+                            };
+                            canvas.DrawLine(node.SkiaCoord.X, node.SkiaCoord.Y, skiaTargetCoord.X, skiaTargetCoord.Y, roadpaint);
+                            using var paint = new SKPaint
+                            {
+                                Color = new SKColor(0, 255, 255),
+                                Style = SKPaintStyle.StrokeAndFill,
+                                StrokeWidth = 1f / Program.Zoom,
+                            };
+                            canvas.DrawCircle(skiaTargetCoord.X, skiaTargetCoord.Y, 6f / Program.Zoom, paint);
+                        }
+                    }
                 }
 
                 // 条件控制：如果选择出东西，画矩形
@@ -194,27 +245,26 @@ namespace BusMapGenerator
         // 按下鼠标时执行
         private void SkiaCanvas_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            // 左键执行
-            if (!string.IsNullOrEmpty(Program.CurrentMap))
+            if (!string.IsNullOrEmpty(Program.Map))
             {
+                // 左键执行
                 if (e.ChangedButton == MouseButton.Left)
                 {
                     Program.WPFStartPoint = e.GetPosition(SkiaCanvas);
                     Program.SkiaStartPoint = Utils.CoordWPFToSkia(Program.WPFStartPoint, SkiaCanvas);
                     Program.JSONStartPoint = Utils.CoordSkiaToJSON(Program.SkiaStartPoint);
-                    //Program.IsDragging = true;
-                    // 道路编辑模式下
-                    if (Program.IsEditingRoads)
+                    // 道路编辑模式
+                    if (Program.Mode == Mode.EditRoads)
                     {
-                        // 如果鼠标靠近道路节点，就启用道路节点移动工具
-                        if (Program.MouseButtonNearNodeId != -1)
+                        // 鼠标靠近道路节点
+                        if (Program.MouseButtonNearElement.Type == BMGElementTypes.Node)
                         {
-                            Program.SelectedNodeId = Program.MouseButtonNearNodeId;
-                            Debug.WriteLine("开始用道路节点编辑工具");
-                            Program.IsMovingNode = true;
+                            // 赋值选择的道路节点
+                            Program.SelectedElement = new(BMGElementTypes.Node, Program.MouseButtonNearElement.Id);
                         }
                     }
                 }
+                // 关于平移
                 if (e.ChangedButton == MouseButton.Middle)
                 {
                     Program.IsPanning = true;
@@ -229,28 +279,14 @@ namespace BusMapGenerator
         {
             Program.RPSkiaElement = SkiaCanvas;
             Program.MousePosition = e.GetPosition(SkiaCanvas);
-            if (!string.IsNullOrEmpty(Program.CurrentMap))
+            if (!string.IsNullOrEmpty(Program.Map))
             {
                 SkiaCanvas.InvalidateVisual();
-                // 道路编辑模式下
-                if (Program.IsEditingRoads)
-                {
-                    // 使用道路编辑工具时
-                    if (Program.IsMovingNode)
-                    {
-                        Program.WPFEndPoint = e.GetPosition(SkiaCanvas);
-                        Program.SkiaEndPoint = Utils.CoordWPFToSkia(Program.WPFEndPoint, SkiaCanvas);
-                        Program.JSONEndPoint = Utils.CoordSkiaToJSON(Program.SkiaEndPoint);
-                    }
-                }
-                if (Program.IsDragging)
-                {
-                    Program.WPFEndPoint = e.GetPosition(SkiaCanvas);
-                    Program.SkiaEndPoint = Utils.CoordWPFToSkia(Program.WPFEndPoint, SkiaCanvas);
-                    Program.JSONEndPoint = Utils.CoordSkiaToJSON(Program.SkiaEndPoint);
-                    SkiaCanvas.InvalidateVisual();
-                }
-                // 中间按住时执行
+                Program.WPFEndPoint = e.GetPosition(SkiaCanvas);
+                Program.SkiaEndPoint = Utils.CoordWPFToSkia(Program.WPFEndPoint, SkiaCanvas);
+                Program.JSONEndPoint = Utils.CoordSkiaToJSON(Program.SkiaEndPoint);
+
+                // 关于平移
                 if (Program.IsPanning)
                 {
                     Point currentPosition = e.GetPosition(SkiaCanvas);
@@ -278,51 +314,53 @@ namespace BusMapGenerator
         // 抬起鼠标时执行
         private void SkiaCanvas_MouseUp(object sender, MouseButtonEventArgs e)
         {
-            if (!string.IsNullOrEmpty(Program.CurrentMap))
+            if (!string.IsNullOrEmpty(Program.Map))
             {
+                // 左键执行
                 if (e.ChangedButton == MouseButton.Left)
                 {
                     // 道路编辑模式下
-                    if (Program.IsEditingRoads)
+                    if (Program.Mode == Mode.EditRoads)
                     {
                         // 使用道路节点移动工具时
-                        if (Program.IsMovingNode)
+                        if (Program.CurrentManagementTool == ManagementTool.MoveNode)
                         {
-                            if (Program.SelectedNodeId != -1)
-                            {
-                                // 执行节点移动
-                                Debug.WriteLine("执行节点移动");
-                                ManagementTools.MoveNode(Program.SelectedNodeId);
-                                Generate();
-                                Debug.WriteLine("执行了RunPython");
-                                Program.IsMovingNode = false;
-                            }
+                            Debug.WriteLine("执行节点移动");
+                            ManagementTools.MoveNode(Program.SelectedElement.Id);
+                            Generate();
                         }
-                    }
-                    if (Program.IsDragging)
-                    {
-                        Program.IsDragging = false;
-                        Program.WPFEndPoint = e.GetPosition(SkiaCanvas);
-                        Program.SkiaEndPoint = Utils.CoordWPFToSkia(Program.WPFEndPoint, SkiaCanvas);
-                        Program.JSONEndPoint = Utils.CoordSkiaToJSON(Program.SkiaEndPoint);
-                        ManagementTools.SelectNodes();  // 执行选择工具
-                        textBox3.Text = $"选择了{string.Join(",", Program.SelectedNodesIds)}";
+                        // 使用道路拉出工具时
+                        else if (Program.CurrentManagementTool == ManagementTool.PullRoad)
+                        {
+                            Debug.WriteLine("执行道路拉出");
+                            ManagementTools.PullRoad(Program.SelectedElement.Id);
+                            Generate();
+                        }
+                        // 使用道路节点删除工具时
+                        else if (Program.CurrentManagementTool == ManagementTool.DeleteNode)
+                        {
+                            Debug.WriteLine("执行节点删除");
+                            ManagementTools.DeleteNode(Program.SelectedElement.Id);
+                            Generate();
+                        }
+                        Program.SelectedElement = new();
                         SkiaCanvas.InvalidateVisual();
                     }
                 }
+                // 关于缩放和平移
                 if (e.ChangedButton == MouseButton.Middle)
                 {
                     Program.IsPanning = false;
                     SkiaCanvas.ReleaseMouseCapture();
-                    return; // 避免继续走框选逻辑
+                    return;
                 }
             }
         }
 
-        // 滚动鼠标时执行
+        // 关于缩放和平移
         private void SkiaCanvas_MouseWheel(object sender, MouseWheelEventArgs e)
         {
-            if (string.IsNullOrEmpty(Program.CurrentMap))
+            if (string.IsNullOrEmpty(Program.Map))
             {
                 return;
             }
@@ -362,7 +400,7 @@ namespace BusMapGenerator
         // 执行生成
         private static void Generate()
         {
-            if (Program.CurrentMap != null)
+            if (Program.Map != null)
             {
                 SvgDocument rp = new() { Width = Program.PaperSizeX, Height = Program.PaperSizeY };
                 foreach (KeyValuePair<int, Road> road in Program.Roads)
@@ -378,23 +416,23 @@ namespace BusMapGenerator
                     rp.Children.Add(station.Value.RPGraph);
                     rp.Children.Add(station.Value.RPText);
                 }
-                if (Path.Exists(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "output", Program.CurrentMap)) == false)
+                if (Path.Exists(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "output", Program.Map)) == false)
                 {
-                    Directory.CreateDirectory(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "output", Program.CurrentMap));
+                    Directory.CreateDirectory(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "output", Program.Map));
                 }
-                rp.Write(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "output", Program.CurrentMap, "道路预览.svg"));
+                rp.Write(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "output", Program.Map, "道路预览.svg"));
             }
         }
 
         // 加载
         private static void LoadSvg()
         {
-            if (Program.CurrentMap != null)
+            if (Program.Map != null)
             {
-                Program.CurrentSkiaSVG = new SKSvg();
-                if (File.Exists(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "output", Program.CurrentMap, "道路预览.svg")))
+                Program.SkiaSVG = new SKSvg();
+                if (File.Exists(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "output", Program.Map, "道路预览.svg")))
                 {
-                    Program.CurrentSkiaSVG.Load(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "output", Program.CurrentMap, "道路预览.svg"));
+                    Program.SkiaSVG.Load(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "output", Program.Map, "道路预览.svg"));
                 }
             }
         }

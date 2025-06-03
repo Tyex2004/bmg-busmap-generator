@@ -37,11 +37,10 @@ namespace BusMapGenerator
             Program.SelectedNodesIds = selectedNodes;
         }
 
-        // 道路节点移动工具：输入移动的 x 值和移动的 y值
+        // 道路节点移动工具：输入移动的道路节点编号，根据 Program.JSONMove 进行移动，移动距离不超过各方向可移动的最大距离
         public static void MoveNode(int nodeId)
         {
             Node node = Program.Nodes[nodeId];
-            Debug.WriteLine($"CanMoveDistance: [{node.CanMoveDistance[0]}, {node.CanMoveDistance[1]}, {node.CanMoveDistance[2]}, {node.CanMoveDistance[3]}, {node.CanMoveDistance[4]}, {node.CanMoveDistance[5]}, {node.CanMoveDistance[6]}, {node.CanMoveDistance[7]}]");
             int moveDirection = Program.JSONMove.Item1;
             decimal moveDistance = Program.JSONMove.Item2;
             if (node.CanMoveDistance[moveDirection] != -1)
@@ -49,9 +48,53 @@ namespace BusMapGenerator
                 moveDistance = Math.Min(Program.JSONMove.Item2, node.CanMoveDistance[moveDirection]);
             }
             decimal[] targetCoord = Utils.GetTargetCoord(node.JSONCoord, moveDirection, moveDistance);
+            Debug.WriteLine($"node.JSONCoord = [{node.JSONCoord[0]}, {node.JSONCoord[1]}], targetCoord = [{targetCoord[0]}, {targetCoord[1]}]");
             Program.Nodes[nodeId].JSONCoord = targetCoord;
             Utils.BackupData("MoveNode");
             DataSaver.Save();
+        }
+
+        // 道路拉出工具：输入拉出道路的开始的道路节点编号
+        public static void PullRoad(int nodeId)
+        {
+            Node node = Program.Nodes[nodeId];
+            int moveDirection = Program.JSONMove.Item1;
+            decimal moveDistance = Program.JSONMove.Item2;
+            if (node.RoadsId[moveDirection] != -1) moveDistance = 0;
+            if (moveDistance > 3)
+            {
+                Debug.WriteLine($"使用道路拉出工具，nodeId = {nodeId}");
+                decimal[] targetCoord = Utils.GetTargetCoord(node.JSONCoord, moveDirection, moveDistance);
+                Node nextNode = new() { Id = Node.NextNewId, JSONCoord = targetCoord };
+                Program.Nodes[Node.NextNewId] = nextNode;
+                Program.Roads[Road.NextNewId] = new() { Id = Road.NextNewId, NodesId = [node.Id, nextNode.Id] };
+                Utils.BackupData("PullRoad");
+                DataSaver.Save();
+            }
+        }
+
+        // 道路节点删除工具：输入删除的道路节点编号
+        public static void DeleteNode(int nodeId)
+        {
+            Node node = Program.Nodes[nodeId];
+            if (node.IsRoadStartOrEnd)
+            {
+                int roadId = node.RoadsId.First(id => id != -1);
+                Program.Roads.Remove(roadId);
+                Program.Nodes.Remove(nodeId);
+                Utils.BackupData("DeleteNode");
+                DataSaver.Save();
+            }
+            else if (node.IsNotRoadEnterence)
+            {
+                Road[] roads = node.RoadsId.Where(id => id != -1).Take(2).Select(id => Program.Roads[id]).ToArray();
+                int nodeId1 = roads[0].NodesId.First(id => id != nodeId);
+                int nodeId2 = roads[1].NodesId.First(id => id != nodeId);
+                Program.Roads[Road.NextNewId] = new() { Id = Road.NextNewId, NodesId = [nodeId1, nodeId2] };
+                Program.Roads.Remove(roads[0].Id);
+                Program.Roads.Remove(roads[1].Id);
+                Program.Nodes.Remove(nodeId);
+            }
         }
 
         // 撤销工具：把 mapDir 的数据移动到 undonePath，把 backupPath 的数据移动到 mapDir
@@ -115,5 +158,12 @@ namespace BusMapGenerator
             Utils.MoveData(undonePath, mapDir);
             Directory.Delete(undonePath, true);
         }
+    }
+    enum ManagementTool
+    {
+        None,
+        MoveNode,
+        PullRoad,
+        DeleteNode
     }
 }
