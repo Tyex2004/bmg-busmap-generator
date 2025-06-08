@@ -173,7 +173,7 @@
             <Fluent:StatusBarItem Title="左侧项"
                           Value="150"
                           HorizontalAlignment="Left">
-                <TextBlock Text="150 px" />
+                <TextBlock Text="无靠近的元素" Name="NearElementText"/>
             </Fluent:StatusBarItem>
             <!-- 左侧分隔符 -->
             <Separator HorizontalAlignment="Left" />

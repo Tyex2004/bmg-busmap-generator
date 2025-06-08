@@ -43,15 +43,18 @@ namespace BusMapGenerator
             Node node = Program.Nodes[nodeId];
             int moveDirection = Program.JSONMove.Item1;
             decimal moveDistance = Program.JSONMove.Item2;
-            if (node.CanMoveDistance[moveDirection] != -1)
+            if (node.NodeMovingCanMoveDistance[moveDirection] != -1)
             {
-                moveDistance = Math.Min(Program.JSONMove.Item2, node.CanMoveDistance[moveDirection]);
+                moveDistance = Math.Min(Program.JSONMove.Item2, node.NodeMovingCanMoveDistance[moveDirection]);
             }
-            decimal[] targetCoord = Utils.GetTargetCoord(node.JSONCoord, moveDirection, moveDistance);
-            Debug.WriteLine($"node.JSONCoord = [{node.JSONCoord[0]}, {node.JSONCoord[1]}], targetCoord = [{targetCoord[0]}, {targetCoord[1]}]");
-            Program.Nodes[nodeId].JSONCoord = targetCoord;
-            Utils.BackupData("MoveNode");
-            DataSaver.Save();
+            if (moveDistance != 0)
+            {
+                decimal[] targetCoord = Utils.GetTargetCoord(node.JSONCoord, moveDirection, moveDistance);
+                Debug.WriteLine($"node.JSONCoord = [{node.JSONCoord[0]}, {node.JSONCoord[1]}], targetCoord = [{targetCoord[0]}, {targetCoord[1]}]");
+                Program.Nodes[nodeId].JSONCoord = targetCoord;
+                Utils.BackupData("MoveNode");
+                DataSaver.Save();
+            }
         }
 
         // 道路拉出工具：输入拉出道路的开始的道路节点编号
@@ -85,15 +88,44 @@ namespace BusMapGenerator
                 Utils.BackupData("DeleteNode");
                 DataSaver.Save();
             }
-            else if (node.IsNotRoadEnterence)
+            else if (node.IsStraight)
             {
                 Road[] roads = node.RoadsId.Where(id => id != -1).Take(2).Select(id => Program.Roads[id]).ToArray();
+                int roadsIdToRemove0 = roads[0].Id;
+                int roadsIdToRemove1 = roads[1].Id;
                 int nodeId1 = roads[0].NodesId.First(id => id != nodeId);
                 int nodeId2 = roads[1].NodesId.First(id => id != nodeId);
                 Program.Roads[Road.NextNewId] = new() { Id = Road.NextNewId, NodesId = [nodeId1, nodeId2] };
-                Program.Roads.Remove(roads[0].Id);
-                Program.Roads.Remove(roads[1].Id);
+                Program.Roads.Remove(roadsIdToRemove0);
+                Program.Roads.Remove(roadsIdToRemove1);
                 Program.Nodes.Remove(nodeId);
+                Utils.BackupData("DeleteNode");
+                DataSaver.Save();
+            }
+            else if (node.Level == 1)
+            {
+                Program.Nodes.Remove(nodeId);
+                Utils.BackupData("DeleteNode");
+                DataSaver.Save();
+            }
+        }
+
+        // 道路移动工具：输入移动的道路编号，通过移动关联道路节点和同一条直线上所有道路的关联道路节点实现移动
+        public static void MoveRoad(int roadId)
+        {
+            Road road = Program.Roads[roadId];
+            Dictionary<Node, decimal[]> moveDict = road.DisplacementWhileMovingTargetNodes;
+            if (moveDict.Count != 0)
+            {
+                foreach (KeyValuePair<Node, decimal[]> movePair in moveDict)
+                {
+                    for (int i = 0; i < 2; i++)
+                    {
+                        movePair.Key.JSONCoord[i] += movePair.Value[i];
+                    }
+                }
+                Utils.BackupData("MoveRoad");
+                DataSaver.Save();
             }
         }
 
@@ -164,6 +196,7 @@ namespace BusMapGenerator
         None,
         MoveNode,
         PullRoad,
-        DeleteNode
+        DeleteNode,
+        MoveRoad
     }
 }

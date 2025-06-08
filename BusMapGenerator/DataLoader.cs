@@ -5,6 +5,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
+using System.Diagnostics;
+using HarfBuzzSharp;
 
 namespace BusMapGenerator
 {
@@ -77,6 +79,42 @@ namespace BusMapGenerator
             else
             {
                 return [];
+            }
+        }
+        public static void BuildStraightRoads()
+        {
+            Program.StraightRoads.Clear();
+            Debug.WriteLine("Building straight roads");
+            // 遍历所有方向
+            for (int direction = 0; direction <= 3; direction++)
+            {
+                // 遍历所有道路节点
+                foreach (var node in Program.Nodes.Values)
+                {
+                    int straightRoadOfThisNodeHasBuilt = 0;
+
+                    // 遍历所有直路，判断当前节点所在的直路是否已经构建
+                    foreach (var straightRoad in Program.StraightRoads)
+                    {
+                        if (straightRoad.Direction == direction && straightRoad.NodeIds.Contains(node.Id)) straightRoadOfThisNodeHasBuilt++;
+                    }
+
+                    // 若当前方向、当前节点所在的直路没有被构建，而这个节点当前方向存在道路的，则构建一个新的直路
+                    if (straightRoadOfThisNodeHasBuilt == 0 && (node.SameStraightRoadNodesId8Directs[direction].Count > 0 ||
+                        node.SameStraightRoadNodesId8Directs[Utils.SwapDirection(direction)].Count > 0))
+                    {
+                        StraightRoad straightRoad = new() { NodeIds = [node.Id], Direction = direction };
+                        foreach (var nodeId in node.SameStraightRoadNodesId8Directs[direction])
+                        {
+                            straightRoad.NodeIds.Add(nodeId);
+                        }
+                        foreach (var nodeId in node.SameStraightRoadNodesId8Directs[Utils.SwapDirection(direction)])
+                        {
+                            straightRoad.NodeIds.Add(nodeId);
+                        }
+                        Program.StraightRoads.Add(straightRoad);
+                    }
+                }
             }
         }
     }

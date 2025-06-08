@@ -149,6 +149,28 @@ namespace BusMapGenerator
         // 计算两个 Point 的距离
         public static double CalculatePointDistance(Point p1, Point p2) => (p2 - p1).Length;
 
+        // 计算点到直线距离
+        public static double CalculatePointToLineDistance(Point p, Point a, Point b)
+        {
+            // 线段 ab 的平方长度
+            double dx = b.X - a.X;
+            double dy = b.Y - a.Y;
+            double lengthSquared = dx * dx + dy * dy;
+
+            if (lengthSquared == 0)
+                return CalculatePointDistance(p, a); // a 和 b 是同一个点
+
+            // 计算投影点在 ab 上的比例 t（限制在 [0,1] 范围）
+            double t = ((p.X - a.X) * dx + (p.Y - a.Y) * dy) / lengthSquared;
+            t = Math.Max(0, Math.Min(1, t));
+
+            // 找到投影点
+            Point projection = new(a.X + t * dx, a.Y + t * dy);
+
+            // 返回从 p 到投影点的距离
+            return CalculatePointDistance(p, projection);
+        }
+
         // 判断点是否靠近道路
         public static bool IsNodeNearRoad(decimal[] road_coord1, decimal[] road_coord2, decimal[] node_coord)
         {
@@ -234,6 +256,8 @@ namespace BusMapGenerator
             Program.Stations = DataLoader.LoadStations();
             Program.Routes = DataLoader.LoadRoutes();
             Program.MtrStations = DataLoader.LoadMtrStations();
+            DataLoader.BuildStraightRoads();
+            Debug.WriteLine($"直路数量：{Program.StraightRoads.Count}");
         }
 
         // 设置颜色

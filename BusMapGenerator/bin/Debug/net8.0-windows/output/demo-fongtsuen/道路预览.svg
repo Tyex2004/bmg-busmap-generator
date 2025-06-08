@@ -1,111 +1,110 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xml="http://www.w3.org/XML/1998/namespace" width="572.8045" height="121.8762">
-  <line x1="150.9717" y1="61.87624" x2="30" y2="61.87624" stroke-width="3" style="stroke:#C800C8;" />
-  <line x1="30" y1="61.87624" x2="30" y2="91.87624" stroke-width="3" style="stroke:#C800C8;" />
-  <line x1="30" y1="91.87624" x2="455" y2="91.87624" stroke-width="3" style="stroke:#C800C8;" />
-  <line x1="455" y1="91.87624" x2="470" y2="76.87624" stroke-width="3" style="stroke:#C800C8;" />
-  <line x1="470" y1="76.87624" x2="470" y2="30" stroke-width="3" style="stroke:#C800C8;" />
-  <circle cx="150.9717" cy="61.87624" r="1.5" style="fill:#64F6FF;" />
-  <circle cx="30" cy="61.87624" r="1.5" style="fill:#64F6FF;" />
-  <circle cx="30" cy="91.87624" r="1.5" style="fill:#64F6FF;" />
-  <circle cx="455" cy="91.87624" r="1.5" style="fill:#64F6FF;" />
-  <circle cx="470" cy="76.87624" r="1.5" style="fill:#64F6FF;" />
-  <circle cx="470" cy="30" r="1.5" style="fill:#64F6FF;" />
-  <circle cx="542.8045" cy="30" r="1.5" style="fill:#64F6FF;" />
-  <circle cx="150.9717" cy="61.87624" r="2" stroke-width="0.8" style="fill:yellow;stroke:black;" />
-  <text y="69.87624" text-anchor="middle" style="fill:black;">
-    <tspan x="150.9717" dx="0" font-family="SimHei" font-size="4.7">中海锦城总站</tspan>
-    <tspan x="150.9717" dy="4" font-family="Arial" font-size="3">Chung Hoi Kam Shing Term.</tspan>
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xml="http://www.w3.org/XML/1998/namespace" width="586.668" height="130.2065">
+  <line x1="154.268" y1="44.13304" x2="30" y2="44.13304" stroke-width="3" style="stroke:#C800C8;" />
+  <line x1="30" y1="44.13304" x2="30" y2="100.2065" stroke-width="3" style="stroke:#C800C8;" />
+  <line x1="30" y1="100.2065" x2="539.14" y2="100.2065" stroke-width="3" style="stroke:#C800C8;" />
+  <line x1="539.14" y1="100.2065" x2="556.668" y2="82.67853" stroke-width="3" style="stroke:#C800C8;" />
+  <line x1="556.668" y1="82.67853" x2="556.668" y2="30" stroke-width="3" style="stroke:#C800C8;" />
+  <circle cx="154.268" cy="44.13304" r="1.5" style="fill:#64F6FF;" />
+  <circle cx="30" cy="44.13304" r="1.5" style="fill:#64F6FF;" />
+  <circle cx="30" cy="100.2065" r="1.5" style="fill:#64F6FF;" />
+  <circle cx="539.14" cy="100.2065" r="1.5" style="fill:#64F6FF;" />
+  <circle cx="556.668" cy="82.67853" r="1.5" style="fill:#64F6FF;" />
+  <circle cx="556.668" cy="30" r="1.5" style="fill:#64F6FF;" />
+  <circle cx="143.0839" cy="44.13304" r="2" stroke-width="0.8" style="fill:yellow;stroke:black;" />
+  <text y="52.13304" text-anchor="middle" style="fill:black;">
+    <tspan x="143.0839" dx="0" font-family="SimHei" font-size="4.7">中海锦城总站</tspan>
+    <tspan x="143.0839" dy="4" font-family="Arial" font-size="3">Chung Hoi Kam Shing Term.</tspan>
   </text>
-  <circle cx="120.7288" cy="61.87624" r="2" stroke-width="0.8" style="fill:yellow;stroke:black;" />
-  <text y="53.87624" text-anchor="middle" style="fill:black;">
-    <tspan x="120.7288" dx="0" font-family="SimHei" font-size="4.7">汇泉路东</tspan>
-    <tspan x="120.7288" dy="4" font-family="Arial" font-size="3">Wui Tsuen Rd. E.</tspan>
+  <circle cx="123.201" cy="44.13304" r="2" stroke-width="0.8" style="fill:yellow;stroke:black;" />
+  <text y="36.13304" text-anchor="middle" style="fill:black;">
+    <tspan x="123.201" dx="0" font-family="SimHei" font-size="4.7">汇泉路东</tspan>
+    <tspan x="123.201" dy="4" font-family="Arial" font-size="3">Wui Tsuen Rd. E.</tspan>
   </text>
-  <circle cx="90.48586" cy="61.87624" r="2" stroke-width="0.8" style="fill:yellow;stroke:black;" />
-  <text y="69.87624" text-anchor="middle" style="fill:black;">
-    <tspan x="90.48586" dx="1.2" font-family="SimHei" font-size="4.7">汇泉路（中海锦城北）</tspan>
-    <tspan x="90.48586" dy="4" font-family="Arial" font-size="3">Wui Tsuen Rd. (Chung Hoi Kam Shing N.)</tspan>
+  <circle cx="92.13399" cy="44.13304" r="2" stroke-width="0.8" style="fill:yellow;stroke:black;" />
+  <text y="52.13304" text-anchor="middle" style="fill:black;">
+    <tspan x="92.13399" dx="1.2" font-family="SimHei" font-size="4.7">汇泉路（中海锦城北）</tspan>
+    <tspan x="92.13399" dy="4" font-family="Arial" font-size="3">Wui Tsuen Rd. (Chung Hoi Kam Shing N.)</tspan>
   </text>
-  <circle cx="60.24292" cy="61.87624" r="2" stroke-width="0.8" style="fill:yellow;stroke:black;" />
-  <text y="53.87624" text-anchor="middle" style="fill:black;">
-    <tspan x="60.24292" dx="1.2" font-family="SimHei" font-size="4.7">融通路中（滨江1号）</tspan>
-    <tspan x="60.24292" dy="4" font-family="Arial" font-size="3">Yung Tung Rd. M. (Pan Kong No.1)</tspan>
+  <circle cx="61.06699" cy="44.13304" r="2" stroke-width="0.8" style="fill:yellow;stroke:black;" />
+  <text y="36.13304" text-anchor="middle" style="fill:black;">
+    <tspan x="61.06699" dx="1.2" font-family="SimHei" font-size="4.7">融通路中（滨江1号）</tspan>
+    <tspan x="61.06699" dy="4" font-family="Arial" font-size="3">Yung Tung Rd. M. (Pan Kong No.1)</tspan>
   </text>
-  <circle cx="51.25" cy="91.87624" r="2" stroke-width="0.8" style="fill:yellow;stroke:black;" />
-  <text y="83.87624" text-anchor="middle" style="fill:black;">
-    <tspan x="51.25" dx="0" font-family="SimHei" font-size="4.7">中海锦城南</tspan>
-    <tspan x="51.25" dy="4" font-family="Arial" font-size="3">Chung Hoi Kam Shing S.</tspan>
+  <circle cx="55.45699" cy="100.2065" r="2" stroke-width="0.8" style="fill:yellow;stroke:black;" />
+  <text y="92.20653" text-anchor="middle" style="fill:black;">
+    <tspan x="55.45699" dx="0" font-family="SimHei" font-size="4.7">中海锦城南</tspan>
+    <tspan x="55.45699" dy="4" font-family="Arial" font-size="3">Chung Hoi Kam Shing S.</tspan>
   </text>
-  <circle cx="59.75" cy="91.87624" r="2" stroke-width="0.8" style="fill:yellow;stroke:black;" />
-  <text y="99.87624" text-anchor="middle" style="fill:black;">
-    <tspan x="59.75" dx="0" font-family="SimHei" font-size="4.7">万科金域中央北</tspan>
-    <tspan x="59.75" dy="4" font-family="Arial" font-size="3">Man Fo Kam Wik Chung Yeung N.</tspan>
+  <circle cx="65.63979" cy="100.2065" r="2" stroke-width="0.8" style="fill:yellow;stroke:black;" />
+  <text y="108.2065" text-anchor="middle" style="fill:black;">
+    <tspan x="65.63979" dx="0" font-family="SimHei" font-size="4.7">万科金域中央北</tspan>
+    <tspan x="65.63979" dy="4" font-family="Arial" font-size="3">Man Fo Kam Wik Chung Yeung N.</tspan>
   </text>
-  <circle cx="98" cy="91.87624" r="2" stroke-width="0.8" style="fill:yellow;stroke:black;" />
-  <text y="83.87624" text-anchor="middle" style="fill:black;">
-    <tspan x="98" dx="0" font-family="SimHei" font-size="4.7">五丫口大桥东</tspan>
-    <tspan x="98" dy="4" font-family="Arial" font-size="3">Ng Nga Hau Bridge E.</tspan>
+  <circle cx="111.4624" cy="100.2065" r="2" stroke-width="0.8" style="fill:yellow;stroke:black;" />
+  <text y="92.20653" text-anchor="middle" style="fill:black;">
+    <tspan x="111.4624" dx="0" font-family="SimHei" font-size="4.7">五丫口大桥东</tspan>
+    <tspan x="111.4624" dy="4" font-family="Arial" font-size="3">Ng Nga Hau Bridge E.</tspan>
   </text>
-  <circle cx="136.25" cy="91.87624" r="2" stroke-width="0.8" style="fill:yellow;stroke:black;" />
-  <text y="99.87624" text-anchor="middle" style="fill:black;">
-    <tspan x="136.25" dx="0" font-family="SimHei" font-size="4.7">地铁龙溪站</tspan>
-    <tspan x="136.25" dy="4" font-family="Arial" font-size="3">Lung Kai Sta.</tspan>
+  <circle cx="157.285" cy="100.2065" r="2" stroke-width="0.8" style="fill:yellow;stroke:black;" />
+  <text y="108.2065" text-anchor="middle" style="fill:black;">
+    <tspan x="157.285" dx="0" font-family="SimHei" font-size="4.7">地铁龙溪站</tspan>
+    <tspan x="157.285" dy="4" font-family="Arial" font-size="3">Lung Kai Sta.</tspan>
   </text>
-  <circle cx="174.5" cy="91.87624" r="2" stroke-width="0.8" style="fill:yellow;stroke:black;" />
-  <text y="83.87624" text-anchor="middle" style="fill:black;">
-    <tspan x="174.5" dx="1.2" font-family="SimHei" font-size="4.7">龙溪大道西（裕海路口）</tspan>
-    <tspan x="174.5" dy="4" font-family="Arial" font-size="3">Lung Kai Ave. W. (Yue Hoi Rd. Entr.)</tspan>
+  <circle cx="203.1076" cy="100.2065" r="2" stroke-width="0.8" style="fill:yellow;stroke:black;" />
+  <text y="92.20653" text-anchor="middle" style="fill:black;">
+    <tspan x="203.1076" dx="1.2" font-family="SimHei" font-size="4.7">龙溪大道西（裕海路口）</tspan>
+    <tspan x="203.1076" dy="4" font-family="Arial" font-size="3">Lung Kai Ave. W. (Yue Hoi Rd. Entr.)</tspan>
   </text>
-  <circle cx="212.75" cy="91.87624" r="2" stroke-width="0.8" style="fill:yellow;stroke:black;" />
-  <text y="99.87624" text-anchor="middle" style="fill:black;">
-    <tspan x="212.75" dx="0" font-family="SimHei" font-size="4.7">增滘立交西</tspan>
-    <tspan x="212.75" dy="4" font-family="Arial" font-size="3">Tsang Kau Intersection W.</tspan>
+  <circle cx="248.9302" cy="100.2065" r="2" stroke-width="0.8" style="fill:yellow;stroke:black;" />
+  <text y="108.2065" text-anchor="middle" style="fill:black;">
+    <tspan x="248.9302" dx="0" font-family="SimHei" font-size="4.7">增滘立交西</tspan>
+    <tspan x="248.9302" dy="4" font-family="Arial" font-size="3">Tsang Kau Intersection W.</tspan>
   </text>
-  <circle cx="251" cy="91.87624" r="2" stroke-width="0.8" style="fill:yellow;stroke:black;" />
-  <text y="83.87624" text-anchor="middle" style="fill:black;">
-    <tspan x="251" dx="0" font-family="SimHei" font-size="4.7">龙溪大道中</tspan>
-    <tspan x="251" dy="4" font-family="Arial" font-size="3">Lung Kai Ave. M.</tspan>
+  <circle cx="294.7528" cy="100.2065" r="2" stroke-width="0.8" style="fill:yellow;stroke:black;" />
+  <text y="92.20653" text-anchor="middle" style="fill:black;">
+    <tspan x="294.7528" dx="0" font-family="SimHei" font-size="4.7">龙溪大道中</tspan>
+    <tspan x="294.7528" dy="4" font-family="Arial" font-size="3">Lung Kai Ave. M.</tspan>
   </text>
-  <circle cx="289.25" cy="91.87624" r="2" stroke-width="0.8" style="fill:yellow;stroke:black;" />
-  <text y="99.87624" text-anchor="middle" style="fill:black;">
-    <tspan x="289.25" dx="0" font-family="SimHei" font-size="4.7">芳村体育中心</tspan>
-    <tspan x="289.25" dy="4" font-family="Arial" font-size="3">Fong Tsuen Sports Center</tspan>
+  <circle cx="340.5754" cy="100.2065" r="2" stroke-width="0.8" style="fill:yellow;stroke:black;" />
+  <text y="108.2065" text-anchor="middle" style="fill:black;">
+    <tspan x="340.5754" dx="0" font-family="SimHei" font-size="4.7">芳村体育中心</tspan>
+    <tspan x="340.5754" dy="4" font-family="Arial" font-size="3">Fong Tsuen Sports Center</tspan>
   </text>
-  <circle cx="314.75" cy="91.87624" r="2" stroke-width="0.8" style="fill:yellow;stroke:black;" />
-  <text y="83.87624" text-anchor="middle" style="fill:black;">
-    <tspan x="314.75" dx="0" font-family="SimHei" font-size="4.7">东漖教师新村总站</tspan>
-    <tspan x="314.75" dy="4" font-family="Arial" font-size="3">Term. of Tung Kau Teachers' Village</tspan>
+  <circle cx="371.1238" cy="100.2065" r="2" stroke-width="0.8" style="fill:yellow;stroke:black;" />
+  <text y="92.20653" text-anchor="middle" style="fill:black;">
+    <tspan x="371.1238" dx="0" font-family="SimHei" font-size="4.7">东漖教师新村总站</tspan>
+    <tspan x="371.1238" dy="4" font-family="Arial" font-size="3">Term. of Tung Kau Teachers' Village</tspan>
   </text>
-  <circle cx="340.25" cy="91.87624" r="2" stroke-width="0.8" style="fill:yellow;stroke:black;" />
-  <text y="99.87624" text-anchor="middle" style="fill:black;">
-    <tspan x="340.25" dx="0" font-family="SimHei" font-size="4.7">东漖教师新村</tspan>
-    <tspan x="340.25" dy="4" font-family="Arial" font-size="3">Tung Kau Teachers' Village</tspan>
+  <circle cx="401.6722" cy="100.2065" r="2" stroke-width="0.8" style="fill:yellow;stroke:black;" />
+  <text y="108.2065" text-anchor="middle" style="fill:black;">
+    <tspan x="401.6722" dx="0" font-family="SimHei" font-size="4.7">东漖教师新村</tspan>
+    <tspan x="401.6722" dy="4" font-family="Arial" font-size="3">Tung Kau Teachers' Village</tspan>
   </text>
-  <circle cx="374.25" cy="91.87624" r="2" stroke-width="0.8" style="fill:yellow;stroke:black;" />
-  <text y="83.87624" text-anchor="middle" style="fill:black;">
-    <tspan x="374.25" dx="0" font-family="SimHei" font-size="4.7">芳村花园南门总站</tspan>
-    <tspan x="374.25" dy="4" font-family="Arial" font-size="3">Term. of Southern Gate of Fong Tsuen Garden</tspan>
+  <circle cx="442.4034" cy="100.2065" r="2" stroke-width="0.8" style="fill:yellow;stroke:black;" />
+  <text y="92.20653" text-anchor="middle" style="fill:black;">
+    <tspan x="442.4034" dx="0" font-family="SimHei" font-size="4.7">芳村花园南门总站</tspan>
+    <tspan x="442.4034" dy="4" font-family="Arial" font-size="3">Term. of Southern Gate of Fong Tsuen Garden</tspan>
   </text>
-  <circle cx="399.75" cy="91.87624" r="2" stroke-width="0.8" style="fill:yellow;stroke:black;" />
-  <text y="99.87624" text-anchor="middle" style="fill:black;">
-    <tspan x="399.75" dx="0" font-family="SimHei" font-size="4.7">芳村花园</tspan>
-    <tspan x="399.75" dy="4" font-family="Arial" font-size="3">Fong Tsuen Garden</tspan>
+  <circle cx="472.9518" cy="100.2065" r="2" stroke-width="0.8" style="fill:yellow;stroke:black;" />
+  <text y="108.2065" text-anchor="middle" style="fill:black;">
+    <tspan x="472.9518" dx="0" font-family="SimHei" font-size="4.7">芳村花园</tspan>
+    <tspan x="472.9518" dy="4" font-family="Arial" font-size="3">Fong Tsuen Garden</tspan>
   </text>
-  <circle cx="438" cy="91.87624" r="2" stroke-width="0.8" style="fill:yellow;stroke:black;" />
-  <text y="83.87624" text-anchor="middle" style="fill:black;">
-    <tspan x="438" dx="1.2" font-family="SimHei" font-size="4.7">龙溪大道东（教师新村）</tspan>
-    <tspan x="438" dy="4" font-family="Arial" font-size="3">Lung Kai Ave. E. (Teachers' Village)</tspan>
+  <circle cx="518.7744" cy="100.2065" r="2" stroke-width="0.8" style="fill:yellow;stroke:black;" />
+  <text y="92.20653" text-anchor="middle" style="fill:black;">
+    <tspan x="518.7744" dx="1.2" font-family="SimHei" font-size="4.7">龙溪大道东（教师新村）</tspan>
+    <tspan x="518.7744" dy="4" font-family="Arial" font-size="3">Lung Kai Ave. E. (Teachers' Village)</tspan>
   </text>
-  <circle cx="470" cy="67.50099" r="2" stroke-width="0.8" style="fill:yellow;stroke:black;" />
-  <text y="67.50099" text-anchor="end" style="fill:black;">
-    <tspan x="466" dx="2.4" font-family="SimHei" font-size="4.7">坑口地铁站（芳村客运站）</tspan>
-    <tspan x="466" dy="4" font-family="Arial" font-size="3">Hang Hau Sta. (Fong Tsuen Coach Term.)</tspan>
+  <circle cx="556.668" cy="72.14282" r="2" stroke-width="0.8" style="fill:yellow;stroke:black;" />
+  <text y="72.14282" text-anchor="end" style="fill:black;">
+    <tspan x="552.668" dx="2.4" font-family="SimHei" font-size="4.7">坑口地铁站（芳村客运站）</tspan>
+    <tspan x="552.668" dy="4" font-family="Arial" font-size="3">Hang Hau Sta. (Fong Tsuen Coach Term.)</tspan>
   </text>
-  <circle cx="470" cy="39.37524" r="2" stroke-width="0.8" style="fill:yellow;stroke:black;" />
-  <text y="39.37524" text-anchor="end" style="fill:black;">
-    <tspan x="466" dx="0" font-family="SimHei" font-size="4.7">康乃馨花园</tspan>
-    <tspan x="466" dy="4" font-family="Arial" font-size="3">Carnation Garden</tspan>
+  <circle cx="556.668" cy="40.53571" r="2" stroke-width="0.8" style="fill:yellow;stroke:black;" />
+  <text y="40.53571" text-anchor="end" style="fill:black;">
+    <tspan x="552.668" dx="0" font-family="SimHei" font-size="4.7">康乃馨花园</tspan>
+    <tspan x="552.668" dy="4" font-family="Arial" font-size="3">Carnation Garden</tspan>
   </text>
 </svg>

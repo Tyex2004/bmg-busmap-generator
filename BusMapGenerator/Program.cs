@@ -35,6 +35,13 @@ namespace BusMapGenerator
                             return new(BMGElementTypes.Node, node.Key);
                         }
                     }
+                    foreach (KeyValuePair<int, Road> road in Roads)
+                    {
+                        if (Utils.CalculatePointToLineDistance(MousePosition, road.Value.WPFCoordStart, road.Value.WPFCoordEnd) < 6)
+                        {
+                            return new(BMGElementTypes.Road, road.Key);
+                        }
+                    }
                 }
                 return new();
             }
@@ -68,8 +75,19 @@ namespace BusMapGenerator
                         }
                         else return ManagementTool.None;
                     }
+                    // 选择了道路
+                    else if (SelectedElement.Type == BMGElementTypes.Road)
+                    {
+                        if (KeyStatus == KeyStatus.None)
+                        {
+                            return ManagementTool.MoveRoad;
+                        }
+                        else return ManagementTool.None;
+                    }
+                    // 其它情况
                     else return ManagementTool.None;
                 }
+                // 非编辑道路模式
                 else return ManagementTool.None;
             }
         }
@@ -129,6 +147,9 @@ namespace BusMapGenerator
         public static Dictionary<int, Station> Stations = [];   // 站点字典
         public static Dictionary<int, Route> Routes = [];       // 线路字典
         public static List<MtrStation> MtrStations = [];        // 地铁站列表
+
+        // 属性数据
+        public static List<StraightRoad> StraightRoads = [];    // 直线道路列表
     }
     enum KeyStatus
     {
