@@ -121,9 +121,9 @@ namespace BusMapGenerator
                 }
 
                 // 条件控制：鼠标靠近道路节点，道路节点有矩形框
-                if (Program.MouseButtonNearElement.Type == BMGElementTypes.Node)
+                if (Program.MouseNearElement.Type == BMGElementTypes.Node)
                 {
-                    SKPoint rectCenter = Program.Nodes[Program.MouseButtonNearElement.Id].SkiaCoord;
+                    SKPoint rectCenter = Program.Nodes[Program.MouseNearElement.Id].SkiaCoord;
                     using var paint1 = new SKPaint
                     {
                         Color = new SKColor(0, 0, 240),
@@ -149,13 +149,13 @@ namespace BusMapGenerator
                     canvas.DrawRect(rect3, paint1);
                     canvas.DrawRect(rect4, paint1);
                     canvas.DrawRect(rect5, paint1);
-                    NearElementText.Text = $"靠近节点：{Program.MouseButtonNearElement.Id}";
+                    NearElementText.Text = $"靠近节点：{Program.MouseNearElement.Id}";
                 }
                 // 条件控制：鼠标靠近道路，道路会有中心蓝线
-                if (Program.MouseButtonNearElement.Type == BMGElementTypes.Road)
+                if (Program.MouseNearElement.Type == BMGElementTypes.Road)
                 {
-                    SKPoint roadStart = Program.Roads[Program.MouseButtonNearElement.Id].SKiaCoordStart;
-                    SKPoint roadEnd = Program.Roads[Program.MouseButtonNearElement.Id].SKiaCoordEnd;
+                    SKPoint roadStart = Program.Roads[Program.MouseNearElement.Id].SKiaCoordStart;
+                    SKPoint roadEnd = Program.Roads[Program.MouseNearElement.Id].SKiaCoordEnd;
                     using var paint1 = new SKPaint
                     {
                         Color = new SKColor(0, 180, 230),
@@ -163,10 +163,10 @@ namespace BusMapGenerator
                         StrokeWidth = 2f / Program.Zoom,
                     };
                     canvas.DrawLine(roadStart, roadEnd, paint1);
-                    NearElementText.Text = $"靠近道路：{Program.MouseButtonNearElement.Id}";
+                    NearElementText.Text = $"靠近道路：{Program.MouseNearElement.Id}";
                 }
                 // 条件控制：鼠标没有靠近的物体，NearElementText 显示“无靠近的元素”
-                if (Program.MouseButtonNearElement.Type == BMGElementTypes.None)
+                if (Program.MouseNearElement.Type == BMGElementTypes.None)
                 {
                     NearElementText.Text = "无靠近的元素";
                 }
@@ -232,12 +232,54 @@ namespace BusMapGenerator
                     {
                         Road road = Program.Roads[Program.SelectedElement.Id];
                         Dictionary<Node, decimal[]> moveDict = road.DisplacementWhileMovingTargetNodes;
+                        using var roadpaint = new SKPaint
+                        {
+                            Color = new SKColor(200, 0, 200, 130),
+                            Style = SKPaintStyle.Stroke,
+                            StrokeWidth = 12f / Program.Zoom,
+                        };
                         using var paint = new SKPaint
                         {
                             Color = new SKColor(0, 255, 255),
                             Style = SKPaintStyle.StrokeAndFill,
                             StrokeWidth = 1f / Program.Zoom,
                         };
+                        foreach (var road1 in Program.Roads.Values)
+                        {
+                            var n0 = road1.Nodes[0];
+                            var n1 = road1.Nodes[1];
+
+                            if (moveDict.TryGetValue(n0, out var offset0) && !moveDict.ContainsKey(n1))
+                            {
+                                var coord0 = Utils.CoordJSONToSkia([
+                                    offset0[0] + n0.JSONCoord[0],
+                                    offset0[1] + n0.JSONCoord[1]
+                                ]);
+                                var coord1 = Utils.CoordJSONToSkia(n1.JSONCoord);
+                                canvas.DrawLine(coord0, coord1, roadpaint);
+                            }
+                            else if (moveDict.TryGetValue(n1, out var offset1) && !moveDict.ContainsKey(n0))
+                            {
+                                var coord0 = Utils.CoordJSONToSkia(n0.JSONCoord);
+                                var coord1 = Utils.CoordJSONToSkia([
+                                    offset1[0] + n1.JSONCoord[0],
+                                    offset1[1] + n1.JSONCoord[1]
+                                ]);
+                                canvas.DrawLine(coord0, coord1, roadpaint);
+                            }
+                            else if (moveDict.TryGetValue(n0, out offset0) && moveDict.TryGetValue(n1, out offset1))
+                            {
+                                var coord0 = Utils.CoordJSONToSkia([
+                                    offset0[0] + n0.JSONCoord[0],
+                                    offset0[1] + n0.JSONCoord[1]
+                                ]);
+                                var coord1 = Utils.CoordJSONToSkia([
+                                    offset1[0] + n1.JSONCoord[0],
+                                    offset1[1] + n1.JSONCoord[1]
+                                ]);
+                                canvas.DrawLine(coord0, coord1, roadpaint);
+                            }
+                        }
                         foreach (KeyValuePair<Node, decimal[]> movePair in moveDict)
                         {
                             decimal[] targetCoord = [movePair.Key.JSONCoord[0] + movePair.Value[0], movePair.Key.JSONCoord[1] + movePair.Value[1]];
@@ -294,7 +336,7 @@ namespace BusMapGenerator
                     Program.SkiaStartPoint = Utils.CoordWPFToSkia(Program.WPFStartPoint, SkiaCanvas);
                     Program.JSONStartPoint = Utils.CoordSkiaToJSON(Program.SkiaStartPoint);
                     // 赋值选择的元素
-                    Program.SelectedElement = Program.MouseButtonNearElement;
+                    Program.SelectedElement = Program.MouseNearElement;
                 }
                 // 关于平移
                 if (e.ChangedButton == MouseButton.Middle)
@@ -382,6 +424,29 @@ namespace BusMapGenerator
                         {
                             Debug.WriteLine("执行道路移动");
                             ManagementTools.MoveRoad(Program.SelectedElement.Id);
+                            Generate();
+                            Utils.DataRefresher();
+                        }
+                        // 使用道路节点插入工具时
+                        else if (Program.CurrentManagementTool == ManagementTool.InsertNode)
+                        {
+                            Debug.WriteLine("执行节点插入");
+                            if (Program.MouseTwoNearestRoads[1].Type != BMGElementTypes.None)
+                            {
+                                ManagementTools.InsertNode(Program.MouseTwoNearestRoads[0].Id, Program.MouseTwoNearestRoads[1].Id);
+                            }
+                            else
+                            {
+                                ManagementTools.InsertNode(Program.SelectedElement.Id);
+                            }
+                            Generate();
+                            Utils.DataRefresher();
+                        }
+                        // 使用道路删除工具时
+                        else if (Program.CurrentManagementTool == ManagementTool.DeleteRoad)
+                        {
+                            Debug.WriteLine("执行道路删除");
+                            ManagementTools.DeleteRoad(Program.SelectedElement.Id);
                             Generate();
                             Utils.DataRefresher();
                         }

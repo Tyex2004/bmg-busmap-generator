@@ -7,14 +7,6 @@
       "RelativeMoniker": "D:0:0:{F095BE04-DB45-458E-8A76-7B0B4523AEB9}|BusMapGenerator\\BusMapGenerator.csproj|solutionrelative:busmapgenerator\\managementtools.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{F095BE04-DB45-458E-8A76-7B0B4523AEB9}|BusMapGenerator\\BusMapGenerator.csproj|c:\\users\\taamy\\source\\repos\\busmapgenerator\\busmapgenerator\\road.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F095BE04-DB45-458E-8A76-7B0B4523AEB9}|BusMapGenerator\\BusMapGenerator.csproj|solutionrelative:busmapgenerator\\road.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F095BE04-DB45-458E-8A76-7B0B4523AEB9}|BusMapGenerator\\BusMapGenerator.csproj|c:\\users\\taamy\\source\\repos\\busmapgenerator\\busmapgenerator\\dataloader.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F095BE04-DB45-458E-8A76-7B0B4523AEB9}|BusMapGenerator\\BusMapGenerator.csproj|solutionrelative:busmapgenerator\\dataloader.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{F095BE04-DB45-458E-8A76-7B0B4523AEB9}|BusMapGenerator\\BusMapGenerator.csproj|c:\\users\\taamy\\source\\repos\\busmapgenerator\\busmapgenerator\\straightroad.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{F095BE04-DB45-458E-8A76-7B0B4523AEB9}|BusMapGenerator\\BusMapGenerator.csproj|solutionrelative:busmapgenerator\\straightroad.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -23,16 +15,28 @@
       "RelativeMoniker": "D:0:0:{F095BE04-DB45-458E-8A76-7B0B4523AEB9}|BusMapGenerator\\BusMapGenerator.csproj|solutionrelative:busmapgenerator\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{F095BE04-DB45-458E-8A76-7B0B4523AEB9}|BusMapGenerator\\BusMapGenerator.csproj|c:\\users\\taamy\\source\\repos\\busmapgenerator\\busmapgenerator\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F095BE04-DB45-458E-8A76-7B0B4523AEB9}|BusMapGenerator\\BusMapGenerator.csproj|solutionrelative:busmapgenerator\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F095BE04-DB45-458E-8A76-7B0B4523AEB9}|BusMapGenerator\\BusMapGenerator.csproj|c:\\users\\taamy\\source\\repos\\busmapgenerator\\busmapgenerator\\road.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F095BE04-DB45-458E-8A76-7B0B4523AEB9}|BusMapGenerator\\BusMapGenerator.csproj|solutionrelative:busmapgenerator\\road.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{F095BE04-DB45-458E-8A76-7B0B4523AEB9}|BusMapGenerator\\BusMapGenerator.csproj|c:\\users\\taamy\\source\\repos\\busmapgenerator\\busmapgenerator\\node.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{F095BE04-DB45-458E-8A76-7B0B4523AEB9}|BusMapGenerator\\BusMapGenerator.csproj|solutionrelative:busmapgenerator\\node.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{F095BE04-DB45-458E-8A76-7B0B4523AEB9}|BusMapGenerator\\BusMapGenerator.csproj|c:\\users\\taamy\\source\\repos\\busmapgenerator\\busmapgenerator\\utils.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F095BE04-DB45-458E-8A76-7B0B4523AEB9}|BusMapGenerator\\BusMapGenerator.csproj|solutionrelative:busmapgenerator\\utils.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{F095BE04-DB45-458E-8A76-7B0B4523AEB9}|BusMapGenerator\\BusMapGenerator.csproj|c:\\users\\taamy\\source\\repos\\busmapgenerator\\busmapgenerator\\data\\demo-fongtsuen\\routes.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{F095BE04-DB45-458E-8A76-7B0B4523AEB9}|BusMapGenerator\\BusMapGenerator.csproj|solutionrelative:busmapgenerator\\data\\demo-fongtsuen\\routes.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{F095BE04-DB45-458E-8A76-7B0B4523AEB9}|BusMapGenerator\\BusMapGenerator.csproj|c:\\users\\taamy\\source\\repos\\busmapgenerator\\busmapgenerator\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F095BE04-DB45-458E-8A76-7B0B4523AEB9}|BusMapGenerator\\BusMapGenerator.csproj|solutionrelative:busmapgenerator\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{F095BE04-DB45-458E-8A76-7B0B4523AEB9}|BusMapGenerator\\BusMapGenerator.csproj|c:\\users\\taamy\\source\\repos\\busmapgenerator\\busmapgenerator\\mtrstation.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F095BE04-DB45-458E-8A76-7B0B4523AEB9}|BusMapGenerator\\BusMapGenerator.csproj|solutionrelative:busmapgenerator\\mtrstation.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F095BE04-DB45-458E-8A76-7B0B4523AEB9}|BusMapGenerator\\BusMapGenerator.csproj|c:\\users\\taamy\\source\\repos\\busmapgenerator\\busmapgenerator\\dataloader.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F095BE04-DB45-458E-8A76-7B0B4523AEB9}|BusMapGenerator\\BusMapGenerator.csproj|solutionrelative:busmapgenerator\\dataloader.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{F095BE04-DB45-458E-8A76-7B0B4523AEB9}|BusMapGenerator\\BusMapGenerator.csproj|c:\\users\\taamy\\source\\repos\\busmapgenerator\\busmapgenerator\\datasaver.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -41,14 +45,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{F095BE04-DB45-458E-8A76-7B0B4523AEB9}|BusMapGenerator\\BusMapGenerator.csproj|c:\\users\\taamy\\source\\repos\\busmapgenerator\\busmapgenerator\\station.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{F095BE04-DB45-458E-8A76-7B0B4523AEB9}|BusMapGenerator\\BusMapGenerator.csproj|solutionrelative:busmapgenerator\\station.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F095BE04-DB45-458E-8A76-7B0B4523AEB9}|BusMapGenerator\\BusMapGenerator.csproj|c:\\users\\taamy\\source\\repos\\busmapgenerator\\busmapgenerator\\mtrstation.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F095BE04-DB45-458E-8A76-7B0B4523AEB9}|BusMapGenerator\\BusMapGenerator.csproj|solutionrelative:busmapgenerator\\mtrstation.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F095BE04-DB45-458E-8A76-7B0B4523AEB9}|BusMapGenerator\\BusMapGenerator.csproj|c:\\users\\taamy\\source\\repos\\busmapgenerator\\busmapgenerator\\data\\demo-fongtsuen\\routes.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
-      "RelativeMoniker": "D:0:0:{F095BE04-DB45-458E-8A76-7B0B4523AEB9}|BusMapGenerator\\BusMapGenerator.csproj|solutionrelative:busmapgenerator\\data\\demo-fongtsuen\\routes.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
     }
   ],
   "DocumentGroupContainers": [
@@ -58,7 +54,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 391,
-          "SelectedChildIndex": 12,
+          "SelectedChildIndex": 11,
           "Children": [
             {
               "$type": "Bookmark",
@@ -66,13 +62,13 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 1,
               "Title": "StraightRoad.cs",
               "DocumentMoniker": "C:\\Users\\TaamY\\source\\repos\\BusMapGenerator\\BusMapGenerator\\StraightRoad.cs",
               "RelativeDocumentMoniker": "BusMapGenerator\\StraightRoad.cs",
               "ToolTip": "C:\\Users\\TaamY\\source\\repos\\BusMapGenerator\\BusMapGenerator\\StraightRoad.cs",
               "RelativeToolTip": "BusMapGenerator\\StraightRoad.cs",
-              "ViewState": "AgIAAAMAAAAAAAAAAAAAABkAAAAiAAAAAAAAAA==",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAABsAAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-06-08T16:03:59.023Z",
               "EditorCaption": ""
@@ -85,27 +81,27 @@
               "RelativeDocumentMoniker": "BusMapGenerator\\Node.cs",
               "ToolTip": "C:\\Users\\TaamY\\source\\repos\\BusMapGenerator\\BusMapGenerator\\Node.cs",
               "RelativeToolTip": "BusMapGenerator\\Node.cs",
-              "ViewState": "AgIAABEAAAAAAAAAAAAYwDYBAAAKAAAAAAAAAA==",
+              "ViewState": "AgIAAKMAAAAAAAAAAAAAABcAAAAUAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-06-08T13:31:12.818Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 4,
               "Title": "Road.cs",
               "DocumentMoniker": "C:\\Users\\TaamY\\source\\repos\\BusMapGenerator\\BusMapGenerator\\Road.cs",
               "RelativeDocumentMoniker": "BusMapGenerator\\Road.cs",
               "ToolTip": "C:\\Users\\TaamY\\source\\repos\\BusMapGenerator\\BusMapGenerator\\Road.cs",
               "RelativeToolTip": "BusMapGenerator\\Road.cs",
-              "ViewState": "AgIAAGYAAAAAAAAAAAAYwHEAAAANAAAAAAAAAA==",
+              "ViewState": "AgIAAD4AAAAAAAAAAAAAAE0AAAAzAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-06-04T02:33:29.596Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 6,
               "Title": "routes.json",
               "DocumentMoniker": "C:\\Users\\TaamY\\source\\repos\\BusMapGenerator\\BusMapGenerator\\data\\demo-fongtsuen\\routes.json",
               "RelativeDocumentMoniker": "BusMapGenerator\\data\\demo-fongtsuen\\routes.json",
@@ -113,24 +109,12 @@
               "RelativeToolTip": "BusMapGenerator\\data\\demo-fongtsuen\\routes.json",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2025-05-31T08:06:55.791Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "Utils.cs",
-              "DocumentMoniker": "C:\\Users\\TaamY\\source\\repos\\BusMapGenerator\\BusMapGenerator\\Utils.cs",
-              "RelativeDocumentMoniker": "BusMapGenerator\\Utils.cs",
-              "ToolTip": "C:\\Users\\TaamY\\source\\repos\\BusMapGenerator\\BusMapGenerator\\Utils.cs",
-              "RelativeToolTip": "BusMapGenerator\\Utils.cs",
-              "ViewState": "AgIAAPYAAAAAAAAAAADwv/wAAAAJAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-10T11:51:38.099Z",
+              "WhenOpened": "2025-05-31T08:06:55.791Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 10,
               "Title": "Station.cs",
               "DocumentMoniker": "C:\\Users\\TaamY\\source\\repos\\BusMapGenerator\\BusMapGenerator\\Station.cs",
               "RelativeDocumentMoniker": "BusMapGenerator\\Station.cs",
@@ -142,7 +126,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 7,
               "Title": "MtrStation.cs",
               "DocumentMoniker": "C:\\Users\\TaamY\\source\\repos\\BusMapGenerator\\BusMapGenerator\\MtrStation.cs",
               "RelativeDocumentMoniker": "BusMapGenerator\\MtrStation.cs",
@@ -150,11 +134,12 @@
               "RelativeToolTip": "BusMapGenerator\\MtrStation.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAdAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-24T11:54:21.511Z"
+              "WhenOpened": "2025-05-24T11:54:21.511Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 9,
               "Title": "DataSaver.cs",
               "DocumentMoniker": "C:\\Users\\TaamY\\source\\repos\\BusMapGenerator\\BusMapGenerator\\DataSaver.cs",
               "RelativeDocumentMoniker": "BusMapGenerator\\DataSaver.cs",
@@ -167,33 +152,33 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 2,
               "Title": "MainWindow.xaml.cs",
               "DocumentMoniker": "C:\\Users\\TaamY\\source\\repos\\BusMapGenerator\\BusMapGenerator\\MainWindow.xaml.cs",
               "RelativeDocumentMoniker": "BusMapGenerator\\MainWindow.xaml.cs",
               "ToolTip": "C:\\Users\\TaamY\\source\\repos\\BusMapGenerator\\BusMapGenerator\\MainWindow.xaml.cs",
               "RelativeToolTip": "BusMapGenerator\\MainWindow.xaml.cs",
-              "ViewState": "AgIAAKYAAAAAAAAAAAAAAKEAAAA0AAAAAAAAAA==",
+              "ViewState": "AgIAAK8BAAAAAAAAAAAmwMABAAA2AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-05-08T09:24:18.966Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 3,
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\Users\\TaamY\\source\\repos\\BusMapGenerator\\BusMapGenerator\\Program.cs",
               "RelativeDocumentMoniker": "BusMapGenerator\\Program.cs",
               "ToolTip": "C:\\Users\\TaamY\\source\\repos\\BusMapGenerator\\BusMapGenerator\\Program.cs",
               "RelativeToolTip": "BusMapGenerator\\Program.cs",
-              "ViewState": "AgIAAIEAAAAAAAAAAAAAwI8AAAARAAAAAAAAAA==",
+              "ViewState": "AgIAAGoAAAAAAAAAAAAYwG8AAAAcAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-05-09T09:07:48.783Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 8,
               "Title": "DataLoader.cs",
               "DocumentMoniker": "C:\\Users\\TaamY\\source\\repos\\BusMapGenerator\\BusMapGenerator\\DataLoader.cs",
               "RelativeDocumentMoniker": "BusMapGenerator\\DataLoader.cs",
@@ -212,7 +197,7 @@
               "RelativeDocumentMoniker": "BusMapGenerator\\ManagementTools.cs",
               "ToolTip": "C:\\Users\\TaamY\\source\\repos\\BusMapGenerator\\BusMapGenerator\\ManagementTools.cs",
               "RelativeToolTip": "BusMapGenerator\\ManagementTools.cs",
-              "ViewState": "AgIAAG0AAAAAAAAAAAAmwHUAAAAkAAAAAAAAAA==",
+              "ViewState": "AgIAAGAAAAAAAAAAAAAmwGwAAAAhAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-06-07T16:39:39.039Z",
               "EditorCaption": ""

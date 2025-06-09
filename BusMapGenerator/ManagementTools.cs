@@ -129,6 +129,67 @@ namespace BusMapGenerator
             }
         }
 
+        // 道路节点插入工具（重载1）：输入两个道路编号，给它们的交点创建新的道路节点
+        public static void InsertNode(int roadId1, int roadId2)
+        {
+            Road road1 = Program.Roads[roadId1];
+            Road road2 = Program.Roads[roadId2];
+            Node node11 = Program.Nodes[road1.NodesId[0]];
+            Node node12 = Program.Nodes[road1.NodesId[1]];
+            Node node21 = Program.Nodes[road2.NodesId[0]];
+            Node node22 = Program.Nodes[road2.NodesId[1]];
+            decimal[]? intersection = Utils.GetTwoRoadsIntersection(road1, road2);
+            if (intersection != null)
+            {
+                foreach (var node in Program.Nodes.Values)
+                {
+                    if (node.JSONCoord.SequenceEqual(intersection)) return;
+                }
+                Node newNode = new() { Id = Node.NextNewId, JSONCoord = intersection };
+                Program.Roads.Remove(roadId1);
+                Program.Roads.Remove(roadId2);
+                Program.Nodes[Node.NextNewId] = newNode;
+                Program.Roads[Road.NextNewId] = new() { Id = Road.NextNewId, NodesId = [newNode.Id, node11.Id] };
+                Program.Roads[Road.NextNewId] = new() { Id = Road.NextNewId, NodesId = [newNode.Id, node12.Id] };
+                Program.Roads[Road.NextNewId] = new() { Id = Road.NextNewId, NodesId = [node21.Id, newNode.Id] };
+                Program.Roads[Road.NextNewId] = new() { Id = Road.NextNewId, NodesId = [node22.Id, newNode.Id] };
+                Utils.BackupData("InsertNode");
+                DataSaver.Save();
+            }
+        }
+
+        // 道路节点插入工具（重载2）：输入一个道路编号，计算新的道路节点
+        public static void InsertNode(int roadId)
+        {
+            Road road = Program.Roads[roadId];
+            decimal[]? foot = Utils.GetFootOfPerpendicular(Program.JSONEndPoint, road);
+            if (foot != null)
+            {
+                foreach (var node in Program.Nodes.Values)
+                {
+                    if (node.JSONCoord.SequenceEqual(foot)) return;
+                }
+                Node newNode = new() { Id = Node.NextNewId, JSONCoord = foot };
+                Program.Roads.Remove(roadId);
+                Program.Nodes[Node.NextNewId] = newNode;
+                Program.Roads[Road.NextNewId] = new() { Id = Road.NextNewId, NodesId = [newNode.Id, road.NodesId[0]] };
+                Program.Roads[Road.NextNewId] = new() { Id = Road.NextNewId, NodesId = [newNode.Id, road.NodesId[1]] };
+                Utils.BackupData("InsertNode");
+                DataSaver.Save();
+            }
+        }
+
+        // 道路删除工具：输入一个道路编号，从字典移除它
+        public static void DeleteRoad(int roadId)
+        {
+            List<int> IdOfNodeNeedToRemove = [];
+            foreach (Node node in Program.Roads[roadId].Nodes) if (node.RoadsId.Where(id => id != -1).Count() == 1) IdOfNodeNeedToRemove.Add(node.Id);
+            foreach (int nodeId in IdOfNodeNeedToRemove) Program.Nodes.Remove(nodeId);
+            Program.Roads.Remove(roadId);
+            Utils.BackupData("DeleteRoad");
+            DataSaver.Save();
+        }
+
         // 撤销工具：把 mapDir 的数据移动到 undonePath，把 backupPath 的数据移动到 mapDir
         public static void Undo(string mapName)
         {
@@ -197,6 +258,8 @@ namespace BusMapGenerator
         MoveNode,
         PullRoad,
         DeleteNode,
-        MoveRoad
+        MoveRoad,
+        InsertNode,
+        DeleteRoad
     }
 }

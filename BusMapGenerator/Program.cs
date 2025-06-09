@@ -22,7 +22,7 @@ namespace BusMapGenerator
 
         // 关于鼠标信息
         public static Point MousePosition { get; set; } = new Point();  // 当前鼠标位置
-        public static BMGElementId MouseButtonNearElement               // 当前鼠标靠近
+        public static BMGElementId MouseNearElement               // 当前鼠标靠近
         {
             get
             {
@@ -44,6 +44,40 @@ namespace BusMapGenerator
                     }
                 }
                 return new();
+            }
+        }
+        public static BMGElementId[] MouseTwoNearestRoads
+        {
+            get
+            {
+                if (Mode == Mode.EditRoads)
+                {
+                    var nearRoads = new List<(double distance, int roadId)>();
+
+                    foreach (KeyValuePair<int, Road> road in Roads)
+                    {
+                        double distance = Utils.CalculatePointToLineDistance(MousePosition, road.Value.WPFCoordStart, road.Value.WPFCoordEnd);
+                        if (distance < 6)
+                        {
+                            nearRoads.Add((distance, road.Key));
+                        }
+                    }
+
+                    // 按照距离升序排列
+                    nearRoads.Sort((a, b) => a.distance.CompareTo(b.distance));
+
+                    // 取前两个最近的道路
+                    BMGElementId[] result = new BMGElementId[2];
+                    for (int i = 0; i < Math.Min(2, nearRoads.Count); i++)
+                    {
+                        result[i] = new BMGElementId(BMGElementTypes.Road, nearRoads[i].roadId);
+                    }
+
+                    return result;
+                }
+
+                // 如果不是编辑道路模式或没有足够靠近的道路，返回空数组
+                return new BMGElementId[2];
             }
         }
         public static bool IsDragging { get; set; } = false;            // 是否在画布按住拖拽
@@ -82,6 +116,14 @@ namespace BusMapGenerator
                         {
                             return ManagementTool.MoveRoad;
                         }
+                        else if (KeyStatus == KeyStatus.Shift)
+                        {
+                            return ManagementTool.InsertNode;
+                        }
+                        else if (KeyStatus == KeyStatus.Ctrl)
+                        {
+                            return ManagementTool.DeleteRoad;
+                        }
                         else return ManagementTool.None;
                     }
                     // 其它情况
@@ -112,7 +154,7 @@ namespace BusMapGenerator
         public static SKPoint SkiaEndPoint { get; set; } = new SKPoint();       // Skia 终点坐标
         public static decimal[] JSONStartPoint { get; set; } = new decimal[2];           // JSON 起点坐标
         public static decimal[] JSONEndPoint { get; set; } = new decimal[2];             // JSON 终点坐标
-        public static (int, decimal) JSONMove => Utils.GetDirectionAndDistance(JSONStartPoint, JSONEndPoint);  // JSON 移动方向和距离
+        public static (int, decimal) JSONMove => (WPFEndPoint - WPFStartPoint).Length > 7 ? Utils.GetDirectionAndDistance(JSONStartPoint, JSONEndPoint) : (0, 0);  // JSON 移动方向和距离
 
         // 关于键盘行为信息
         public static KeyStatus KeyStatus

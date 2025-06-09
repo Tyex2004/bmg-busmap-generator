@@ -352,6 +352,129 @@ namespace BusMapGenerator
             origin[1] + dy
             ];
         }
+        // 计算两道路交点坐标
+        public static decimal[]? GetTwoRoadsIntersection(Road road1, Road road2)
+        {
+            // 获取两个端点坐标
+            decimal[] p1 = road1.Nodes[0].JSONCoord;
+            decimal[] p2 = road1.Nodes[1].JSONCoord;
+            decimal[] q1 = road2.Nodes[0].JSONCoord;
+            decimal[] q2 = road2.Nodes[1].JSONCoord;
+
+            int d1 = road1.Direction;
+            int d2 = road2.Direction;
+
+            // 方向分组函数：返回 0=竖直，1=右上斜，2=水平，3=右下斜
+            static int GetClass(int d)
+            {
+                return d switch
+                {
+                    0 or 4 => 0, // 竖直
+                    1 or 5 => 1, // 右上
+                    2 or 6 => 2, // 水平
+                    3 or 7 => 3, // 右下
+                    _ => -1
+                };
+            }
+
+            static bool InRange(decimal v, decimal a, decimal b) =>
+                v >= Math.Min(a, b) && v <= Math.Max(a, b);
+
+            int c1 = GetClass(d1);
+            int c2 = GetClass(d2);
+            if (c1 == -1 || c2 == -1 || c1 == c2) return null;
+
+            // 保证 c1 <= c2，这样六种组合只需考虑一次
+            if (c1 > c2)
+            {
+                (p1, p2, q1, q2) = (q1, q2, p1, p2);
+                (d1, d2) = (d2, d1);
+                (c1, c2) = (c2, c1);
+            }
+
+            decimal x = 0, y = 0;
+
+            if (c1 == 0 && c2 == 1) // 竖直 & 右上
+            {
+                x = p1[0];
+                y = x - q1[0] + q1[1];
+            }
+            else if (c1 == 0 && c2 == 2) // 竖直 & 水平
+            {
+                x = p1[0];
+                y = q1[1];
+            }
+            else if (c1 == 0 && c2 == 3) // 竖直 & 右下
+            {
+                x = p1[0];
+                y = -x + q1[0] + q1[1];
+            }
+            else if (c1 == 1 && c2 == 2) // 右上 & 水平
+            {
+                y = q1[1];
+                x = y - p1[1] + p1[0];
+            }
+            else if (c1 == 1 && c2 == 3) // 右上 & 右下
+            {
+                decimal A = p1[0] - p1[1]; // x - y（右上）
+                decimal B = q1[0] + q1[1]; // x + y（右下）
+                x = (A + B) / 2;
+                y = (B - A) / 2;
+            }
+            else if (c1 == 2 && c2 == 3) // 水平 & 右下
+            {
+                y = p1[1]; // 水平线的 y
+                x = q1[0] + q1[1] - y; // 解出 x
+            }
+
+            // 判断是否在两个线段范围内
+            bool onP = InRange(x, p1[0], p2[0]) && InRange(y, p1[1], p2[1]);
+            bool onQ = InRange(x, q1[0], q2[0]) && InRange(y, q1[1], q2[1]);
+
+            if (onP && onQ)
+                return [x, y];
+
+            return null;
+        }
+
+
+        public static decimal[]? GetFootOfPerpendicular(decimal[] point, Road road)
+        {
+            // 点坐标
+            decimal px = point[0], py = point[1];
+
+            // 路段起点和终点
+            decimal[] a = road.Nodes[0].JSONCoord;
+            decimal[] b = road.Nodes[1].JSONCoord;
+
+            decimal x1 = a[0], y1 = a[1];
+            decimal x2 = b[0], y2 = b[1];
+
+            decimal dx = x2 - x1;
+            decimal dy = y2 - y1;
+
+            if (dx == 0 && dy == 0)
+            {
+                // 路段起终点重合（退化为点），返回 null
+                return null;
+            }
+
+            // 计算参数 t，表示垂足在线段 AB 上的相对位置：A + t*(B - A)
+            decimal t = ((px - x1) * dx + (py - y1) * dy) / (dx * dx + dy * dy);
+
+            // 若 t 不在 [0,1]，说明垂足不在线段上
+            if (t < 0 || t > 1)
+            {
+                return null;
+            }
+
+            // 计算垂足坐标
+            decimal footX = x1 + t * dx;
+            decimal footY = y1 + t * dy;
+
+            return [footX, footY];
+        }
+
     }
     public readonly struct Distance
     {
