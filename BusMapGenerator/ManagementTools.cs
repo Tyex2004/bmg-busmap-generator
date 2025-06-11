@@ -190,6 +190,18 @@ namespace BusMapGenerator
             DataSaver.Save();
         }
 
+        // 车站移动工具：输入移动的车站编号，进行移动
+        public static void MoveStation(int stationId)
+        {
+            Station station = Program.Stations[stationId];
+            if (Program.WPFMoveDistance > 4)
+            {
+                station.JSONCoord = Program.JSONEndPoint;
+                Utils.BackupData("MoveStation");
+                DataSaver.Save();
+            }
+        }
+
         // 撤销工具：把 mapDir 的数据移动到 undonePath，把 backupPath 的数据移动到 mapDir
         public static void Undo(string mapName)
         {
@@ -260,6 +272,10 @@ namespace BusMapGenerator
         DeleteNode,
         MoveRoad,
         InsertNode,
-        DeleteRoad
+        DeleteRoad,
+        MoveStation,
+        SetStationsName,
+        DeleteStation,
+        AddStation
     }
 }

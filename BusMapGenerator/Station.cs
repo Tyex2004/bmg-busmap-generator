@@ -54,6 +54,29 @@ namespace BusMapGenerator
                 decimal y1 = roadEnd[1];
                 return [x0 + (x1 - x0) * OnRoadPos, y0 + (y1 - y0) * OnRoadPos];
             }
+            set
+            {
+                decimal[] roadStart = Road.JSONCoordStart;
+                decimal[] roadEnd = Road.JSONCoordEnd;
+                decimal x0 = roadStart[0];
+                decimal y0 = roadStart[1];
+                decimal x1 = roadEnd[0];
+                decimal y1 = roadEnd[1];
+
+                decimal dx = x1 - x0;
+                decimal dy = y1 - y0;
+
+                if (dx == 0 && dy == 0) return;
+
+                // 根据直线上的投影反推 OnRoadPos
+                decimal px = value[0] - x0;
+                decimal py = value[1] - y0;
+
+                decimal lengthSquared = dx * dx + dy * dy;
+                OnRoadPos = (dx * px + dy * py) / lengthSquared;
+                //OnRoadPos = Math.Clamp(OnRoadPos, 0.03m, 0.97m);
+                OnRoadPos = Math.Clamp(OnRoadPos, 3m / Road.Length.Coefficient, 1 - 3m / Road.Length.Coefficient);
+            }
         }
 
         [JsonIgnore]
@@ -63,7 +86,7 @@ namespace BusMapGenerator
         public SKPoint SkiaCoord => Utils.CoordJSONToSkia(JSONCoord);
 
         [JsonIgnore]
-        public Point WPFPoint => Utils.CoordSkiaToWPF(SkiaCoord, Program.RPSkiaElement);
+        public Point WPFCoord => Utils.CoordSkiaToWPF(SkiaCoord, Program.RPSkiaElement);
 
         [JsonIgnore]
         public int GeoSide => Side == "left" ? (Road.Direction + 6) % 8 : (Road.Direction + 2) % 8;

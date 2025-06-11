@@ -43,6 +43,23 @@ namespace BusMapGenerator
                         }
                     }
                 }
+                else if (Mode == Mode.EditStations)
+                {
+                    foreach (KeyValuePair<int, Station> station in Stations)
+                    {
+                        if (Utils.CalculatePointDistance(MousePosition, station.Value.WPFCoord) < 7)
+                        {
+                            return new(BMGElementTypes.Station, station.Key);
+                        }
+                    }
+                    foreach (KeyValuePair<int, Road> road in Roads)
+                    {
+                        if (Utils.CalculatePointToLineDistance(MousePosition, road.Value.WPFCoordStart, road.Value.WPFCoordEnd) < 6)
+                        {
+                            return new(BMGElementTypes.Road, road.Key);
+                        }
+                    }
+                }
                 return new();
             }
         }
@@ -129,7 +146,38 @@ namespace BusMapGenerator
                     // 其它情况
                     else return ManagementTool.None;
                 }
-                // 非编辑道路模式
+                // 编辑站点模式
+                else if (Mode == Mode.EditStations)
+                {
+                    // 选择了站点
+                    if (SelectedElement.Type == BMGElementTypes.Station)
+                    {
+                        if (KeyStatus == KeyStatus.None)
+                        {
+                            return ManagementTool.MoveStation;
+                        }
+                        else if (KeyStatus == KeyStatus.Shift)
+                        {
+                            return ManagementTool.SetStationsName;
+                        }
+                        else if (KeyStatus == KeyStatus.Ctrl)
+                        {
+                            return ManagementTool.DeleteStation;
+                        }
+                        else return ManagementTool.None;
+                    }
+                    // 选择了道路
+                    else if (SelectedElement.Type == BMGElementTypes.Road)
+                    {
+                        if (KeyStatus == KeyStatus.Shift)
+                        {
+                            return ManagementTool.AddStation;
+                        }
+                        else return ManagementTool.None;
+                    }
+                    // 其他情况
+                    else return ManagementTool.None;
+                }
                 else return ManagementTool.None;
             }
         }
@@ -150,6 +198,7 @@ namespace BusMapGenerator
         // 关于坐标信息
         public static Point WPFStartPoint { get; set; } = new Point();          // WPF 起点坐标
         public static Point WPFEndPoint { get; set; } = new Point();            // WPF 终点坐标
+        public static double WPFMoveDistance => (WPFEndPoint - WPFStartPoint).Length;  // WPF 移动距离
         public static SKPoint SkiaStartPoint { get; set; } = new SKPoint();     // Skia 起点坐标
         public static SKPoint SkiaEndPoint { get; set; } = new SKPoint();       // Skia 终点坐标
         public static decimal[] JSONStartPoint { get; set; } = new decimal[2];           // JSON 起点坐标
