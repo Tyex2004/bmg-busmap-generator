@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -104,6 +105,9 @@ namespace BusMapGenerator
         }
 
         [JsonIgnore]
+        public List<int> StationsId => [.. Program.Stations.Values.Where(station => station.RoadId == Id).OrderBy(station => station.OnRoadPos).Select(station => station.Id)];
+
+        [JsonIgnore]
         public int[] CanMoveDirections => [(Direction + 2) % 8, (Direction + 6) % 8];
 
         [JsonIgnore]
@@ -118,8 +122,20 @@ namespace BusMapGenerator
                 if (StraightRoad.Direction == 2)
                 {
                     // 只允许向上、向下移动
-                    if (Program.JSONMove.Item1 is 0 or 7 or 1) distance = Program.JSONMove.Item2;
-                    else if (Program.JSONMove.Item1 is 4 or 5 or 3) distance = -Program.JSONMove.Item2;
+                    if (Program.JSONMove.Item1 is 0 or 7 or 1 && Program.MouseNearElement.Type == BMGElementTypes.Road && 
+                        Program.MouseNearElement.Id != Id && Program.Roads[Program.MouseNearElement.Id].Direction is 2 or 6)
+                        distance = Program.Roads[Program.MouseNearElement.Id].JSONCoordStart[1] - JSONCoordStart[1];
+                    else if (Program.JSONMove.Item1 is 0 or 7 or 1) distance = 
+                            (Program.WPFEndPoint - Program.WPFStartPoint).Length > 7
+                            ? Program.JSONEndPoint[1] - Program.JSONStartPoint[1]
+                            : 0m;
+                    else if (Program.JSONMove.Item1 is 4 or 5 or 3 && Program.MouseNearElement.Type is BMGElementTypes.Road && 
+                        Program.MouseNearElement.Id != Id && Program.Roads[Program.MouseNearElement.Id].Direction is 2 or 6)
+                        distance = Program.Roads[Program.MouseNearElement.Id].JSONCoordEnd[1] - JSONCoordEnd[1];
+                    else if (Program.JSONMove.Item1 is 4 or 5 or 3) distance = 
+                            (Program.WPFEndPoint - Program.WPFStartPoint).Length > 7 
+                            ? Program.JSONEndPoint[1] - Program.JSONStartPoint[1]
+                            : 0m;
                     else return [];
                     // 遍历这条路上所有的道路节点，给它们添加进字典，并判断位移阈值
                     foreach (Node node in StraightRoad.NodeIds.Select(nodeId => Program.Nodes[nodeId]))
@@ -248,7 +264,13 @@ namespace BusMapGenerator
                 if (StraightRoad.Direction == 0)
                 {
                     // 只允许向左、向右移动
-                    if (Program.JSONMove.Item1 is 2 or 1 or 3) distance = Program.JSONMove.Item2;
+                    if (Program.JSONMove.Item1 is 2 or 1 or 3 && Program.MouseNearElement.Type == BMGElementTypes.Road && 
+                        Program.MouseNearElement.Id != Id && Program.Roads[Program.MouseNearElement.Id].Direction is 0 or 4)
+                        distance = Program.Roads[Program.MouseNearElement.Id].JSONCoordStart[0] - JSONCoordStart[0];
+                    else if (Program.JSONMove.Item1 is 2 or 1 or 3) distance = Program.JSONMove.Item2;
+                    else if (Program.JSONMove.Item1 is 6 or 5 or 7 && Program.MouseNearElement.Type == BMGElementTypes.Road && 
+                        Program.MouseNearElement.Id != Id && Program.Roads[Program.MouseNearElement.Id].Direction is 0 or 4)
+                        distance = Program.Roads[Program.MouseNearElement.Id].JSONCoordEnd[0] - JSONCoordEnd[0];
                     else if (Program.JSONMove.Item1 is 6 or 5 or 7) distance = -Program.JSONMove.Item2;
                     else return [];
                     // 遍历这条路上所有的道路节点，给它们添加进字典，并判断位移阈值

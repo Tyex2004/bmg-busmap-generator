@@ -10,12 +10,18 @@
     <Compile Update="SelectMapWindow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="SetStationNameWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Page Update="MainWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="SelectMapWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="SetStationNameWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>

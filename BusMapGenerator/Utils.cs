@@ -20,10 +20,10 @@ namespace BusMapGenerator
     {
         // 正则表达式定义
 
-        [GeneratedRegex(@"data-(\d{14})-.*")]
+        [GeneratedRegex(@"data-(\d{17})-.*")]
         private static partial Regex DataRegex();
 
-        [GeneratedRegex(@"data-(\d{14})-before-.*")]
+        [GeneratedRegex(@"data-(\d{17})-before-.*")]
         private static partial Regex DataRegex1();
 
         // 工具方法
@@ -33,7 +33,7 @@ namespace BusMapGenerator
         {
             if (!string.IsNullOrEmpty(Program.Map))
             {
-                string timestamp = DateTime.Now.ToString("yyyyMMddHHmmss");
+                string timestamp = DateTime.Now.ToString("yyyyMMddHHmmssfff");
                 string mapDir = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "data", Program.Map);
                 string backupDir = Path.Combine(mapDir, "backup");
                 string backupPath = Path.Combine(backupDir, $"data-{timestamp}-before-{toolName}");
@@ -51,7 +51,7 @@ namespace BusMapGenerator
             if (match.Success)
             {
                 // 尝试将匹配到的 timestamp 转换为 DateTime
-                if (DateTime.TryParseExact(match.Groups[1].Value, "yyyyMMddHHmmss", null, System.Globalization.DateTimeStyles.None, out DateTime timestamp))
+                if (DateTime.TryParseExact(match.Groups[1].Value, "yyyyMMddHHmmssfff", null, System.Globalization.DateTimeStyles.None, out DateTime timestamp))
                 {
                     return timestamp;
                 }
@@ -67,7 +67,7 @@ namespace BusMapGenerator
             if (match.Success)
             {
                 // 尝试将匹配到的 timestamp 转换为 DateTime
-                if (DateTime.TryParseExact(match.Groups[1].Value, "yyyyMMddHHmmss", null, System.Globalization.DateTimeStyles.None, out DateTime timestamp))
+                if (DateTime.TryParseExact(match.Groups[1].Value, "yyyyMMddHHmmssfff", null, System.Globalization.DateTimeStyles.None, out DateTime timestamp))
                 {
                     return timestamp;
                 }
@@ -78,10 +78,22 @@ namespace BusMapGenerator
         // 移动数据：输入（ <源文件夹> , <目标文件夹> ），执行移动
         public static void MoveData(string sourceDir, string destDir)
         {
+            Directory.CreateDirectory(destDir); // 确保目标文件夹存在
             string[] filesToMove = ["nodes.json", "roads.json", "stations.json", "routes.json", "mtr_stations.json"];
+
             foreach (string file in filesToMove)
             {
-                File.Move(Path.Combine(sourceDir, file), Path.Combine(destDir, file), true);
+                string sourceFile = Path.Combine(sourceDir, file);
+                string destFile = Path.Combine(destDir, file);
+
+                if (File.Exists(sourceFile))
+                {
+                    File.Move(sourceFile, destFile, true);
+                }
+                else
+                {
+                    Debug.WriteLine($"警告：未找到文件 {file}，跳过移动。");
+                }
             }
         }
 
@@ -388,7 +400,7 @@ namespace BusMapGenerator
             if (c1 > c2)
             {
                 (p1, p2, q1, q2) = (q1, q2, p1, p2);
-                (d1, d2) = (d2, d1);
+                (_, _) = (d2, d1);
                 (c1, c2) = (c2, c1);
             }
 
@@ -475,6 +487,42 @@ namespace BusMapGenerator
             return [footX, footY];
         }
 
+        // 判断两个坐标相对位置是否是八方向
+        public static bool AreOnDirectionOfEachOther(decimal[] a, decimal[] b)
+        {
+            if (a.Length != 2 || b.Length != 2)
+                throw new ArgumentException("坐标数组必须为长度为 2 的 decimal[2]");
+            decimal dx = b[0] - a[0];
+            decimal dy = b[1] - a[1];
+            if (dx == 0 && dy == 0) return false;
+            else if (dx == 0 || dy == 0) return true;
+            else if (dx == dy) return true;
+            else if (dx == -dy) return true;
+            else return false;
+        }
+
+        public static void ClearDirectory(string path)
+        {
+            if (!Directory.Exists(path))
+            {
+                Console.WriteLine("目录不存在：" + path);
+                return;
+            }
+
+            // 删除所有文件
+            foreach (string file in Directory.GetFiles(path))
+            {
+                File.Delete(file);
+            }
+
+            // 删除所有子目录及其内容
+            foreach (string directory in Directory.GetDirectories(path))
+            {
+                Directory.Delete(directory, true); // true 表示递归删除
+            }
+
+            Console.WriteLine("清空完成：" + path);
+        }
     }
     public readonly struct Distance
     {

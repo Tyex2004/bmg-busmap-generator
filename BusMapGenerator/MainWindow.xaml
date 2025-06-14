@@ -14,7 +14,6 @@
                      ui:WindowHelper.UseModernWindowStyle="False"
                      WindowState="Maximized"
                      WindowStartupLocation="CenterScreen">
-
     <!--创建网格-->
     <Grid>
 

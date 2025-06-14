@@ -12,7 +12,7 @@ using System.Windows;
 
 namespace BusMapGenerator
 {
-    internal class Station
+    public class Station
     {
         [JsonProperty("id")]
         public int Id { get; set; }
@@ -30,7 +30,7 @@ namespace BusMapGenerator
         public decimal OnRoadPos { get; set; }
 
         [JsonProperty("side")]
-        public string Side { get; set; } = "";
+        public string Side { get; set; } = "left";
 
         [JsonProperty("connects_mtr")]
         public string[] ConnectsMtr { get; set; } = [];
@@ -172,6 +172,24 @@ namespace BusMapGenerator
 
                 return text;
             }
+        }
+
+        [JsonIgnore]
+        public static int NextNewId
+        {
+            get
+            {
+                HashSet<int> existingIds = new(Program.Stations.Keys);
+                int i = 1;
+                while (existingIds.Contains(i)) i++;
+                return i;
+            }
+        }
+
+        public void ChangeSide()
+        {
+            if (Side == "left") Side = "right";
+            else Side = "left";
         }
     }
 }

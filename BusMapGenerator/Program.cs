@@ -26,38 +26,25 @@ namespace BusMapGenerator
         {
             get
             {
-                if (Mode == Mode.EditRoads)
+                foreach (KeyValuePair<int, Station> station in Stations)
                 {
-                    foreach (KeyValuePair<int, Node> node in Nodes)
+                    if (Utils.CalculatePointDistance(MousePosition, station.Value.WPFCoord) < 7)
                     {
-                        if (Utils.CalculatePointDistance(MousePosition, node.Value.WPFCoord) < 7)
-                        {
-                            return new(BMGElementTypes.Node, node.Key);
-                        }
-                    }
-                    foreach (KeyValuePair<int, Road> road in Roads)
-                    {
-                        if (Utils.CalculatePointToLineDistance(MousePosition, road.Value.WPFCoordStart, road.Value.WPFCoordEnd) < 6)
-                        {
-                            return new(BMGElementTypes.Road, road.Key);
-                        }
+                        return new(BMGElementTypes.Station, station.Key);
                     }
                 }
-                else if (Mode == Mode.EditStations)
+                foreach (KeyValuePair<int, Node> node in Nodes)
                 {
-                    foreach (KeyValuePair<int, Station> station in Stations)
+                    if (Utils.CalculatePointDistance(MousePosition, node.Value.WPFCoord) < 7)
                     {
-                        if (Utils.CalculatePointDistance(MousePosition, station.Value.WPFCoord) < 7)
-                        {
-                            return new(BMGElementTypes.Station, station.Key);
-                        }
+                        return new(BMGElementTypes.Node, node.Key);
                     }
-                    foreach (KeyValuePair<int, Road> road in Roads)
+                }
+                foreach (KeyValuePair<int, Road> road in Roads)
+                {
+                    if (Utils.CalculatePointToLineDistance(MousePosition, road.Value.WPFCoordStart, road.Value.WPFCoordEnd) < 6)
                     {
-                        if (Utils.CalculatePointToLineDistance(MousePosition, road.Value.WPFCoordStart, road.Value.WPFCoordEnd) < 6)
-                        {
-                            return new(BMGElementTypes.Road, road.Key);
-                        }
+                        return new(BMGElementTypes.Road, road.Key);
                     }
                 }
                 return new();
@@ -67,117 +54,98 @@ namespace BusMapGenerator
         {
             get
             {
-                if (Mode == Mode.EditRoads)
+                var nearRoads = new List<(double distance, int roadId)>();
+
+                foreach (KeyValuePair<int, Road> road in Roads)
                 {
-                    var nearRoads = new List<(double distance, int roadId)>();
-
-                    foreach (KeyValuePair<int, Road> road in Roads)
+                    double distance = Utils.CalculatePointToLineDistance(MousePosition, road.Value.WPFCoordStart, road.Value.WPFCoordEnd);
+                    if (distance < 6)
                     {
-                        double distance = Utils.CalculatePointToLineDistance(MousePosition, road.Value.WPFCoordStart, road.Value.WPFCoordEnd);
-                        if (distance < 6)
-                        {
-                            nearRoads.Add((distance, road.Key));
-                        }
+                        nearRoads.Add((distance, road.Key));
                     }
-
-                    // 按照距离升序排列
-                    nearRoads.Sort((a, b) => a.distance.CompareTo(b.distance));
-
-                    // 取前两个最近的道路
-                    BMGElementId[] result = new BMGElementId[2];
-                    for (int i = 0; i < Math.Min(2, nearRoads.Count); i++)
-                    {
-                        result[i] = new BMGElementId(BMGElementTypes.Road, nearRoads[i].roadId);
-                    }
-
-                    return result;
                 }
 
-                // 如果不是编辑道路模式或没有足够靠近的道路，返回空数组
-                return new BMGElementId[2];
+                // 按照距离升序排列
+                nearRoads.Sort((a, b) => a.distance.CompareTo(b.distance));
+
+                // 取前两个最近的道路
+                BMGElementId[] result = new BMGElementId[2];
+                for (int i = 0; i < Math.Min(2, nearRoads.Count); i++)
+                {
+                    result[i] = new BMGElementId(BMGElementTypes.Road, nearRoads[i].roadId);
+                }
+
+                return result;
             }
         }
         public static bool IsDragging { get; set; } = false;            // 是否在画布按住拖拽
 
         // 关于模式、数据管理工具使用信息
-        public static Mode Mode = Mode.EditRoads;                       // 当前模式
         public static BMGElementId SelectedElement { get; set; }        // 选中的元素类型和编号
         public static ManagementTool CurrentManagementTool              // 当前数据管理工具
         {
             get
             {
-                // 编辑道路模式
-                if (Mode == Mode.EditRoads)
+                // 选择了道路节点
+                if (SelectedElement.Type == BMGElementTypes.Node)
                 {
-                    // 选择了道路节点
-                    if (SelectedElement.Type == BMGElementTypes.Node)
+                    if (KeyStatus == KeyStatus.None)
                     {
-                        if (KeyStatus == KeyStatus.None)
-                        {
-                            return ManagementTool.MoveNode;
-                        }
-                        else if (KeyStatus == KeyStatus.Shift)
-                        {
-                            return ManagementTool.PullRoad;
-                        }
-                        else if (KeyStatus == KeyStatus.Ctrl)
-                        {
-                            return ManagementTool.DeleteNode;
-                        }
-                        else return ManagementTool.None;
+                        return ManagementTool.MoveNode;
                     }
-                    // 选择了道路
-                    else if (SelectedElement.Type == BMGElementTypes.Road)
+                    else if (KeyStatus == KeyStatus.Shift)
                     {
-                        if (KeyStatus == KeyStatus.None)
-                        {
-                            return ManagementTool.MoveRoad;
-                        }
-                        else if (KeyStatus == KeyStatus.Shift)
-                        {
-                            return ManagementTool.InsertNode;
-                        }
-                        else if (KeyStatus == KeyStatus.Ctrl)
-                        {
-                            return ManagementTool.DeleteRoad;
-                        }
-                        else return ManagementTool.None;
+                        return ManagementTool.PullRoad;
                     }
-                    // 其它情况
+                    else if (KeyStatus == KeyStatus.Ctrl)
+                    {
+                        return ManagementTool.DeleteNode;
+                    }
                     else return ManagementTool.None;
                 }
-                // 编辑站点模式
-                else if (Mode == Mode.EditStations)
+                // 选择了道路
+                else if (SelectedElement.Type == BMGElementTypes.Road)
                 {
-                    // 选择了站点
-                    if (SelectedElement.Type == BMGElementTypes.Station)
+                    if (KeyStatus == KeyStatus.None)
                     {
-                        if (KeyStatus == KeyStatus.None)
-                        {
-                            return ManagementTool.MoveStation;
-                        }
-                        else if (KeyStatus == KeyStatus.Shift)
-                        {
-                            return ManagementTool.SetStationsName;
-                        }
-                        else if (KeyStatus == KeyStatus.Ctrl)
-                        {
-                            return ManagementTool.DeleteStation;
-                        }
-                        else return ManagementTool.None;
+                        return ManagementTool.MoveRoad;
                     }
-                    // 选择了道路
-                    else if (SelectedElement.Type == BMGElementTypes.Road)
+                    else if (KeyStatus == KeyStatus.Shift)
                     {
-                        if (KeyStatus == KeyStatus.Shift)
-                        {
-                            return ManagementTool.AddStation;
-                        }
-                        else return ManagementTool.None;
+                        return ManagementTool.InsertNode;
                     }
-                    // 其他情况
+                    else if (KeyStatus == KeyStatus.Ctrl)
+                    {
+                        return ManagementTool.DeleteRoad;
+                    }
+                    else if (KeyStatus == KeyStatus.BothShiftAndCtrl)
+                    {
+                        return ManagementTool.AddStation;
+                    }
                     else return ManagementTool.None;
                 }
+                // 选择了站点
+                else if (SelectedElement.Type == BMGElementTypes.Station)
+                {
+                    if (KeyStatus == KeyStatus.None)
+                    {
+                        return ManagementTool.MoveStation;
+                    }
+                    else if (KeyStatus == KeyStatus.Shift)
+                    {
+                        return ManagementTool.SetStationsName;
+                    }
+                    else if (KeyStatus == KeyStatus.Ctrl)
+                    {
+                        return ManagementTool.DeleteStation;
+                    }
+                    else if (KeyStatus == KeyStatus.BothShiftAndCtrl)
+                    {
+                        return ManagementTool.ChangeStationMarkerSide;
+                    }
+                    else return ManagementTool.None;
+                }
+                // 其他情况
                 else return ManagementTool.None;
             }
         }
@@ -210,13 +178,17 @@ namespace BusMapGenerator
         {
             get
             {
-                if (Keyboard.IsKeyDown(Key.LeftCtrl) || Keyboard.IsKeyDown(Key.RightCtrl))
+                if ((Keyboard.IsKeyDown(Key.LeftCtrl) || Keyboard.IsKeyDown(Key.RightCtrl)) && !Keyboard.IsKeyDown(Key.LeftShift) && !Keyboard.IsKeyDown(Key.RightShift))
                 {
                     return KeyStatus.Ctrl;
                 }
-                else if (Keyboard.IsKeyDown(Key.LeftShift) || Keyboard.IsKeyDown(Key.RightShift))
+                else if ((Keyboard.IsKeyDown(Key.LeftShift) || Keyboard.IsKeyDown(Key.RightShift)) && !Keyboard.IsKeyDown(Key.LeftCtrl) && !Keyboard.IsKeyDown(Key.RightCtrl))
                 {
                     return KeyStatus.Shift;
+                }
+                else if (Keyboard.IsKeyDown(Key.LeftCtrl) && Keyboard.IsKeyDown(Key.LeftShift) || Keyboard.IsKeyDown(Key.RightCtrl) && Keyboard.IsKeyDown(Key.RightShift))
+                {
+                    return KeyStatus.BothShiftAndCtrl;
                 }
                 else
                 {
@@ -246,12 +218,8 @@ namespace BusMapGenerator
     {
         None,
         Shift,
-        Ctrl
-    }
-    enum Mode
-    {
-        EditRoads,
-        EditStations,
+        Ctrl,
+        BothShiftAndCtrl
     }
     enum BMGElementTypes
     {
