@@ -10,11 +10,11 @@ none
 false
 TRACE;DEBUG;NET;NET8_0;NETCOREAPP
 C:\Users\TaamY\source\repos\BusMapGenerator\BusMapGenerator\App.xaml
-31410423140
+41479192443
 
-176457392
+182110124429
 2352027435297
-MainWindow.xaml;SelectMapWindow.xaml;SetStationNameWindow.xaml;
+MainWindow.xaml;MtrStationManagerWindow.xaml;SelectMapWindow.xaml;SetStationNameWindow.xaml;
 
 False
 

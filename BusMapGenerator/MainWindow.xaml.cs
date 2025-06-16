@@ -87,6 +87,7 @@ namespace BusMapGenerator
                 ResetZoom();                                              // 重置缩放
                 SkiaCanvas.InvalidateVisual();                            // 刷新重绘：对 SVG 主要进行“加载”和“绘制”两步
                 MessageBox.Show($"你打开了地图：{Program.Map}");   // 弹出消息框
+                Debug.WriteLine($"大策站的标注方向：{Program.Stations[36].GeoSide}");
             }
         }
 
@@ -795,6 +796,14 @@ namespace BusMapGenerator
             Program.Zoom = 1f;
             Program.ZoomCenter = new SKPoint(0, 0);
             SkiaCanvas.InvalidateVisual();
+        }
+
+        // 地铁车站管理
+        private void OpenMtrStationManager_Click(object sender, RoutedEventArgs e)
+        {
+            var manager = new MtrStationManagerWindow();
+            manager.Owner = this; // 保持居中
+            manager.ShowDialog();
         }
     }
 }

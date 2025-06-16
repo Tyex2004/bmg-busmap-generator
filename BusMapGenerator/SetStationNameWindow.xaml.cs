@@ -6,7 +6,6 @@ namespace BusMapGenerator
 {
     public partial class SetStationNameWindow : Window
     {
-        // 用 required 修饰，外部必须在初始化时赋值
         private readonly Station _station;
 
         public SetStationNameWindow(Station station)
@@ -19,6 +18,8 @@ namespace BusMapGenerator
             // 绑定按键事件，处理 Enter 和 Tab
             NameTextBox.PreviewKeyDown += TextBox_PreviewKeyDown;
             EnNameTextBox.PreviewKeyDown += TextBox_PreviewKeyDown;
+            SetMtrSta.PreviewKeyDown += TextBox_PreviewKeyDown;
+            SetNote.PreviewKeyDown += TextBox_PreviewKeyDown;
         }
 
         private void SetStationNameWindow_Loaded(object sender, RoutedEventArgs e)
@@ -26,6 +27,8 @@ namespace BusMapGenerator
             // 初始化文本框内容
             NameTextBox.Text = _station.Name ?? string.Empty;
             EnNameTextBox.Text = _station.EnName ?? string.Empty;
+            SetMtrSta.Text = string.Join(", ", _station.ConnectsMtr);
+            SetNote.Text = string.Join(", ", _station.Note);
 
             // 光标选中中文名全文
             NameTextBox.Focus();
@@ -51,6 +54,16 @@ namespace BusMapGenerator
                 }
                 else if (sender == EnNameTextBox)
                 {
+                    SetMtrSta.Focus();
+                    SetMtrSta.SelectAll();
+                }
+                else if (sender == SetMtrSta)
+                {
+                    SetNote.Focus();
+                    SetNote.SelectAll();
+                }
+                else if (sender == SetNote)
+                {
                     NameTextBox.Focus();
                     NameTextBox.SelectAll();
                 }
@@ -72,6 +85,8 @@ namespace BusMapGenerator
         {
             _station.Name = NameTextBox.Text;
             _station.EnName = EnNameTextBox.Text;
+            _station.ConnectsMtr = Utils.SmartSplit(SetMtrSta.Text);
+            _station.Note = Utils.SmartSplit(SetNote.Text);
 
             DialogResult = true;
             Close();

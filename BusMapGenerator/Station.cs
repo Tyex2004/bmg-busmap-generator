@@ -33,10 +33,10 @@ namespace BusMapGenerator
         public string Side { get; set; } = "left";
 
         [JsonProperty("connects_mtr")]
-        public string[] ConnectsMtr { get; set; } = [];
+        public List<string> ConnectsMtr { get; set; } = [];
 
         [JsonProperty("note")]
-        public string[] Note { get; set; } = [];
+        public List<string> Note { get; set; } = [];
 
         [JsonIgnore]
         public Road Road => Program.Roads[RoadId];
@@ -106,23 +106,8 @@ namespace BusMapGenerator
         public SvgTextSpan RPText1 => new()
         {
             Text = Name,
-            X =
-            [
-                GeoSide is 0 or 4
-                    ? SVGCoord.X
-                    : GeoSide is 1 or 2 or 3
-                        ? new SvgUnit(SVGCoord.X.Value + 4)
-                        : new SvgUnit(SVGCoord.X.Value - 4)
-            ],
-            Dx =
-            [
-                GeoSide is 0 or 4
-                    ? (Name.EndsWith('）') ? 1.2f : 0)
-                    : GeoSide is 5 or 6 or 7
-                        ? (Name.EndsWith('）') ? 2.4f : 0)
-                        : 0
-            ],
-
+            X = [GetXOffset()],
+            Dx = [GetDxOffset()],
             FontSize = 4.7f,
             FontFamily = "SimHei"
         };
@@ -131,14 +116,7 @@ namespace BusMapGenerator
         public SvgTextSpan RPText2 => new()
         {
             Text = EnName,
-            X =
-            [
-                GeoSide is 0 or 4
-                    ? SVGCoord.X
-                    : GeoSide is 1 or 2 or 3
-                        ? new SvgUnit(SVGCoord.X.Value + 4)
-                        : new SvgUnit(SVGCoord.X.Value - 4)
-            ],
+            X = [GetXOffset()],
             Dy = [new SvgUnit(4f)],
             FontSize = 3,
             FontFamily = "Arial"
@@ -151,20 +129,9 @@ namespace BusMapGenerator
             {
                 var text = new SvgText
                 {
-                    Y =
-                    [
-                        GeoSide is 2 or 6
-                            ? SVGCoord.Y
-                            : GeoSide is 0 or 1 or 7
-                        ? new SvgUnit(SVGCoord.Y.Value + 8)
-                        : new SvgUnit(SVGCoord.Y.Value - 8)
-                    ],
+                    Y = [GetYOffset()],
                     Fill = new SvgColourServer(System.Drawing.Color.Black),
-                    TextAnchor = GeoSide is 0 or 4
-                        ? SvgTextAnchor.Middle
-                        : GeoSide is 1 or 2 or 3
-                            ? SvgTextAnchor.Start
-                            : SvgTextAnchor.End
+                    TextAnchor = GetTextAnchor()
                 };
 
                 text.Children.Add(RPText1);
@@ -173,6 +140,42 @@ namespace BusMapGenerator
                 return text;
             }
         }
+
+        // 用于计算 X 偏移
+        private SvgUnit GetXOffset() => GeoSide switch
+        {
+            0 or 4 => SVGCoord.X,
+            2 => new SvgUnit(SVGCoord.X.Value + 4),
+            1 or 3 => new SvgUnit(SVGCoord.X.Value + 2.5f),
+            6 => new SvgUnit(SVGCoord.X.Value - 4),
+            _ => new SvgUnit(SVGCoord.X.Value - 2.5f)
+        };
+
+        // 用于计算 Dx 偏移
+        private float GetDxOffset() => GeoSide switch
+        {
+            0 or 4 => Name.EndsWith('）') ? 1.2f : 0,
+            5 or 6 or 7 => Name.EndsWith('）') ? 2.4f : 0,
+            _ => 0
+        };
+
+        // 用于计算 Y 偏移
+        private SvgUnit GetYOffset() => GeoSide switch
+        {
+            2 or 6 => SVGCoord.Y,
+            0 => new SvgUnit(SVGCoord.Y.Value - 8),
+            1 or 7 => new SvgUnit(SVGCoord.Y.Value - 6),
+            4 => new SvgUnit(SVGCoord.Y.Value + 8),
+            _ => new SvgUnit(SVGCoord.Y.Value + 6)
+        };
+
+        // 用于设置文字对齐方式
+        private SvgTextAnchor GetTextAnchor() => GeoSide switch
+        {
+            0 or 4 => SvgTextAnchor.Middle,
+            1 or 2 or 3 => SvgTextAnchor.Start,
+            _ => SvgTextAnchor.End
+        };
 
         [JsonIgnore]
         public static int NextNewId

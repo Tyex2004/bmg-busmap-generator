@@ -1,0 +1,46 @@
+﻿<Window x:Class="BusMapGenerator.MtrStationManagerWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:ui="http://schemas.modernwpf.com/2019"
+        Title="地铁站管理"
+        Height="480" Width="500"
+        WindowStartupLocation="CenterOwner"
+        ui:WindowHelper.UseModernWindowStyle="True">
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- 顶部标题 -->
+        <StackPanel Orientation="Horizontal">
+            <TextBlock Text="当前站点信息：" FontSize="16" Margin="10,8,10,5"/>
+            <TextBox x:Name="SearchBox" Width="130" Height="20" Margin="130 0 0 0" />
+            <Button Content="搜索站名" Click="Search_Click" Margin="10,0,0,0"/>
+        </StackPanel>
+
+        <!-- 主体 DataGrid -->
+        <DataGrid x:Name="MtrStationGrid"
+                  Grid.Row="1"
+                  Margin="0,5,0,5"
+                  AutoGenerateColumns="False"
+                  CanUserAddRows="True"
+                  IsReadOnly="False"
+                  SelectionMode="Single"
+                  HeadersVisibility="Column">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="站点名称" Binding="{Binding Name}" Width="2*"/>
+                <DataGridTextColumn Header="路线列表" Binding="{Binding RoutesString}" Width="3*"/>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <!-- 底部按钮 -->
+        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,20,0,0">
+            <Button Content="导入" Width="90" Margin="0,0,10,0" Click="Importor"/>
+            <Button Content="导出" Width="90" Margin="0,0,10,0" Click="Exportor"/>
+            <Button Content="保存" Width="90" Margin="0,0,10,0" Click="SaveButton_Click"/>
+            <Button Content="关闭" Width="90" Click="CloseButton_Click"/>
+        </StackPanel>
+    </Grid>
+</Window>

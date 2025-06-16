@@ -211,3 +211,5 @@ C:\Users\TaamY\source\repos\BusMapGenerator\BusMapGenerator\bin\Debug\net8.0-win
 C:\Users\TaamY\source\repos\BusMapGenerator\BusMapGenerator\bin\Debug\net8.0-windows\vi-VN\ModernWpf.resources.dll
 C:\Users\TaamY\source\repos\BusMapGenerator\BusMapGenerator\obj\Debug\net8.0-windows\SetStationNameWindow.baml
 C:\Users\TaamY\source\repos\BusMapGenerator\BusMapGenerator\obj\Debug\net8.0-windows\SetStationNameWindow.g.cs
+C:\Users\TaamY\source\repos\BusMapGenerator\BusMapGenerator\obj\Debug\net8.0-windows\MtrStationManagerWindow.baml
+C:\Users\TaamY\source\repos\BusMapGenerator\BusMapGenerator\obj\Debug\net8.0-windows\MtrStationManagerWindow.g.cs

@@ -1,0 +1,486 @@
+[
+  {
+    "id": 1,
+    "name": "中海锦城总站",
+    "en_name": "Chung Hoi Kam Shing Term.",
+    "road_id": 1,
+    "on_road_pos": 0.0,
+    "side": "left",
+    "connects_mtr": [],
+    "note": []
+  },
+  {
+    "id": 2,
+    "name": "汇泉路东",
+    "en_name": "Wui Tsuen Rd. E.",
+    "road_id": 1,
+    "on_road_pos": 0.25,
+    "side": "right",
+    "connects_mtr": [],
+    "note": []
+  },
+  {
+    "id": 3,
+    "name": "汇泉路（中海锦城北）",
+    "en_name": "Wui Tsuen Rd. (Chung Hoi Kam Shing N.)",
+    "road_id": 1,
+    "on_road_pos": 0.5,
+    "side": "left",
+    "connects_mtr": [],
+    "note": []
+  },
+  {
+    "id": 4,
+    "name": "融通路中（滨江1号）",
+    "en_name": "Yung Tung Rd. M. (Pan Kong No.1)",
+    "road_id": 1,
+    "on_road_pos": 0.75,
+    "side": "right",
+    "connects_mtr": [],
+    "note": []
+  },
+  {
+    "id": 5,
+    "name": "中海锦城南",
+    "en_name": "Chung Hoi Kam Shing S.",
+    "road_id": 11,
+    "on_road_pos": 0.9466814290669392797683006205,
+    "side": "left",
+    "connects_mtr": [],
+    "note": []
+  },
+  {
+    "id": 6,
+    "name": "万科金域中央北",
+    "en_name": "Man Fo Kam Wik Chung Yeung N.",
+    "road_id": 11,
+    "on_road_pos": 0.8904030140221968741562258831,
+    "side": "right",
+    "connects_mtr": [],
+    "note": []
+  },
+  {
+    "id": 7,
+    "name": "五丫口大桥东",
+    "en_name": "Ng Nga Hau Bridge E.",
+    "road_id": 11,
+    "on_road_pos": 0.8293805730142056952585619855,
+    "side": "left",
+    "connects_mtr": [],
+    "note": []
+  },
+  {
+    "id": 8,
+    "name": "地铁龙溪站",
+    "en_name": "Lung Kai Sta.",
+    "road_id": 11,
+    "on_road_pos": 0.7334071453346963988415031022,
+    "side": "right",
+    "connects_mtr": [
+      "龙溪"
+    ],
+    "note": []
+  },
+  {
+    "id": 9,
+    "name": "龙溪大道西（裕海路口）",
+    "en_name": "Lung Kai Ave. W. (Yue Hoi Rd. Entr.)",
+    "road_id": 11,
+    "on_road_pos": 0.6374337176551871024244442192,
+    "side": "left",
+    "connects_mtr": [],
+    "note": []
+  },
+  {
+    "id": 10,
+    "name": "增滘立交西",
+    "en_name": "Tsang Kau Intersection W.",
+    "road_id": 11,
+    "on_road_pos": 0.5414602899756778060073853359,
+    "side": "right",
+    "connects_mtr": [],
+    "note": []
+  },
+  {
+    "id": 11,
+    "name": "龙溪大道中",
+    "en_name": "Lung Kai Ave. M.",
+    "road_id": 11,
+    "on_road_pos": 0.4454868622961685095903264528,
+    "side": "left",
+    "connects_mtr": [],
+    "note": []
+  },
+  {
+    "id": 12,
+    "name": "芳村体育中心",
+    "en_name": "Fong Tsuen Sports Center",
+    "road_id": 11,
+    "on_road_pos": 0.3495134346166592131732675694,
+    "side": "right",
+    "connects_mtr": [],
+    "note": []
+  },
+  {
+    "id": 13,
+    "name": "东漖教师新村总站",
+    "en_name": "Term. of Tung Kau Teachers' Village",
+    "road_id": 11,
+    "on_road_pos": 0.2855311494969863488952283141,
+    "side": "left",
+    "connects_mtr": [],
+    "note": []
+  },
+  {
+    "id": 14,
+    "name": "东漖教师新村",
+    "en_name": "Tung Kau Teachers' Village",
+    "road_id": 11,
+    "on_road_pos": 0.2215488643773134846171890586,
+    "side": "right",
+    "connects_mtr": [],
+    "note": []
+  },
+  {
+    "id": 16,
+    "name": "芳村花园南门总站",
+    "en_name": "Term. of Southern Gate of Fong Tsuen Garden",
+    "road_id": 11,
+    "on_road_pos": 0.0935668532577757781844644641,
+    "side": "right",
+    "connects_mtr": [],
+    "note": []
+  },
+  {
+    "id": 18,
+    "name": "龙溪大道东（教师新村）",
+    "en_name": "Lung Kai Ave. E. (Teachers' Village)",
+    "road_id": 9,
+    "on_road_pos": 0.2418556509245204229658670583,
+    "side": "left",
+    "connects_mtr": [],
+    "note": []
+  },
+  {
+    "id": 19,
+    "name": "坑口地铁站（芳村客运站）",
+    "en_name": "Hang Hau Sta. (Fong Tsuen Coach Term.)",
+    "road_id": 5,
+    "on_road_pos": 0.2,
+    "side": "left",
+    "connects_mtr": [
+      "坑口"
+    ],
+    "note": []
+  },
+  {
+    "id": 20,
+    "name": "康乃馨花园",
+    "en_name": "Carnation Garden",
+    "road_id": 5,
+    "on_road_pos": 0.7513159530816098147303850458,
+    "side": "left",
+    "connects_mtr": [],
+    "note": []
+  },
+  {
+    "id": 15,
+    "name": "芳村花园",
+    "en_name": "Fong Tsuen Garden",
+    "road_id": 9,
+    "on_road_pos": 0.8260829877701973289177222763,
+    "side": "left",
+    "connects_mtr": [],
+    "note": []
+  },
+  {
+    "id": 17,
+    "name": "东漖南路",
+    "en_name": "Tung Kau Rd. S.",
+    "road_id": 3,
+    "on_road_pos": 0.3592157825204847147142800941,
+    "side": "left",
+    "connects_mtr": [],
+    "note": []
+  },
+  {
+    "id": 21,
+    "name": "东漖镇",
+    "en_name": "Tung Kau Town Center",
+    "road_id": 3,
+    "on_road_pos": 0.7418651776870766048933380163,
+    "side": "left",
+    "connects_mtr": [],
+    "note": []
+  },
+  {
+    "id": 22,
+    "name": "东漖怀宁坊",
+    "en_name": "Tung Kau Wai Ning Fong",
+    "road_id": 8,
+    "on_road_pos": 0.2660648944858588420794912123,
+    "side": "",
+    "connects_mtr": [],
+    "note": []
+  },
+  {
+    "id": 23,
+    "name": "东漖街",
+    "en_name": "Tung Kau St.",
+    "road_id": 8,
+    "on_road_pos": 0.7414186879144858001544103463,
+    "side": "",
+    "connects_mtr": [],
+    "note": []
+  },
+  {
+    "id": 24,
+    "name": "浣花路",
+    "en_name": "Wun Faa Rd.",
+    "road_id": 15,
+    "on_road_pos": 0.5854871935645298163058797145,
+    "side": "",
+    "connects_mtr": [],
+    "note": []
+  },
+  {
+    "id": 25,
+    "name": "芳村客运站总站（落客点）",
+    "en_name": "Fong Tsuen Coach Terminal (Getting Off)",
+    "road_id": 18,
+    "on_road_pos": 0.5186003286883448457379346087,
+    "side": "left",
+    "connects_mtr": [],
+    "note": []
+  },
+  {
+    "id": 26,
+    "name": "翠竹苑",
+    "en_name": "New Station",
+    "road_id": 35,
+    "on_road_pos": 0.8356864640040503112274380267,
+    "side": "right",
+    "connects_mtr": [],
+    "note": []
+  },
+  {
+    "id": 27,
+    "name": "芳村花园（花园东街）",
+    "en_name": "Fong Tsuen Garden (Garden E. St.)",
+    "road_id": 7,
+    "on_road_pos": 0.5826118217873258312023329162,
+    "side": "left",
+    "connects_mtr": [],
+    "note": []
+  },
+  {
+    "id": 28,
+    "name": "芳村花园北门",
+    "en_name": "Fong Tsuen Garden N. Enterence",
+    "road_id": 6,
+    "on_road_pos": 0.285928242497628881583460646,
+    "side": "left",
+    "connects_mtr": [],
+    "note": []
+  },
+  {
+    "id": 29,
+    "name": "花地湾地铁站",
+    "en_name": "Fa Tei Wan Mtr. Sta.",
+    "road_id": 35,
+    "on_road_pos": 0.5683798420764345020574170451,
+    "side": "right",
+    "connects_mtr": [],
+    "note": []
+  },
+  {
+    "id": 30,
+    "name": "花地大道",
+    "en_name": "Fa Tei Ave.",
+    "road_id": 35,
+    "on_road_pos": 0.3901761336208043934724533568,
+    "side": "right",
+    "connects_mtr": [],
+    "note": []
+  },
+  {
+    "id": 31,
+    "name": "汾水",
+    "en_name": "Fan Shui",
+    "road_id": 23,
+    "on_road_pos": 0.282681321365745576311897878,
+    "side": "left",
+    "connects_mtr": [],
+    "note": []
+  },
+  {
+    "id": 32,
+    "name": "东漖北路",
+    "en_name": "Tung Kau N. Rd.",
+    "road_id": 23,
+    "on_road_pos": 0.675670017104503914775039618,
+    "side": "left",
+    "connects_mtr": [],
+    "note": []
+  },
+  {
+    "id": 33,
+    "name": "芳村合兴苑",
+    "en_name": "Fong Tsuen Hap Hing Garden",
+    "road_id": 10,
+    "on_road_pos": 0.6154513498001621608255365558,
+    "side": "left",
+    "connects_mtr": [],
+    "note": []
+  },
+  {
+    "id": 34,
+    "name": "花地大道北（花地湾）",
+    "en_name": "Fa Tei Ave. N. (Fa Tei Wan)",
+    "road_id": 32,
+    "on_road_pos": 0.5734190337843071667219944467,
+    "side": "right",
+    "connects_mtr": [],
+    "note": []
+  },
+  {
+    "id": 35,
+    "name": "茶滘小区",
+    "en_name": "Cha Kau Community",
+    "road_id": 24,
+    "on_road_pos": 0.3075166127519060577809078176,
+    "side": "left",
+    "connects_mtr": [],
+    "note": []
+  },
+  {
+    "id": 37,
+    "name": "联桂北",
+    "en_name": "Lin Kwai N.",
+    "road_id": 26,
+    "on_road_pos": 0.474792952283169704573581819,
+    "side": "left",
+    "connects_mtr": [],
+    "note": []
+  },
+  {
+    "id": 38,
+    "name": "花地",
+    "en_name": "Fa Tei",
+    "road_id": 30,
+    "on_road_pos": 0.5468716353500650414497670407,
+    "side": "left",
+    "connects_mtr": [],
+    "note": []
+  },
+  {
+    "id": 39,
+    "name": "芳村",
+    "en_name": "Fong Tsuen",
+    "road_id": 29,
+    "on_road_pos": 0.6665108556340065468686716379,
+    "side": "left",
+    "connects_mtr": [],
+    "note": []
+  },
+  {
+    "id": 40,
+    "name": "芳村隧道口",
+    "en_name": "Fong Tsuen Tunnel Enterance",
+    "road_id": 27,
+    "on_road_pos": 0.5318466919672045712401751168,
+    "side": "left",
+    "connects_mtr": [],
+    "note": []
+  },
+  {
+    "id": 41,
+    "name": "下芳村",
+    "en_name": "Ha Fong Tsune",
+    "road_id": 34,
+    "on_road_pos": 0.6364133417263864678158693266,
+    "side": "right",
+    "connects_mtr": [],
+    "note": []
+  },
+  {
+    "id": 42,
+    "name": "花蕾路",
+    "en_name": "Fa Lui Rd.",
+    "road_id": 14,
+    "on_road_pos": 0.6860262973414462472194147442,
+    "side": "right",
+    "connects_mtr": [],
+    "note": []
+  },
+  {
+    "id": 43,
+    "name": "接龙里",
+    "en_name": "Tsip Lung Lei",
+    "road_id": 14,
+    "on_road_pos": 0.2740744094777826808710523335,
+    "side": "right",
+    "connects_mtr": [],
+    "note": []
+  },
+  {
+    "id": 36,
+    "name": "大策",
+    "en_name": "Tai Tsak",
+    "road_id": 25,
+    "on_road_pos": 0.3253567459860731283972443128,
+    "side": "left",
+    "connects_mtr": [],
+    "note": []
+  },
+  {
+    "id": 44,
+    "name": "花湾路",
+    "en_name": "Fa Wan Rd.",
+    "road_id": 19,
+    "on_road_pos": 0.3453192954442886140607576595,
+    "side": "right",
+    "connects_mtr": [],
+    "note": []
+  },
+  {
+    "id": 45,
+    "name": "花溪路口",
+    "en_name": "Fa Kai Rd. Enterance",
+    "road_id": 18,
+    "on_road_pos": 0.206071274357186052619951865,
+    "side": "right",
+    "connects_mtr": [],
+    "note": []
+  },
+  {
+    "id": 46,
+    "name": "招村大街",
+    "en_name": "Chiu Tsuen St.",
+    "road_id": 19,
+    "on_road_pos": 0.7488035369393322583797151984,
+    "side": "left",
+    "connects_mtr": [],
+    "note": []
+  },
+  {
+    "id": 47,
+    "name": "西后街",
+    "en_name": "Sai Hau Street",
+    "road_id": 43,
+    "on_road_pos": 0.8586850388852293016911502868,
+    "side": "right",
+    "connects_mtr": [],
+    "note": []
+  },
+  {
+    "id": 48,
+    "name": "杏花大街",
+    "en_name": "Heng Fa St.",
+    "road_id": 43,
+    "on_road_pos": 0.4737163954418141821118021608,
+    "side": "left",
+    "connects_mtr": [],
+    "note": []
+  }
+]

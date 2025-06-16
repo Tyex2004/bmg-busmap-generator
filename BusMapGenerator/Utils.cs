@@ -452,40 +452,67 @@ namespace BusMapGenerator
 
         public static decimal[]? GetFootOfPerpendicular(decimal[] point, Road road)
         {
-            // 点坐标
             decimal px = point[0], py = point[1];
-
-            // 路段起点和终点
             decimal[] a = road.Nodes[0].JSONCoord;
             decimal[] b = road.Nodes[1].JSONCoord;
 
             decimal x1 = a[0], y1 = a[1];
             decimal x2 = b[0], y2 = b[1];
 
-            decimal dx = x2 - x1;
-            decimal dy = y2 - y1;
-
-            if (dx == 0 && dy == 0)
+            if (x1 == x2 && y1 == y2)
+                return null; // 路段退化为点
+            decimal footX;
+            decimal footY;
+            switch (road.Direction)
             {
-                // 路段起终点重合（退化为点），返回 null
-                return null;
+                case 0: // 上
+                case 4: // 下
+                    footX = x1;
+                    footY = py;
+                    break;
+
+                case 2: // 右
+                case 6: // 左
+                    footX = px;
+                    footY = y1;
+                    break;
+
+                case 1: // 左下-右上 ↗ (k = +1)
+                case 5:
+                    {
+                        decimal c = x1 - y1;
+                        decimal c1 = px + py;
+                        footX = (c + c1) / 2;
+                        footY = (c1 - c) / 2;
+                        break;
+                    }
+
+                case 3: // 左上-右下 ↘ (k = -1)
+                case 7:
+                    {
+                        decimal c = x1 + y1;
+                        decimal c1 = px - py;
+                        footX = (c + c1) / 2;
+                        footY = (c - c1) / 2;
+                        break;
+                    }
+
+                default:
+                    return null;
             }
 
-            // 计算参数 t，表示垂足在线段 AB 上的相对位置：A + t*(B - A)
-            decimal t = ((px - x1) * dx + (py - y1) * dy) / (dx * dx + dy * dy);
+            // 判断垂足是否在线段范围内
+            bool onSegment =
+                (footX - x1) * (footX - x2) <= 0 &&
+                (footY - y1) * (footY - y2) <= 0;
 
-            // 若 t 不在 [0,1]，说明垂足不在线段上
-            if (t < 0 || t > 1)
-            {
+            if (!onSegment)
                 return null;
-            }
-
-            // 计算垂足坐标
-            decimal footX = x1 + t * dx;
-            decimal footY = y1 + t * dy;
 
             return [footX, footY];
         }
+
+
 
         // 判断两个坐标相对位置是否是八方向
         public static bool AreOnDirectionOfEachOther(decimal[] a, decimal[] b)
@@ -522,6 +549,26 @@ namespace BusMapGenerator
             }
 
             Console.WriteLine("清空完成：" + path);
+        }
+        public static List<string> SmartSplit(string input)
+        {
+            var matches = Regex.Matches(input, @"(?<item>\s*""[^""]*""\s*|\s*[^,]+?\s*)(?:,|$)");
+            var result = new List<string>();
+
+            foreach (Match match in matches)
+            {
+                string value = match.Groups["item"].Value.Trim();
+
+                // 去除前后的引号
+                if (value.StartsWith("\"") && value.EndsWith("\""))
+                {
+                    value = value.Substring(1, value.Length - 2);
+                }
+
+                if (!string.IsNullOrWhiteSpace(value))
+                    result.Add(value);
+            }
+            return result;
         }
     }
     public readonly struct Distance
