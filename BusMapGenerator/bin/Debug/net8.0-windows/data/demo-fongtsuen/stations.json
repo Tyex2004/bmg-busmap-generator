@@ -4,7 +4,7 @@
     "name": "中海锦城总站",
     "en_name": "Chung Hoi Kam Shing Term.",
     "road_id": 1,
-    "on_road_pos": 0.0,
+    "on_road_pos": 0.03,
     "side": "left",
     "connects_mtr": [],
     "note": []
@@ -268,7 +268,7 @@
     "name": "芳村花园北门",
     "en_name": "Fong Tsuen Garden N. Enterence",
     "road_id": 60,
-    "on_road_pos": 0.4338174741011985414575663391,
+    "on_road_pos": 0.7347154700999717040210033112,
     "side": "left",
     "connects_mtr": [],
     "note": []
@@ -641,8 +641,8 @@
     "id": 68,
     "name": "步漖村",
     "en_name": "Po Kau Tsuen",
-    "road_id": 60,
-    "on_road_pos": 0.7558967513274616474865298262,
+    "road_id": 133,
+    "on_road_pos": 0.4039626867368516792105322994,
     "side": "right",
     "connects_mtr": [],
     "note": []
@@ -867,7 +867,7 @@
     "en_name": "Wing Hing Rd.",
     "road_id": 35,
     "on_road_pos": 0.418237788149784444365268821,
-    "side": "left",
+    "side": "right",
     "connects_mtr": [],
     "note": []
   },

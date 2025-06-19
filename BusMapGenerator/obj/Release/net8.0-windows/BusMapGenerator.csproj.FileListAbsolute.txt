@@ -1,14 +1,8 @@
 C:\Users\TaamY\source\repos\BusMapGenerator\BusMapGenerator\bin\Release\net8.0-windows\data\demo-fongtsuen\mtr_stations.json
 C:\Users\TaamY\source\repos\BusMapGenerator\BusMapGenerator\bin\Release\net8.0-windows\data\demo-fongtsuen\nodes.json
-C:\Users\TaamY\source\repos\BusMapGenerator\BusMapGenerator\bin\Release\net8.0-windows\data\demo-fongtsuen\paper_size_x.txt
-C:\Users\TaamY\source\repos\BusMapGenerator\BusMapGenerator\bin\Release\net8.0-windows\data\demo-fongtsuen\paper_size_y.txt
-C:\Users\TaamY\source\repos\BusMapGenerator\BusMapGenerator\bin\Release\net8.0-windows\data\demo-fongtsuen\prior_center_x.txt
-C:\Users\TaamY\source\repos\BusMapGenerator\BusMapGenerator\bin\Release\net8.0-windows\data\demo-fongtsuen\prior_center_y.txt
 C:\Users\TaamY\source\repos\BusMapGenerator\BusMapGenerator\bin\Release\net8.0-windows\data\demo-fongtsuen\roads.json
 C:\Users\TaamY\source\repos\BusMapGenerator\BusMapGenerator\bin\Release\net8.0-windows\data\demo-fongtsuen\routes.json
 C:\Users\TaamY\source\repos\BusMapGenerator\BusMapGenerator\bin\Release\net8.0-windows\data\demo-fongtsuen\stations.json
-C:\Users\TaamY\source\repos\BusMapGenerator\BusMapGenerator\bin\Release\net8.0-windows\output\demo-fongtsuen\道路预览.svg
-C:\Users\TaamY\source\repos\BusMapGenerator\BusMapGenerator\bin\Release\net8.0-windows\PythonScripts\run.exe
 C:\Users\TaamY\source\repos\BusMapGenerator\BusMapGenerator\bin\Release\net8.0-windows\BusMapGenerator.exe
 C:\Users\TaamY\source\repos\BusMapGenerator\BusMapGenerator\bin\Release\net8.0-windows\BusMapGenerator.deps.json
 C:\Users\TaamY\source\repos\BusMapGenerator\BusMapGenerator\bin\Release\net8.0-windows\BusMapGenerator.runtimeconfig.json
@@ -214,3 +208,7 @@ C:\Users\TaamY\source\repos\BusMapGenerator\BusMapGenerator\obj\Release\net8.0-w
 C:\Users\TaamY\source\repos\BusMapGenerator\BusMapGenerator\obj\Release\net8.0-windows\BusMapGenerator.pdb
 C:\Users\TaamY\source\repos\BusMapGenerator\BusMapGenerator\obj\Release\net8.0-windows\BusMapGenerator.genruntimeconfig.cache
 C:\Users\TaamY\source\repos\BusMapGenerator\BusMapGenerator\obj\Release\net8.0-windows\ref\BusMapGenerator.dll
+C:\Users\TaamY\source\repos\BusMapGenerator\BusMapGenerator\obj\Release\net8.0-windows\MtrStationManagerWindow.baml
+C:\Users\TaamY\source\repos\BusMapGenerator\BusMapGenerator\obj\Release\net8.0-windows\SetStationNameWindow.baml
+C:\Users\TaamY\source\repos\BusMapGenerator\BusMapGenerator\obj\Release\net8.0-windows\MtrStationManagerWindow.g.cs
+C:\Users\TaamY\source\repos\BusMapGenerator\BusMapGenerator\obj\Release\net8.0-windows\SetStationNameWindow.g.cs

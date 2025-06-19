@@ -80,7 +80,7 @@ namespace BusMapGenerator {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/BusMapGenerator;component/selectmapwindow.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/BusMapGenerator;V1.0.0.0;component/selectmapwindow.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\SelectMapWindow.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);

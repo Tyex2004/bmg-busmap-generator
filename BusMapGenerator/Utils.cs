@@ -13,6 +13,7 @@ using System.Windows;
 using SkiaSharp;
 using Svg;
 using System.Runtime.Serialization;
+using Svg.Pathing;
 
 namespace BusMapGenerator
 {
@@ -269,7 +270,7 @@ namespace BusMapGenerator
             Program.Routes = DataLoader.LoadRoutes();
             Program.MtrStations = DataLoader.LoadMtrStations();
             DataLoader.BuildStraightRoads();
-            Debug.WriteLine($"直路数量：{Program.StraightRoads.Count}");
+            DataLoader.BuildRouteParts();
         }
 
         // 设置颜色
@@ -317,6 +318,23 @@ namespace BusMapGenerator
                 : (direction % 4 == 0 ? absDy : absDx); // 北南用 dy，东西用 dx
 
             return (direction, distance);
+        }
+
+        // 计算二元一次方程图像交点
+        public static decimal[] GetIntersectionPoint(decimal A1, decimal B1, decimal C1, decimal A2, decimal B2, decimal C2)
+        {
+            decimal det = A1 * B2 - A2 * B1;
+
+            // 如果行列式为0，说明两直线平行或重合，无唯一交点
+            if (det == 0)
+            {
+                return [0, 0];
+            }
+
+            decimal x = (B1 * C2 - B2 * C1) / det;
+            decimal y = (A2 * C1 - A1 * C2) / det;
+
+            return [x, y];
         }
 
 
@@ -562,8 +580,8 @@ namespace BusMapGenerator
                 // 去除前后的引号
                 if (value.StartsWith("\"") && value.EndsWith("\""))
                 {
-                    value = value.Substring(1, value.Length - 2);
-                }
+                    value = value[1..^1];
+                } 
 
                 if (!string.IsNullOrWhiteSpace(value))
                     result.Add(value);

@@ -87,6 +87,20 @@ namespace BusMapGenerator
         }
 
         [JsonIgnore]
+        public bool IsForwardOnStraightRoad
+        {
+            get
+            {
+                return Direction switch
+                {
+                    0 or 1 or 2 or 3 => true,
+                    4 or 5 or 6 or 7 => false,
+                    _ => throw new InvalidOperationException(),
+                };
+            }
+        }
+
+        [JsonIgnore]
         public Distance Length => new(JSONCoordStart, JSONCoordEnd);
 
         [JsonIgnore]
@@ -678,5 +692,45 @@ namespace BusMapGenerator
             Stroke = Utils.SetColor(200, 0, 200),
             StrokeWidth = 3
         };
+
+        [JsonIgnore]
+        public List<Route> UnsortedForwardRoutes
+        {
+            get
+            {
+                List<Route> returnList = [];
+                foreach (var route in Program.Routes.Values)
+                {
+                    foreach ((Road, bool) road in route.Roads)
+                    {
+                        if (road.Item1.Id == Id && road.Item2)
+                        {
+                            returnList.Add(route);
+                        }
+                    }
+                }
+                return returnList;
+            }
+        }
+
+        [JsonIgnore]
+        public List<Route> UnsortedBackwardRoutes
+        {
+            get
+            {
+                List<Route> returnList = [];
+                foreach (var route in Program.Routes.Values)
+                {
+                    foreach ((Road, bool) road in route.Roads)
+                    {
+                        if (road.Item1.Id == Id && !road.Item2)
+                        {
+                            returnList.Add(route);
+                        }
+                    }
+                }
+                return returnList;
+            }
+        }
     }
 }

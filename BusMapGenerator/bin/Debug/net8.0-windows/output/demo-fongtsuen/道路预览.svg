@@ -44,10 +44,10 @@
   <line x1="656.8528" y1="627.8201" x2="636.3878" y2="648.2852" stroke-width="3" style="stroke:#C800C8;" />
   <line x1="636.3878" y1="627.8201" x2="636.3878" y2="648.2852" stroke-width="3" style="stroke:#C800C8;" />
   <line x1="287.2681" y1="633.6241" x2="270.4587" y2="633.6241" stroke-width="3" style="stroke:#C800C8;" />
-  <line x1="287.2681" y1="597.9641" x2="287.2681" y2="525.2159" stroke-width="3" style="stroke:#C800C8;" />
+  <line x1="287.2681" y1="597.9641" x2="287.2681" y2="521.0522" stroke-width="3" style="stroke:#C800C8;" />
   <line x1="270.4587" y1="633.6241" x2="30" y2="633.6241" stroke-width="3" style="stroke:#C800C8;" />
   <line x1="270.4587" y1="633.6241" x2="270.4587" y2="721.9136" stroke-width="3" style="stroke:#C800C8;" />
-  <line x1="435.3958" y1="597.9641" x2="349.4875" y2="597.9641" stroke-width="3" style="stroke:#C800C8;" />
+  <line x1="435.3958" y1="597.9641" x2="384.6707" y2="597.9641" stroke-width="3" style="stroke:#C800C8;" />
   <line x1="287.2681" y1="597.9641" x2="243.3007" y2="597.9641" stroke-width="3" style="stroke:#C800C8;" />
   <line x1="349.4875" y1="597.9641" x2="287.2681" y2="597.9641" stroke-width="3" style="stroke:#C800C8;" />
   <line x1="349.4875" y1="597.9641" x2="349.4875" y2="556.3098" stroke-width="3" style="stroke:#C800C8;" />
@@ -81,7 +81,7 @@
   <line x1="944.8149" y1="969.1497" x2="965.937" y2="990.2717" stroke-width="3" style="stroke:#C800C8;" />
   <line x1="896.5219" y1="457.9447" x2="896.5219" y2="403.5884" stroke-width="3" style="stroke:#C800C8;" />
   <line x1="896.5219" y1="596.6709" x2="896.5219" y2="632.1031" stroke-width="3" style="stroke:#C800C8;" />
-  <line x1="933.9612" y1="596.6709" x2="896.5219" y2="596.6709" stroke-width="3" style="stroke:#C800C8;" />
+  <line x1="947.8165" y1="596.6709" x2="896.5219" y2="596.6709" stroke-width="3" style="stroke:#C800C8;" />
   <line x1="827.9672" y1="596.6709" x2="896.5219" y2="596.6709" stroke-width="3" style="stroke:#C800C8;" />
   <line x1="827.9672" y1="596.6709" x2="827.9672" y2="515.7017" stroke-width="3" style="stroke:#C800C8;" />
   <line x1="827.9672" y1="596.6709" x2="827.9672" y2="704.6231" stroke-width="3" style="stroke:#C800C8;" />
@@ -91,7 +91,7 @@
   <line x1="763.9629" y1="393.9403" x2="653.213" y2="393.9403" stroke-width="3" style="stroke:#C800C8;" />
   <line x1="777.786" y1="515.7017" x2="777.786" y2="590.7261" stroke-width="3" style="stroke:#C800C8;" />
   <line x1="827.9672" y1="457.9447" x2="896.5219" y2="457.9447" stroke-width="3" style="stroke:#C800C8;" />
-  <line x1="896.5219" y1="457.9447" x2="968.3422" y2="457.9447" stroke-width="3" style="stroke:#C800C8;" />
+  <line x1="896.5219" y1="457.9447" x2="947.8159" y2="457.9447" stroke-width="3" style="stroke:#C800C8;" />
   <line x1="827.9672" y1="515.7017" x2="777.786" y2="515.7017" stroke-width="3" style="stroke:#C800C8;" />
   <line x1="777.786" y1="590.7261" x2="765.574" y2="590.7261" stroke-width="3" style="stroke:#C800C8;" />
   <line x1="765.574" y1="590.7261" x2="765.574" y2="515.7017" stroke-width="3" style="stroke:#C800C8;" />
@@ -105,7 +105,7 @@
   <line x1="735.3954" y1="365.3728" x2="735.3954" y2="357.466" stroke-width="3" style="stroke:#C800C8;" />
   <line x1="735.3954" y1="322.6826" x2="735.3954" y2="305.3332" stroke-width="3" style="stroke:#C800C8;" />
   <line x1="735.3954" y1="357.466" x2="735.3954" y2="322.6826" stroke-width="3" style="stroke:#C800C8;" />
-  <line x1="850.3995" y1="357.466" x2="915.7404" y2="357.466" stroke-width="3" style="stroke:#C800C8;" />
+  <line x1="850.3995" y1="357.466" x2="893.8145" y2="357.466" stroke-width="3" style="stroke:#C800C8;" />
   <line x1="735.3954" y1="357.466" x2="850.3995" y2="357.466" stroke-width="3" style="stroke:#C800C8;" />
   <line x1="896.5219" y1="403.5884" x2="850.3995" y2="357.466" stroke-width="3" style="stroke:#C800C8;" />
   <line x1="850.3995" y1="322.6826" x2="735.3954" y2="322.6826" stroke-width="3" style="stroke:#C800C8;" />
@@ -133,6 +133,7 @@
   <line x1="716.3513" y1="254.7698" x2="599.5868" y2="254.7698" stroke-width="3" style="stroke:#C800C8;" />
   <line x1="716.3513" y1="254.7698" x2="716.3513" y2="277.074" stroke-width="3" style="stroke:#C800C8;" />
   <line x1="716.3513" y1="277.074" x2="888.1223" y2="277.074" stroke-width="3" style="stroke:#C800C8;" />
+  <line x1="384.6707" y1="597.9641" x2="349.4875" y2="597.9641" stroke-width="3" style="stroke:#C800C8;" />
   <circle cx="130" cy="605.1109" r="1.5" style="fill:#64F6FF;" />
   <circle cx="30" cy="605.1109" r="1.5" style="fill:#64F6FF;" />
   <circle cx="30" cy="633.6241" r="1.5" style="fill:#64F6FF;" />
@@ -172,7 +173,7 @@
   <circle cx="636.3878" cy="627.8201" r="1.5" style="fill:#64F6FF;" />
   <circle cx="636.3878" cy="648.2852" r="1.5" style="fill:#64F6FF;" />
   <circle cx="287.2681" cy="633.6241" r="1.5" style="fill:#64F6FF;" />
-  <circle cx="287.2681" cy="525.2159" r="1.5" style="fill:#64F6FF;" />
+  <circle cx="287.2681" cy="521.0522" r="1.5" style="fill:#64F6FF;" />
   <circle cx="270.4587" cy="633.6241" r="1.5" style="fill:#64F6FF;" />
   <circle cx="270.4587" cy="721.9136" r="1.5" style="fill:#64F6FF;" />
   <circle cx="287.2681" cy="597.9641" r="1.5" style="fill:#64F6FF;" />
@@ -203,12 +204,12 @@
   <circle cx="896.5219" cy="596.6709" r="1.5" style="fill:#64F6FF;" />
   <circle cx="896.5219" cy="403.5884" r="1.5" style="fill:#64F6FF;" />
   <circle cx="896.5219" cy="632.1031" r="1.5" style="fill:#64F6FF;" />
-  <circle cx="933.9612" cy="596.6709" r="1.5" style="fill:#64F6FF;" />
+  <circle cx="947.8165" cy="596.6709" r="1.5" style="fill:#64F6FF;" />
   <circle cx="827.9672" cy="596.6709" r="1.5" style="fill:#64F6FF;" />
   <circle cx="827.9672" cy="457.9447" r="1.5" style="fill:#64F6FF;" />
   <circle cx="827.9672" cy="704.6231" r="1.5" style="fill:#64F6FF;" />
   <circle cx="827.9672" cy="515.7017" r="1.5" style="fill:#64F6FF;" />
-  <circle cx="968.3422" cy="457.9447" r="1.5" style="fill:#64F6FF;" />
+  <circle cx="947.8159" cy="457.9447" r="1.5" style="fill:#64F6FF;" />
   <circle cx="777.786" cy="407.7634" r="1.5" style="fill:#64F6FF;" />
   <circle cx="777.786" cy="590.7261" r="1.5" style="fill:#64F6FF;" />
   <circle cx="896.5219" cy="457.9447" r="1.5" style="fill:#64F6FF;" />
@@ -224,7 +225,7 @@
   <circle cx="735.3954" cy="305.3332" r="1.5" style="fill:#64F6FF;" />
   <circle cx="1005.435" cy="305.3332" r="1.5" style="fill:#64F6FF;" />
   <circle cx="735.3954" cy="357.466" r="1.5" style="fill:#64F6FF;" />
-  <circle cx="915.7404" cy="357.466" r="1.5" style="fill:#64F6FF;" />
+  <circle cx="893.8145" cy="357.466" r="1.5" style="fill:#64F6FF;" />
   <circle cx="850.3995" cy="357.466" r="1.5" style="fill:#64F6FF;" />
   <circle cx="850.3995" cy="305.3332" r="1.5" style="fill:#64F6FF;" />
   <circle cx="850.3995" cy="322.6826" r="1.5" style="fill:#64F6FF;" />
@@ -241,10 +242,11 @@
   <circle cx="716.3513" cy="254.7698" r="1.5" style="fill:#64F6FF;" />
   <circle cx="716.3513" cy="277.074" r="1.5" style="fill:#64F6FF;" />
   <circle cx="888.1223" cy="277.074" r="1.5" style="fill:#64F6FF;" />
-  <circle cx="130" cy="605.1109" r="2" stroke-width="0.8" style="fill:yellow;stroke:black;" />
+  <circle cx="384.6707" cy="597.9641" r="1.5" style="fill:#64F6FF;" />
+  <circle cx="127" cy="605.1109" r="2" stroke-width="0.8" style="fill:yellow;stroke:black;" />
   <text y="613.1109" text-anchor="middle" style="fill:black;">
-    <tspan x="130" dx="0" font-family="SimHei" font-size="4.7">中海锦城总站</tspan>
-    <tspan x="130" dy="4" font-family="Arial" font-size="3">Chung Hoi Kam Shing Term.</tspan>
+    <tspan x="127" dx="0" font-family="SimHei" font-size="4.7">中海锦城总站</tspan>
+    <tspan x="127" dy="4" font-family="Arial" font-size="3">Chung Hoi Kam Shing Term.</tspan>
   </text>
   <circle cx="105" cy="605.1109" r="2" stroke-width="0.8" style="fill:yellow;stroke:black;" />
   <text y="597.1109" text-anchor="middle" style="fill:black;">
@@ -657,7 +659,7 @@
     <tspan x="517.352" dy="4" font-family="Arial" font-size="3">Yuet Shing Rd.</tspan>
   </text>
   <circle cx="492.0053" cy="421.1822" r="2" stroke-width="0.8" style="fill:yellow;stroke:black;" />
-  <text y="429.1822" text-anchor="middle" style="fill:black;">
+  <text y="413.1822" text-anchor="middle" style="fill:black;">
     <tspan x="492.0053" dx="0" font-family="SimHei" font-size="4.7">荣兴路</tspan>
     <tspan x="492.0053" dy="4" font-family="Arial" font-size="3">Wing Hing Rd.</tspan>
   </text>

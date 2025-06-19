@@ -117,5 +117,19 @@ namespace BusMapGenerator
                 }
             }
         }
+        public static void BuildRouteParts()
+        {
+            Program.RouteParts.Clear();
+            Debug.WriteLine("Building route parts");
+            // 遍历所有路线
+            foreach (var route in Program.Routes.Values)
+            {
+                for (int i = 0; i < route.Roads.Count; i++)
+                {
+                    Program.RouteParts.Add(new(route, i));
+                }
+            }
+            Debug.WriteLine("route parts 加载成功！");
+        }
     }
 }

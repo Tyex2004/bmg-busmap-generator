@@ -18,7 +18,10 @@ namespace BusMapGenerator
         // 关于地图信息
         public static string? Map { get; set; } = null;                 // 当前地图
         public static SKSvg? SkiaSVG { get; set; } = null;              // 当前的 SkiaSVG
-        public static SKElement RPSkiaElement { get; set; } = new();    // 当前的 SkiaElement
+        public static SKSvg? SkiaSVG1 { get; set; } = null;             // 当前地 SkiaSVG1
+        public static SKElement RPSkiaElement { get; set; } = new();    // 当前的道路预览画板
+        public static SKElement MPSkiaElement { get; set; } = new();    // 当前地线路图画板
+        public static decimal BoldOfRoutes = 3m;                        // 线路宽度
 
         // 关于鼠标信息
         public static Point MousePosition { get; set; } = new Point();  // 当前鼠标位置
@@ -211,8 +214,9 @@ namespace BusMapGenerator
         public static Dictionary<int, Route> Routes = [];       // 线路字典
         public static List<MtrStation> MtrStations = [];        // 地铁站列表
 
-        // 属性数据
+        // 关于非 JSON 模型信息
         public static List<StraightRoad> StraightRoads = [];    // 直线道路列表
+        public static List<RoutePart> RouteParts = [];
     }
     enum KeyStatus
     {

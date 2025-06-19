@@ -125,14 +125,12 @@
                                     MouseUp="SkiaCanvas_MouseUp" />
                             </AvalonDock:LayoutDocument>
                             <AvalonDock:LayoutDocument x:Name="Mapper" Title="线路图" ContentId="Mapper" CanClose="False">
-                                <Grid>
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition />
-                                        <RowDefinition Height="Auto" />
-                                    </Grid.RowDefinitions>
-                                    <Button Height="28" Content="点击添加 2 个文档" />
-                                    <TextBox Grid.Row="1" Text="文档 1 内容" />
-                                </Grid>
+                                <skia:SKElement x:Name="SkiaCanvas1"
+                                                 PaintSurface="OnPaintSurface1"
+                                                 MouseDown="SkiaCanvas1_MouseDown"
+                                                 MouseMove="SkiaCanvas1_MouseMove"
+                                                 MouseWheel="SkiaCanvas1_MouseWheel"
+                                                 MouseUp="SkiaCanvas1_MouseUp" />
                             </AvalonDock:LayoutDocument>
                         </AvalonDock:LayoutDocumentPane>
                     </AvalonDock:LayoutDocumentPaneGroup>

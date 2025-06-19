@@ -4,7 +4,6 @@ C:\Users\TaamY\source\repos\BusMapGenerator\BusMapGenerator\obj\Debug\net8.0-win
 C:\Users\TaamY\source\repos\BusMapGenerator\BusMapGenerator\obj\Debug\net8.0-windows\App.g.cs
 C:\Users\TaamY\source\repos\BusMapGenerator\BusMapGenerator\obj\Debug\net8.0-windows\BusMapGenerator_MarkupCompile.cache
 C:\Users\TaamY\source\repos\BusMapGenerator\BusMapGenerator\obj\Debug\net8.0-windows\BusMapGenerator_MarkupCompile.lref
-C:\Users\TaamY\source\repos\BusMapGenerator\BusMapGenerator\bin\Debug\net8.0-windows\PythonScripts\run.exe
 C:\Users\TaamY\source\repos\BusMapGenerator\BusMapGenerator\bin\Debug\net8.0-windows\BusMapGenerator.exe
 C:\Users\TaamY\source\repos\BusMapGenerator\BusMapGenerator\bin\Debug\net8.0-windows\BusMapGenerator.deps.json
 C:\Users\TaamY\source\repos\BusMapGenerator\BusMapGenerator\bin\Debug\net8.0-windows\BusMapGenerator.runtimeconfig.json
